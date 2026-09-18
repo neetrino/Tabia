@@ -7,8 +7,8 @@ import { cn } from "@/shared/lib/cn";
 import { LocaleSwitcher } from "./locale-switcher";
 
 export type HeaderNavItem = {
-  href: "/" | "/about" | "/services" | "/industries" | "/team" | "/news" | "/contact";
-  key: "home" | "about" | "services" | "industries" | "team" | "news" | "contact";
+  href: "/" | "/about" | "/services" | "/industries" | "/team" | "/news" | "/insights" | "/contact";
+  key: "home" | "about" | "services" | "industries" | "team" | "news" | "insights" | "contact";
 };
 
 type LabeledNavItem = HeaderNavItem & { label: string };

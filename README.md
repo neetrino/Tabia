@@ -22,7 +22,7 @@ pnpm dev
 
 - Site: [http://localhost:3000](http://localhost:3000)
 - Admin: [http://localhost:3000/admin/login](http://localhost:3000/admin/login)
-- Default seed: `admin@tabia.am` / `ChangeMe123!` (override via `ADMIN_EMAIL` / `ADMIN_PASSWORD`)
+- Admin seed credentials come from `ADMIN_EMAIL` / `ADMIN_PASSWORD` in `.env`
 
 ## Docs
 

@@ -204,8 +204,13 @@ const publications = [
 ];
 
 async function seedAdmin(): Promise<void> {
-  const email = (process.env.ADMIN_EMAIL ?? "admin@tabia.am").toLowerCase();
-  const password = process.env.ADMIN_PASSWORD ?? "ChangeMe123!";
+  const email = process.env.ADMIN_EMAIL?.trim().toLowerCase();
+  const password = process.env.ADMIN_PASSWORD;
+
+  if (!email || !password) {
+    throw new Error("ADMIN_EMAIL and ADMIN_PASSWORD are required for seed");
+  }
+
   const passwordHash = await argon2.hash(password);
 
   await prisma.user.upsert({
