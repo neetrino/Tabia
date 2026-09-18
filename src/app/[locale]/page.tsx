@@ -1,8 +1,6 @@
 import { setRequestLocale } from "next-intl/server";
 import { HomePageContent } from "@/features/home";
 
-export const dynamic = "force-dynamic";
-
 type HomePageProps = {
   params: Promise<{ locale: string }>;
 };

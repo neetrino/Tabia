@@ -49,10 +49,10 @@
 
 | # | Պարամետր | Որոշում | Ստատուս | Նշում |
 |---|----------|---------|---------|-------|
-| 3.1 | Տիպ | Next.js App Router (Route Handlers + Server Actions) | 🔄 | առանձին NestJS չկա |
+| 3.1 | Տիպ | Next.js App Router (Server Actions) | 🔄 | առանձին NestJS չկա |
 | 3.2 | Վալիդացիա | Zod | 🔄 | |
-| 3.3 | API ձևաչափ | REST + Server Actions | 🔄 | |
-| 3.4 | Rate limiting | middleware (contact + login) | 🔄 | |
+| 3.3 | API ձևաչափ | Server Actions | 🔄 | հանրային REST API չկա |
+| 3.4 | Rate limiting | Server Actions + Redis | ✅ | login 5/15m, contact 5/10m |
 | 3.5 | API փաստաթղթավորում | պետք չէ | ➖ | |
 | 3.6 | CRON | պետք չէ | ➖ | |
 | 3.7 | Ֆայլերի բեռնում | Server Actions → Cloudflare R2 | 🔄 | |
@@ -71,15 +71,15 @@
 | 4.6 | idle_in_transaction_session_timeout | **60s** (առաջարկ) | 🔄 | հաստատել |
 | 4.7 | lock_timeout | **10s** (առաջարկ) | 🔄 | հաստատել |
 | 4.8 | Seed data | prisma db seed | 🔄 | admin user + demo content |
-| 4.9 | Cache (Redis) | Upstash Redis | 🔄 | local `.env` credentials; list cache՝ Phase 1 |
+| 4.9 | Cache (Redis) | Upstash Redis | 🔄 | list cache TTL 10m + invalidate on write |
 | 4.10 | Հերթեր | պետք չէ | ➖ | |
 | 4.11 | Production migrations | GitHub Actions / Vercel job | 🔄 | local ≠ prod migrate |
 
 ### Մոդելներ (սկիզբ)
 
-- `AdminUser` + Auth.js `Session` / `Account` (database sessions)
-- `TeamMember` (multilingual fields կամ translation table)
-- `Service`
+- `User` + `AdminSession` (custom database sessions, ոչ JWT)
+- `TeamMember` (multilingual fields)
+- `Service` (list + `/services/[slug]`)
 - `Publication` (`type`: NEWS | INSIGHT, status, rich body, cover, publishedAt, sort)
 - Media URLs → R2
 
@@ -162,11 +162,11 @@ i18n կոնտենտ. ստատիկ էջեր՝ JSON locales; դինամիկ entity
 | # | Պարամետր | Ստատուս | Նշում |
 |---|----------|---------|-------|
 | 10.1 | CORS | 🔄 | նույն origin |
-| 10.2 | CSRF պաշտպանություն | 🔄 | Auth.js + Server Actions |
+| 10.2 | CSRF պաշտպանություն | 🔄 | Next.js Server Actions origin check |
 | 10.3 | Helmet (NestJS) | ➖ | NestJS չկա |
 | 10.4 | Մուտքային տվյալների վալիդացիա | 🔄 | Zod |
 | 10.5 | argon2 գաղտնաբառերի համար | 🔄 | admin password |
-| 10.6 | Rate limiting | 🔄 | login + contact |
+| 10.6 | Rate limiting | ✅ | login + contact, Redis |
 | 10.7 | Env-փոփոխականներ (ոչ կոդում) | 🔄 | |
 
 ---
@@ -176,11 +176,11 @@ i18n կոնտենտ. ստատիկ էջեր՝ JSON locales; դինամիկ entity
 | # | Փաստաթուղթ | Ստատուս | Նշում |
 |---|-------------|---------|-------|
 | 11.1 | docs/BRIEF.md | ✅ | |
-| 11.2 | docs/TECH_CARD.md | 🔄 | այս ֆայլը — սևագիր |
-| 11.3 | docs/01-ARCHITECTURE.md | ⬜ | հաստատումից հետո |
-| 11.4 | docs/PROGRESS.md | ⬜ | |
-| 11.5 | Նախագծի README.md | ⬜ | |
-| 11.6 | .env.example | 🔄 | թարմացնել Auth.js keys |
+| 11.2 | docs/TECH_CARD.md | ✅ | հաստատված |
+| 11.3 | docs/01-ARCHITECTURE.md | ✅ | համընկնում է կոդին |
+| 11.4 | docs/PROGRESS.md | 🔄 | Phase 1 գրեթե փակ է |
+| 11.5 | Նախագծի README.md | ✅ | |
+| 11.6 | .env.example | ✅ | custom sessions, R2, Redis, Resend |
 
 ---
 
@@ -193,7 +193,5 @@ i18n կոնտենտ. ստատիկ էջեր՝ JSON locales; դինամիկ entity
 ## Ամփոփում
 
 **Առաջարկված չափ.** B — Feature-based Next.js fullstack  
-**Հաստատման կարիք ունեն.** չափ B, Auth.js database sessions («SSS»), DB timeouts, R2/Redis/Resend credentials, Contact recipient email, Figma (եթե կա)  
-**Պետք չէ.** NestJS, JWT, monorepo, վճարումներ
-
-> Հաստատելուց հետո՝ ստատուս → **հաստատված**, հետո scaffold + architecture doc + implementation։
+**Հաստատման կարիք ունեն.** DB timeouts, Figma (եթե կա)  
+**Պետք չէ.** NestJS, Auth.js, JWT, monorepo, վճարումներ

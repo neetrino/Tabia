@@ -8,7 +8,9 @@ Corporate website + admin CMS for TABIA (hy / en / ru).
 - PostgreSQL (Neon) + Prisma 7
 - Database sessions (httpOnly cookie, no JWT)
 - next-intl (`locales/{hy,en,ru}/*.json`)
-- Redis (Upstash), R2, Resend — wired next
+- Redis (Upstash) — published lists + login/contact rate limits
+- Cloudflare R2 — media
+- Resend — contact form
 
 ## Setup
 

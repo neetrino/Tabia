@@ -73,7 +73,6 @@ export async function getAdminSession(): Promise<AdminSessionUser | null> {
     if (session) {
       await prisma.adminSession.delete({ where: { id: session.id } });
     }
-    cookieStore.delete(SESSION_COOKIE);
     return null;
   }
 
@@ -82,14 +81,6 @@ export async function getAdminSession(): Promise<AdminSessionUser | null> {
     email: session.user.email,
     name: session.user.name,
   };
-}
-
-export async function requireAdminSession(): Promise<AdminSessionUser> {
-  const session = await getAdminSession();
-  if (!session) {
-    throw new Error("UNAUTHORIZED");
-  }
-  return session;
 }
 
 export async function verifyAdminCredentials(

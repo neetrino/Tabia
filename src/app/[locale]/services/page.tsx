@@ -36,7 +36,7 @@ export default async function ServicesPage({ params }: PageProps) {
               <div className="space-y-3 p-6">
                 <h2 className="text-2xl tracking-tight">{item.title}</h2>
                 <p className="text-[var(--muted)]">{item.summary}</p>
-                <ButtonLink href="/contact" variant="ghost">
+                <ButtonLink href={`/services/${item.slug}`} variant="ghost">
                   {t("details")}
                   <ArrowUpRight className="size-4" />
                 </ButtonLink>

@@ -1,6 +1,11 @@
 import type { Service } from "@prisma/client";
 import { localizedText } from "@/shared/lib/localized";
-import type { ServiceAdminItem, ServicePreview, ServiceRecord } from "./types";
+import type {
+  ServiceAdminItem,
+  ServicePreview,
+  ServiceProfile,
+  ServiceRecord,
+} from "./types";
 
 export function toServiceRecord(row: Service): ServiceRecord {
   return {
@@ -36,6 +41,17 @@ export function toServicePreview(row: Service, locale: string): ServicePreview {
       ru: row.summaryRu,
     }),
     imageUrl: row.imageUrl,
+  };
+}
+
+export function toServiceProfile(row: Service, locale: string): ServiceProfile {
+  return {
+    ...toServicePreview(row, locale),
+    body: localizedText(locale, {
+      hy: row.bodyHy,
+      en: row.bodyEn,
+      ru: row.bodyRu,
+    }),
   };
 }
 

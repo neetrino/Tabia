@@ -16,7 +16,7 @@
 - Fullstack Next.js (App Router)
 - i18n՝ `locales/{hy,en,ru}/*.json`, default `hy`, URL prefix always (`/hy`, `/en/about`)
 - PostgreSQL + Prisma, Redis cache, R2 media
-- Auth.js database sessions (ոչ JWT)
+- Custom database sessions (`AdminSession` + httpOnly cookie, ոչ JWT, ոչ Auth.js)
 
 ### Օգտատերեր
 - **Visitor.** կարդում է էջեր, ուղարկում Contact հայտ
@@ -34,8 +34,7 @@
          │                        │
          └──────────┬─────────────┘
                     ▼
-         Next.js Server Actions /
-         Route Handlers
+         Server Components + Server Actions
                     │
      ┌──────────────┼──────────────┐
      ▼              ▼              ▼
@@ -54,9 +53,9 @@
 | Շերտ | Տեխնոլոգիա | Տեղ |
 |------|------------|-----|
 | UI | Next.js 16, React 19, Tailwind 4, shadcn | `src/app`, `src/features`, `src/shared` |
-| Auth | Auth.js 5, database sessions, argon2 | `src/features/auth` |
+| Auth | Custom DB sessions, argon2 | `src/features/auth` |
 | Data | Prisma 7, PostgreSQL (Neon) | `prisma/` |
-| Cache | Upstash Redis | `src/shared/lib/redis` |
+| Cache / rate limit | Upstash Redis | `src/shared/lib/redis`, `src/shared/lib/rate-limit` |
 | Media | R2 | `src/shared/lib/r2` |
 | Email | Resend | `src/features/contact` |
 | i18n | next-intl | `locales/`, `src/i18n` |
@@ -76,23 +75,33 @@ prisma/
   migrations/
 src/
   app/
-    [locale]/          # public pages
-      (site)/
-    admin/             # admin (no locale prefix or /admin)
-    api/auth/[...nextauth]/
+    [locale]/                 # public pages (thin)
+    admin/
+      login/                  # unauthenticated
+      (protected)/            # session required in layout
   features/
-    home|about|team|services|industries|
-    publications|contact|admin|auth/
+    site|home|team|services|publications|
+    contact|admin|auth/
   shared/
-    ui/                # shadcn + layout primitives
-    lib/               # prisma, redis, r2, logger
+    ui/
+    lib/                      # prisma, redis, r2, rate-limit
     config/
   i18n/
     request.ts
     routing.ts
 ```
 
-**Կանոն.** features ներմուծել միայն `@/features/x` barrel-ով։ `shared` չի ներմուծում `features`։
+About և Industries ստատիկ JSON էջեր են՝ `app/[locale]/…` մեջ, առանձին feature չեն։
+
+**Public API**
+- Server՝ `@/features/x`
+- Client-safe actions/UI՝ `@/features/x/client` (`auth`, `admin`)
+- `shared` չի ներմուծում `features`
+
+**Cross-feature (explicit)**
+- `home` → `team`, `services`, `publications`
+- `team` / `services` / `publications` → `admin/client` (CMS chrome)
+- admin shell + CMS mutations → `auth`
 
 ---
 
@@ -102,7 +111,7 @@ src/
 About, Industries, Contact copy, Header/Footer labels, Home static sections copy
 
 ### Դինամիկ (DB)
-TeamMember (visibility + featured-on-home), Service (visibility + featured-on-home), Publication (NEWS | INSIGHT), AdminUser + Auth tables
+`User` + `AdminSession`, TeamMember (visibility + featured-on-home), Service (visibility + featured-on-home), Publication (NEWS | INSIGHT)
 
 ### Publication status
 `DRAFT` | `PUBLISHED` | `ARCHIVED`
@@ -117,8 +126,10 @@ Sanitized HTML — TipTap in admin (headings, bold/italic, links, images, lists)
 
 ## ԱՆՎՏԱՆԳՈՒԹՅՈՒՆ
 
-- Admin routes՝ session guard (database session cookie)
+- Admin protected group՝ մեկ session guard layout-ում
 - Passwords՝ argon2
 - Input՝ Zod
-- Rate limit՝ login + contact
+- CSRF՝ Next.js Server Actions origin check
+- Rate limit (Redis, fallback՝ in-memory)՝ login 5 / 15 րոպե, contact 5 / 10 րոպե
+- Published list cache TTL՝ 10 րոպե (mutations նաև invalidate են անում)
 - Secrets՝ env only

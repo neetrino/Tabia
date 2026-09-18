@@ -1,7 +1,14 @@
+import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
+import { getAdminSession } from "@/features/auth";
 import { AdminLocaleSwitcher, AdminLoginForm } from "@/features/admin";
 
 export default async function AdminLoginPage() {
+  const session = await getAdminSession();
+  if (session) {
+    redirect("/admin");
+  }
+
   const t = await getTranslations("admin");
 
   return (

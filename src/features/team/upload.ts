@@ -1,7 +1,7 @@
 "use server";
 
 import { randomUUID } from "node:crypto";
-import { getAdminSession } from "@/features/auth/session";
+import { getAdminSession } from "@/features/auth";
 import {
   detectImageMime,
   extensionForImageMime,

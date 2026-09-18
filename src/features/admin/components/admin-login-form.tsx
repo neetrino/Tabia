@@ -2,7 +2,7 @@
 
 import { useActionState } from "react";
 import { useTranslations } from "next-intl";
-import { loginAction, type LoginState } from "@/features/auth/actions";
+import { loginAction, type LoginState } from "@/features/auth/client";
 
 const initialState: LoginState = {};
 

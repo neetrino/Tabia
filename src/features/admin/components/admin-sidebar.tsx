@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
-import { logoutAction } from "@/features/auth/actions";
+import { logoutAction } from "@/features/auth/client";
 import { SiteBrand } from "@/shared/ui/site-brand";
 import { AdminLocaleSwitcher } from "./admin-locale-switcher";
 
@@ -31,6 +31,7 @@ export async function AdminSidebar({ email }: AdminSidebarProps) {
           <Link
             key={link.href}
             href={link.href}
+            prefetch
             className="rounded-md px-3 py-2 text-sm text-[var(--muted)] hover:bg-white hover:text-[var(--foreground)]"
           >
             {t(`nav.${link.key}`)}

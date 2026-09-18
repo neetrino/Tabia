@@ -1,11 +1,12 @@
 import "server-only";
 
 import { locales, type AppLocale } from "@/i18n/routing";
+import { PUBLISHED_LIST_CACHE_TTL_SECONDS } from "@/shared/config/limits";
 import { getRedis } from "@/shared/lib/redis";
 import type { ServicePreview } from "./types";
 
 function listKey(locale: AppLocale): string {
-  return `services:published:v1:${locale}`;
+  return `services:published:v2:${locale}`;
 }
 
 function isPreview(value: unknown): value is ServicePreview {
@@ -47,7 +48,9 @@ export async function writePublishedServicesCache(
     return;
   }
 
-  await redis.set(listKey(locale), items);
+  await redis.set(listKey(locale), items, {
+    ex: PUBLISHED_LIST_CACHE_TTL_SECONDS,
+  });
 }
 
 export async function invalidateServicesCache(): Promise<void> {

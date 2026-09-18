@@ -7,8 +7,12 @@ import {
   readPublishedServicesCache,
   writePublishedServicesCache,
 } from "./cache";
-import { toServiceAdminItem, toServicePreview } from "./map-service";
-import type { ServiceAdminItem, ServicePreview } from "./types";
+import {
+  toServiceAdminItem,
+  toServicePreview,
+  toServiceProfile,
+} from "./map-service";
+import type { ServiceAdminItem, ServicePreview, ServiceProfile } from "./types";
 
 function toAppLocale(locale: string): AppLocale {
   return locales.includes(locale as AppLocale)
@@ -44,6 +48,19 @@ export async function getPublishedServices(
   }
 
   return typeof limit === "number" ? items.slice(0, limit) : items;
+}
+
+/** Published service profile by the shared Latin slug. */
+export async function getPublishedServiceBySlug(
+  locale: string,
+  slug: string,
+): Promise<ServiceProfile | null> {
+  const row = await prisma.service.findUnique({ where: { slug } });
+  if (!row || row.visibility !== "PUBLISHED") {
+    return null;
+  }
+
+  return toServiceProfile(row, locale);
 }
 
 /** All services for the admin list, including hidden records. */

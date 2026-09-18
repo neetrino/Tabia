@@ -1,6 +1,4 @@
-import { redirect } from "next/navigation";
 import { getLocale } from "next-intl/server";
-import { getAdminSession } from "@/features/auth/session";
 import {
   getAdminServices,
   getNextServiceSortOrder,
@@ -8,11 +6,6 @@ import {
 } from "@/features/services";
 
 export default async function AdminServicesPage() {
-  const session = await getAdminSession();
-  if (!session) {
-    redirect("/admin/login");
-  }
-
   const locale = await getLocale();
   const [services, nextSortOrder] = await Promise.all([
     getAdminServices(locale),

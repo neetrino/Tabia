@@ -12,7 +12,8 @@
     "submit": "Մուտք",
     "pending": "Մուտք…",
     "errors": {
-      "invalidCredentials": "Սխալ էլ․ փոստ կամ գաղտնաբառ։"
+      "invalidCredentials": "Սխալ էլ․ փոստ կամ գաղտնաբառ։",
+      "rateLimited": "Չափից շատ փորձեր։ Փորձեք մի քիչ հետո։"
     }
   },
   "logout": "Ելք",

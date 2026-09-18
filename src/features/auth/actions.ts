@@ -2,6 +2,9 @@
 
 import { redirect } from "next/navigation";
 import { z } from "zod";
+import { LOGIN_RATE_LIMIT } from "@/shared/config/limits";
+import { getClientIp } from "@/shared/lib/client-ip";
+import { consumeRateLimit } from "@/shared/lib/rate-limit";
 import {
   createAdminSession,
   destroyAdminSession,
@@ -14,13 +17,22 @@ const loginSchema = z.object({
 });
 
 export type LoginState = {
-  errorKey?: "invalidCredentials";
+  errorKey?: "invalidCredentials" | "rateLimited";
 };
 
 export async function loginAction(
   _prev: LoginState,
   formData: FormData,
 ): Promise<LoginState> {
+  const allowed = await consumeRateLimit({
+    key: `rl:login:${await getClientIp()}`,
+    maxAttempts: LOGIN_RATE_LIMIT.maxAttempts,
+    windowSeconds: LOGIN_RATE_LIMIT.windowSeconds,
+  });
+  if (!allowed) {
+    return { errorKey: "rateLimited" };
+  }
+
   const parsed = loginSchema.safeParse({
     email: formData.get("email"),
     password: formData.get("password"),

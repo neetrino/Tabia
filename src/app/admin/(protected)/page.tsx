@@ -1,7 +1,5 @@
-import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
-import { getAdminSession } from "@/features/auth/session";
 
 const cards = [
   { href: "/admin/news", key: "news" as const },
@@ -11,11 +9,6 @@ const cards = [
 ];
 
 export default async function AdminDashboardPage() {
-  const session = await getAdminSession();
-  if (!session) {
-    redirect("/admin/login");
-  }
-
   const t = await getTranslations("admin");
 
   return (
@@ -31,6 +24,7 @@ export default async function AdminDashboardPage() {
           <Link
             key={card.href}
             href={card.href}
+            prefetch
             className="rounded-md border border-[var(--border)] bg-white p-5 transition hover:border-[var(--brand)]"
           >
             <h2 className="text-xl">{t(`dashboard.cards.${card.key}.title`)}</h2>

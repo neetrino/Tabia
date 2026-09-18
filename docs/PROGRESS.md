@@ -19,14 +19,16 @@
 - [x] Services CRUD + forms in drawer, HY/EN/RU content switcher, drag-and-drop sort, publish/hide, home-page star
 - [x] News / Insights CRUD + forms in drawer, HY/EN/RU content switcher, draft/publish/deactivate, cover, publishedAt
 - [x] Rich text editor (TipTap: headings, bold/italic, links, images)
-- [x] R2 image upload (client wired in `src/shared/lib/r2.ts`; used by Team, Services, Publications)
-- [ ] Redis cache for lists (client wired in `src/shared/lib/redis.ts`)
-- [ ] Contact form → Resend
-- [ ] Home sections wired to DB
-- [ ] Detail pages (slug)
+- [x] R2 image upload (Team, Services, Publications)
+- [x] Redis cache for published lists (TTL 10m + invalidate on write)
+- [x] Contact form → Resend + rate limit
+- [x] Home sections wired to DB
+- [x] Detail pages (team, services, news, insights)
 
 ### Phase 2 — Polish
 - [ ] Figma visual pass
 - [ ] Mobile nav
 - [ ] SEO metadata per page
 - [ ] E2E critical flows
+- [ ] Pino structured logger
+- [ ] Production migrate-on-deploy job

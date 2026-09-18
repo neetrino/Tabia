@@ -61,7 +61,7 @@ function ServiceCard({ item }: { item: ServicePreview }) {
 
   return (
     <Link
-      href="/services"
+      href={`/services/${item.slug}`}
       className={cn(
         "group relative block h-[295px] overflow-hidden rounded-[10px]",
         hasPhoto

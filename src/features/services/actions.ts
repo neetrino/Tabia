@@ -1,7 +1,7 @@
 "use server";
 
 import { Prisma } from "@prisma/client";
-import { getAdminSession } from "@/features/auth/session";
+import { getAdminSession } from "@/features/auth";
 import { prisma } from "@/shared/lib/prisma";
 import { deleteR2Object } from "@/shared/lib/r2";
 import { r2KeyFromPublicUrl } from "@/shared/lib/r2-key";

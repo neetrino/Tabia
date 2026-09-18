@@ -1,6 +1,7 @@
 import "server-only";
 
 import { locales, type AppLocale } from "@/i18n/routing";
+import { PUBLISHED_LIST_CACHE_TTL_SECONDS } from "@/shared/config/limits";
 import { getRedis } from "@/shared/lib/redis";
 import type { PublicationPreview, PublicationTypeValue } from "./types";
 
@@ -9,7 +10,7 @@ type CachedPublicationPreview = Omit<PublicationPreview, "publishedAt"> & {
 };
 
 function listKey(locale: AppLocale): string {
-  return `publications:published:v1:${locale}`;
+  return `publications:published:v2:${locale}`;
 }
 
 function isCachedPreview(value: unknown): value is CachedPublicationPreview {
@@ -65,7 +66,9 @@ export async function writePublishedPublicationsCache(
     publishedAt: item.publishedAt ? item.publishedAt.toISOString() : null,
   }));
 
-  await redis.set(listKey(locale), payload);
+  await redis.set(listKey(locale), payload, {
+    ex: PUBLISHED_LIST_CACHE_TTL_SECONDS,
+  });
 }
 
 export async function invalidatePublicationsCache(): Promise<void> {

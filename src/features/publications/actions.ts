@@ -1,7 +1,7 @@
 "use server";
 
 import { Prisma } from "@prisma/client";
-import { getAdminSession } from "@/features/auth/session";
+import { getAdminSession } from "@/features/auth";
 import { prisma } from "@/shared/lib/prisma";
 import { invalidatePublicationsCache } from "./cache";
 import { revalidatePublicationPaths } from "./revalidate";

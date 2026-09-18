@@ -16,7 +16,11 @@
     "company": "Company",
     "service": "Interested service",
     "message": "Message",
+    "pending": "Sending…",
     "success": "Your request has been sent.",
-    "error": "Failed to send. Please try again."
+    "error": "Failed to send. Please try again.",
+    "invalid": "Please check the form fields and try again.",
+    "rateLimited": "Too many requests. Try again later.",
+    "unavailable": "Email sending is unavailable. Call or write to us directly."
   }
 }

@@ -7,6 +7,10 @@ export type ServicePreview = {
   imageUrl: string | null;
 };
 
+export type ServiceProfile = ServicePreview & {
+  body: string;
+};
+
 export type ServiceRecord = {
   id: string;
   slug: string;

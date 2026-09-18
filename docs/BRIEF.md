@@ -30,7 +30,7 @@ Admin-ը կառավարում է միայն News, Insights, Services և Our Team
 
 - **Տարբերակ A** — fullstack Next.js (App Router)
 - PostgreSQL (Neon)
-- Server-side sessions (ոչ JWT) — Auth.js Database sessions
+- Server-side sessions (ոչ JWT) — custom `AdminSession` + httpOnly cookie
 - Redis cache (Upstash)
 - Cloudflare R2 — նկարներ
 - i18n՝ `locales/{hy,en,ru}/*.json` (էջային ֆայլեր՝ home.json, about.json, …)
@@ -44,7 +44,7 @@ Admin-ը կառավարում է միայն News, Insights, Services և Our Team
 
 - [ ] Վճարային համակարգ — ոչ
 - [x] Email (Resend) — Contact հայտեր
-- [x] Աուտենտիֆիկացիա — Auth.js, database sessions (ոչ JWT)
+- [x] Աուտենտիֆիկացիա — custom database sessions (ոչ JWT, ոչ Auth.js)
 - [x] Ֆայլերի պահոց — Cloudflare R2
 - [x] Redis — Upstash
 - [ ] Արտաքին API — ոչ (քարտեզ՝ ըստ անհրաժեշտության)
