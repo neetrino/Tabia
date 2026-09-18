@@ -3,11 +3,20 @@
 import { useEffect } from "react";
 import { useTranslations } from "next-intl";
 
+type AdminDrawerSize = "lg" | "xl" | "wide";
+
 type AdminDrawerProps = {
   open: boolean;
   title: string;
   onClose: () => void;
   children: React.ReactNode;
+  size?: AdminDrawerSize;
+};
+
+const drawerWidthClassName: Record<AdminDrawerSize, string> = {
+  lg: "w-full max-w-lg",
+  xl: "w-full max-w-2xl",
+  wide: "w-full md:w-[70%]",
 };
 
 export function AdminDrawer({
@@ -15,6 +24,7 @@ export function AdminDrawer({
   title,
   onClose,
   children,
+  size = "lg",
 }: AdminDrawerProps) {
   const t = useTranslations("admin");
 
@@ -45,7 +55,9 @@ export function AdminDrawer({
         className="absolute inset-0 bg-black/30"
         onClick={onClose}
       />
-      <aside className="relative z-10 flex h-full w-full max-w-lg flex-col border-l border-[var(--border)] bg-white shadow-xl">
+      <aside
+        className={`relative z-10 flex h-full flex-col border-l border-[var(--border)] bg-white shadow-xl ${drawerWidthClassName[size]}`}
+      >
         <div className="flex items-center justify-between border-b border-[var(--border)] px-5 py-4">
           <h2 className="text-lg font-semibold">{title}</h2>
           <button

@@ -72,7 +72,10 @@ function buildTeamSlots(items: TeamMemberPreview[]): TeamSlot[] {
 function MemberCard({ member }: { member: TeamMemberPreview }) {
   return (
     <article>
-      <Link href="/team" className="group block">
+      <Link
+        href={member.hasProfile ? `/team/${member.slug}` : "/team"}
+        className="group block"
+      >
         <CoverMedia
           src={member.photoUrl}
           alt={member.name}

@@ -75,6 +75,9 @@ const team = [
   {
     slug: "ani-sargsyan",
     sortOrder: 1,
+    email: "ani.sargsyan@tabia.am",
+    phone: "+374 10 000 001",
+    linkedInUrl: "https://www.linkedin.com/",
     nameHy: "Անի Սարգսյան",
     nameEn: "Ani Sargsyan",
     nameRu: "Ани Саргсян",
@@ -84,10 +87,18 @@ const team = [
     bioHy: "Կորպորատիվ իրավունքի և գործարքների մասնագետ։",
     bioEn: "Specialist in corporate law and transactions.",
     bioRu: "Специалист по корпоративному праву и сделкам.",
+    detailsHy:
+      "Անին ուղեկցում է կորպորատիվ գործարքներն ու կառավարման փոփոխությունները՝ սկսած կառուցվածքից մինչև փաստաթղթավորում։ Աշխատում է հայկական և միջազգային հաճախորդների հետ։",
+    detailsEn:
+      "Ani advises on corporate transactions and governance changes, from structure through documentation. She works with Armenian and international clients.",
+    detailsRu:
+      "Ани сопровождает корпоративные сделки и изменения в управлении — от структуры до документации. Работает с армянскими и международными клиентами.",
   },
   {
     slug: "armen-hakobyan",
     sortOrder: 2,
+    email: "armen.hakobyan@tabia.am",
+    phone: "+374 10 000 002",
     nameHy: "Արմեն Հակոբյան",
     nameEn: "Armen Hakobyan",
     nameRu: "Армен Акопян",
@@ -97,10 +108,17 @@ const team = [
     bioHy: "Աշխատանքային իրավունք և կազմակերպչական համապատասխանություն։",
     bioEn: "Employment law and organizational compliance.",
     bioRu: "Трудовое право и организационное соответствие.",
+    detailsHy:
+      "Արմենը կառուցում է աշխատանքային գործընթացներ և ներքին կանոնակարգեր, որոնք նվազեցնում են վեճերի ռիսկը և պաշտպանում գործատուին ու աշխատակցին։",
+    detailsEn:
+      "Armen designs employment processes and internal policies that reduce dispute risk and protect both employers and employees.",
+    detailsRu:
+      "Армен выстраивает трудовые процессы и внутренние политики, которые снижают риск споров и защищают работодателя и сотрудника.",
   },
   {
     slug: "lilit-petrosyan",
     sortOrder: 3,
+    email: "lilit.petrosyan@tabia.am",
     nameHy: "Լիլիթ Պետրոսյան",
     nameEn: "Lilit Petrosyan",
     nameRu: "Лилит Петросян",
@@ -114,6 +132,7 @@ const team = [
   {
     slug: "narek-avetyan",
     sortOrder: 4,
+    phone: "+374 10 000 004",
     nameHy: "Նարեկ Ավետյան",
     nameEn: "Narek Avetyan",
     nameRu: "Нарек Аветян",

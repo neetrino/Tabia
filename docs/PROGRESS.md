@@ -14,8 +14,9 @@
 - [x] Admin UI i18n (hy/en/ru) + cookie locale switcher
 - [x] Database session auth (ոչ JWT) + admin seed
 
-### Phase 1 — Dynamic content (հաջորդ)
-- [ ] Team / Services / News / Insights CRUD + forms in drawer
+### Phase 1 — Dynamic content (ընթացքում)
+- [x] Team CRUD + forms in drawer, HY/EN/RU content switcher, drag-and-drop sort
+- [ ] Services / News / Insights CRUD + forms in drawer
 - [ ] Rich text editor
 - [ ] R2 image upload (client wired in `src/shared/lib/r2.ts`)
 - [ ] Redis cache for lists (client wired in `src/shared/lib/redis.ts`)

@@ -57,6 +57,9 @@ model TeamMember {
   bioHy       String            @db.Text
   bioEn       String            @db.Text
   bioRu       String            @db.Text
+  detailsHy   String?           @db.Text
+  detailsEn   String?           @db.Text
+  detailsRu   String?           @db.Text
   email       String?
   phone       String?
   linkedInUrl String?

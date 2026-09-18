@@ -72,7 +72,8 @@
       "title": "Our Team",
       "description": "Manage team members and display order.",
       "add": "Add member",
-      "drawerTitle": "New team member"
+      "drawerTitle": "New team member",
+      "editTitle": "Edit team member"
     }
   },
   "actions": {
@@ -81,5 +82,42 @@
     "save": "Save",
     "cancel": "Cancel",
     "delete": "Delete"
+  },
+  "teamForm": {
+    "contentLocale": "Content language",
+    "contentLocaleHint": "The slug is shared and Latin-only. Fill name, role, and descriptions in the HY / EN / RU tabs.",
+    "slug": "Slug",
+    "slugHint": "Latin letters, numbers, and hyphens only. The same URL is used for every language.",
+    "photo": "Photo",
+    "removePhoto": "Remove photo",
+    "name": "First and last name",
+    "position": "Position",
+    "bio": "Short description",
+    "bioHint": "Shown on the team card.",
+    "details": "Detailed biography",
+    "detailsHint": "If filled for the current language, the card will link to a profile page.",
+    "email": "Email",
+    "phone": "Phone",
+    "linkedIn": "LinkedIn URL",
+    "sortOrder": "Order",
+    "sortOrderHint": "Lower numbers appear first. You can also drag rows in the list.",
+    "visibility": "Visibility",
+    "published": "Published",
+    "hidden": "Hidden",
+    "orderValue": "#{value}",
+    "dragHint": "Drag rows to change display order.",
+    "confirmDelete": "Delete team member “{name}”?",
+    "saving": "Saving…",
+    "errors": {
+      "unauthorized": "You need to sign in.",
+      "invalid": "Check the required fields in all three languages.",
+      "slugInvalid": "The slug must use lowercase Latin letters, numbers, and hyphens.",
+      "slugTaken": "This slug is already in use.",
+      "notFound": "Team member not found.",
+      "uploadMissing": "Choose a photo.",
+      "uploadTooLarge": "The photo must be 5 MB or smaller.",
+      "uploadType": "Only JPEG, PNG, and WebP files are allowed.",
+      "storageUnavailable": "Image storage is not configured."
+    }
   }
 }
