@@ -15,8 +15,9 @@
 - [x] Database session auth (ոչ JWT) + admin seed
 
 ### Phase 1 — Dynamic content (ընթացքում)
-- [x] Team CRUD + forms in drawer, HY/EN/RU content switcher, drag-and-drop sort
-- [ ] Services / News / Insights CRUD + forms in drawer
+- [x] Team CRUD + forms in drawer, HY/EN/RU content switcher, drag-and-drop sort, publish switch, home-page star
+- [x] Services CRUD + forms in drawer, HY/EN/RU content switcher, drag-and-drop sort, publish/hide, home-page star
+- [ ] News / Insights CRUD + forms in drawer
 - [ ] Rich text editor
 - [ ] R2 image upload (client wired in `src/shared/lib/r2.ts`)
 - [ ] Redis cache for lists (client wired in `src/shared/lib/redis.ts`)

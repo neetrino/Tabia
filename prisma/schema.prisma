@@ -65,10 +65,12 @@ model TeamMember {
   linkedInUrl String?
   sortOrder   Int               @default(0)
   visibility  ContentVisibility @default(PUBLISHED)
+  featured    Boolean           @default(false)
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
 
   @@index([visibility, sortOrder])
+  @@index([visibility, featured, sortOrder])
 }
 
 model Service {
@@ -86,10 +88,12 @@ model Service {
   bodyRu     String            @db.Text
   sortOrder  Int               @default(0)
   visibility ContentVisibility @default(PUBLISHED)
+  featured   Boolean           @default(false)
   createdAt  DateTime          @default(now())
   updatedAt  DateTime          @updatedAt
 
   @@index([visibility, sortOrder])
+  @@index([visibility, featured, sortOrder])
 }
 
 model Publication {

@@ -102,7 +102,7 @@ src/
 About, Industries, Contact copy, Header/Footer labels, Home static sections copy
 
 ### Դինամիկ (DB)
-TeamMember, Service, Publication (NEWS | INSIGHT), AdminUser + Auth tables
+TeamMember (visibility + featured-on-home), Service (visibility + featured-on-home), Publication (NEWS | INSIGHT), AdminUser + Auth tables
 
 ### Publication status
 `DRAFT` | `PUBLISHED` | `ARCHIVED`

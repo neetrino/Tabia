@@ -4,51 +4,45 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { AdminDrawer } from "@/features/admin/client";
-import { createEmptyTeamMember } from "../locale-fields";
-import type { TeamMemberAdminItem, TeamMemberRecord } from "../types";
-import { TeamAdminForm } from "./team-admin-form";
-import { TeamAdminList } from "./team-admin-list";
+import { createEmptyService } from "../locale-fields";
+import type { ServiceAdminItem, ServiceRecord } from "../types";
+import { ServiceAdminForm } from "./service-admin-form";
+import { ServiceAdminList } from "./service-admin-list";
 
-type TeamAdminPanelProps = {
-  members: TeamMemberAdminItem[];
+type ServiceAdminPanelProps = {
+  services: ServiceAdminItem[];
   nextSortOrder: number;
 };
 
-function toRecord(member: TeamMemberAdminItem): TeamMemberRecord {
+function toRecord(service: ServiceAdminItem): ServiceRecord {
   return {
-    id: member.id,
-    slug: member.slug,
-    photoUrl: member.photoUrl,
-    nameHy: member.nameHy,
-    nameEn: member.nameEn,
-    nameRu: member.nameRu,
-    positionHy: member.positionHy,
-    positionEn: member.positionEn,
-    positionRu: member.positionRu,
-    bioHy: member.bioHy,
-    bioEn: member.bioEn,
-    bioRu: member.bioRu,
-    detailsHy: member.detailsHy,
-    detailsEn: member.detailsEn,
-    detailsRu: member.detailsRu,
-    email: member.email,
-    phone: member.phone,
-    linkedInUrl: member.linkedInUrl,
-    sortOrder: member.sortOrder,
-    visibility: member.visibility,
-    featured: member.featured,
+    id: service.id,
+    slug: service.slug,
+    imageUrl: service.imageUrl,
+    titleHy: service.titleHy,
+    titleEn: service.titleEn,
+    titleRu: service.titleRu,
+    summaryHy: service.summaryHy,
+    summaryEn: service.summaryEn,
+    summaryRu: service.summaryRu,
+    bodyHy: service.bodyHy,
+    bodyEn: service.bodyEn,
+    bodyRu: service.bodyRu,
+    sortOrder: service.sortOrder,
+    visibility: service.visibility,
+    featured: service.featured,
   };
 }
 
-export function TeamAdminPanel({
-  members,
+export function ServiceAdminPanel({
+  services,
   nextSortOrder,
-}: TeamAdminPanelProps) {
+}: ServiceAdminPanelProps) {
   const t = useTranslations("admin");
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [formKey, setFormKey] = useState(0);
-  const [editing, setEditing] = useState<TeamMemberRecord | null>(null);
+  const [editing, setEditing] = useState<ServiceRecord | null>(null);
 
   function refresh(): void {
     setOpen(false);
@@ -60,28 +54,28 @@ export function TeamAdminPanel({
     <div className="space-y-6">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="text-3xl">{t("resources.team.title")}</h1>
+          <h1 className="text-3xl">{t("resources.services.title")}</h1>
           <p className="mt-2 text-sm text-[var(--muted)]">
-            {t("resources.team.description")}
+            {t("resources.services.description")}
           </p>
         </div>
         <button
           type="button"
           onClick={() => {
             setFormKey((current) => current + 1);
-            setEditing(createEmptyTeamMember(nextSortOrder));
+            setEditing(createEmptyService(nextSortOrder));
             setOpen(true);
           }}
           className="rounded-md bg-[var(--brand)] px-4 py-2 text-sm font-medium text-white"
         >
-          {t("resources.team.add")}
+          {t("resources.services.add")}
         </button>
       </div>
       <div className="rounded-md border border-[var(--border)] bg-white p-4">
-        <TeamAdminList
-          members={members}
-          onEdit={(member) => {
-            setEditing(toRecord(member));
+        <ServiceAdminList
+          services={services}
+          onEdit={(service) => {
+            setEditing(toRecord(service));
             setOpen(true);
           }}
           onChanged={() => router.refresh()}
@@ -92,8 +86,8 @@ export function TeamAdminPanel({
         size="wide"
         title={
           editing?.id
-            ? t("resources.team.editTitle")
-            : t("resources.team.drawerTitle")
+            ? t("resources.services.editTitle")
+            : t("resources.services.drawerTitle")
         }
         onClose={() => {
           setOpen(false);
@@ -101,7 +95,7 @@ export function TeamAdminPanel({
         }}
       >
         {editing ? (
-          <TeamAdminForm
+          <ServiceAdminForm
             key={editing.id || `new-${formKey}`}
             values={editing}
             onSaved={refresh}

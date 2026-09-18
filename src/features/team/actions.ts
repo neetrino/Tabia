@@ -8,7 +8,7 @@ import { r2KeyFromPublicUrl } from "@/shared/lib/r2-key";
 import { invalidateTeamCache } from "./cache";
 import { optionalDbText } from "./map-team-member";
 import { revalidateTeamPaths } from "./revalidate";
-import { teamMemberInputSchema } from "./schema";
+import { teamMemberFlagsSchema, teamMemberInputSchema } from "./schema";
 import type { TeamActionResult, TeamMemberRecord } from "./types";
 
 async function deleteStoredPhoto(url: string | null): Promise<void> {
@@ -49,6 +49,7 @@ function toWriteData(input: Omit<TeamMemberRecord, "id">) {
     linkedInUrl: optionalDbText(input.linkedInUrl),
     sortOrder: input.sortOrder,
     visibility: input.visibility,
+    featured: input.featured,
   };
 }
 
@@ -157,5 +158,36 @@ export async function reorderTeamMembersAction(
 
   await invalidateTeamCache();
   revalidateTeamPaths();
+  return { ok: true };
+}
+
+export async function updateTeamMemberFlagsAction(
+  raw: unknown,
+): Promise<TeamActionResult> {
+  const session = await getAdminSession();
+  if (!session) {
+    return { errorKey: "unauthorized" };
+  }
+
+  const parsed = teamMemberFlagsSchema.safeParse(raw);
+  if (!parsed.success) {
+    return { errorKey: "invalid" };
+  }
+
+  const { id, visibility, featured } = parsed.data;
+  const existing = await prisma.teamMember.findUnique({ where: { id } });
+  if (!existing) {
+    return { errorKey: "notFound" };
+  }
+
+  await prisma.teamMember.update({
+    where: { id },
+    data: {
+      ...(visibility ? { visibility } : {}),
+      ...(typeof featured === "boolean" ? { featured } : {}),
+    },
+  });
+  await invalidateTeamCache();
+  revalidateTeamPaths(existing.slug);
   return { ok: true };
 }

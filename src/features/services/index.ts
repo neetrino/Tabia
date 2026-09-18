@@ -1,2 +1,8 @@
-export { getPublishedServices } from "./queries";
-export type { ServicePreview } from "./queries";
+export { ServiceAdminPanel } from "./components/service-admin-panel";
+export {
+  getAdminServices,
+  getFeaturedServices,
+  getNextServiceSortOrder,
+  getPublishedServices,
+} from "./queries";
+export type { ServiceAdminItem, ServicePreview } from "./types";

@@ -37,6 +37,7 @@ export type TeamMemberRecord = {
   linkedInUrl: string;
   sortOrder: number;
   visibility: ContentVisibilityValue;
+  featured: boolean;
 };
 
 export type TeamMemberAdminItem = TeamMemberRecord & {

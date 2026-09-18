@@ -34,6 +34,7 @@ export function toTeamMemberRecord(row: TeamMember): TeamMemberRecord {
     linkedInUrl: row.linkedInUrl ?? "",
     sortOrder: row.sortOrder,
     visibility: row.visibility,
+    featured: row.featured,
   };
 }
 

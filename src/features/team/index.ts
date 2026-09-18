@@ -3,6 +3,7 @@ export { TeamMemberProfile } from "./components/team-member-profile";
 export { TeamAdminPanel } from "./components/team-admin-panel";
 export {
   getAdminTeamMembers,
+  getFeaturedTeamMembers,
   getNextTeamSortOrder,
   getPublishedTeamMemberBySlug,
   getPublishedTeamMembers,

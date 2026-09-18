@@ -65,6 +65,21 @@ export async function getPublishedTeamMemberBySlug(
   return toTeamMemberProfile(row, locale);
 }
 
+/** Published members marked for the home page, ordered by admin sort. */
+export async function getFeaturedTeamMembers(
+  locale: string,
+  limit?: number,
+): Promise<TeamMemberPreview[]> {
+  const appLocale = toAppLocale(locale);
+  const rows = await prisma.teamMember.findMany({
+    where: { visibility: "PUBLISHED", featured: true },
+    orderBy: publishedOrder,
+    ...(typeof limit === "number" ? { take: limit } : {}),
+  });
+
+  return rows.map((row) => toTeamMemberPreview(row, appLocale));
+}
+
 /** All team members for the admin list, including hidden records. */
 export async function getAdminTeamMembers(
   locale: string,

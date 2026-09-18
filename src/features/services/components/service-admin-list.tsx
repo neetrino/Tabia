@@ -5,40 +5,40 @@ import { useTranslations } from "next-intl";
 import { GripVertical } from "lucide-react";
 import { cn } from "@/shared/lib/cn";
 import {
-  deleteTeamMemberAction,
-  reorderTeamMembersAction,
-  updateTeamMemberFlagsAction,
+  deleteServiceAction,
+  reorderServicesAction,
+  updateServiceFlagsAction,
 } from "../actions";
-import type { TeamMemberAdminItem } from "../types";
-import { TeamAdminMemberRow } from "./team-admin-member-row";
+import type { ServiceAdminItem } from "../types";
+import { ServiceAdminRow } from "./service-admin-row";
 
-type TeamAdminListProps = {
-  members: TeamMemberAdminItem[];
-  onEdit: (member: TeamMemberAdminItem) => void;
+type ServiceAdminListProps = {
+  services: ServiceAdminItem[];
+  onEdit: (service: ServiceAdminItem) => void;
   onChanged: () => void;
 };
 
-export function TeamAdminList({
-  members,
+export function ServiceAdminList({
+  services,
   onEdit,
   onChanged,
-}: TeamAdminListProps) {
+}: ServiceAdminListProps) {
   const t = useTranslations("admin");
-  const form = useTranslations("admin.teamForm");
-  const [items, setOptimisticItems] = useOptimistic(members);
+  const form = useTranslations("admin.serviceForm");
+  const [items, setOptimisticItems] = useOptimistic(services);
   const dragIndex = useRef<number | null>(null);
   const [pending, startTransition] = useTransition();
   const [errorKey, setErrorKey] = useState<string | null>(null);
 
-  function patchMember(
+  function patchService(
     id: string,
-    patch: Partial<Pick<TeamMemberAdminItem, "visibility" | "featured">>,
+    patch: Partial<Pick<ServiceAdminItem, "visibility" | "featured">>,
   ): void {
     startTransition(async () => {
       setOptimisticItems(
         items.map((item) => (item.id === id ? { ...item, ...patch } : item)),
       );
-      const result = await updateTeamMemberFlagsAction({ id, ...patch });
+      const result = await updateServiceFlagsAction({ id, ...patch });
       if (result.errorKey) {
         setErrorKey(result.errorKey);
         return;
@@ -64,9 +64,7 @@ export function TeamAdminList({
     }));
     startTransition(async () => {
       setOptimisticItems(ordered);
-      const result = await reorderTeamMembersAction(
-        ordered.map((item) => item.id),
-      );
+      const result = await reorderServicesAction(ordered.map((item) => item.id));
       if (result.errorKey) {
         setErrorKey(result.errorKey);
         return;
@@ -75,13 +73,13 @@ export function TeamAdminList({
     });
   }
 
-  function remove(member: TeamMemberAdminItem): void {
-    if (!window.confirm(form("confirmDelete", { name: member.displayName }))) {
+  function remove(service: ServiceAdminItem): void {
+    if (!window.confirm(form("confirmDelete", { name: service.displayTitle }))) {
       return;
     }
 
     startTransition(async () => {
-      const result = await deleteTeamMemberAction(member.id);
+      const result = await deleteServiceAction(service.id);
       if (result.errorKey) {
         setErrorKey(result.errorKey);
         return;
@@ -93,7 +91,7 @@ export function TeamAdminList({
   if (items.length === 0) {
     return (
       <p className="text-sm text-[var(--muted)]">
-        {t("empty", { addLabel: t("resources.team.add") })}
+        {t("empty", { addLabel: t("resources.services.add") })}
       </p>
     );
   }
@@ -105,9 +103,9 @@ export function TeamAdminList({
         <p className="text-sm text-red-700">{form(`errors.${errorKey}`)}</p>
       ) : null}
       <ul className="space-y-2">
-        {items.map((member, index) => (
+        {items.map((service, index) => (
           <li
-            key={member.id}
+            key={service.id}
             draggable
             onDragStart={() => {
               dragIndex.current = index;
@@ -129,18 +127,18 @@ export function TeamAdminList({
             <span className="cursor-grab text-[var(--muted)]" aria-hidden>
               <GripVertical className="size-4" />
             </span>
-            <TeamAdminMemberRow
-              member={member}
+            <ServiceAdminRow
+              service={service}
               disabled={pending}
               onEdit={onEdit}
               onDelete={remove}
               onTogglePublished={(item, published) =>
-                patchMember(item.id, {
+                patchService(item.id, {
                   visibility: published ? "PUBLISHED" : "HIDDEN",
                 })
               }
               onToggleFeatured={(item, featured) =>
-                patchMember(item.id, { featured })
+                patchService(item.id, { featured })
               }
             />
           </li>

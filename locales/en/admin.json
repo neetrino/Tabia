@@ -66,7 +66,8 @@
       "title": "Services",
       "description": "Manage services, visibility, and sort order.",
       "add": "Add service",
-      "drawerTitle": "New service"
+      "drawerTitle": "New service",
+      "editTitle": "Edit service"
     },
     "team": {
       "title": "Our Team",
@@ -104,6 +105,7 @@
     "visibility": "Visibility",
     "published": "Published",
     "hidden": "Hidden",
+    "featured": "Show on the home page",
     "orderValue": "#{value}",
     "dragHint": "Drag rows to change display order.",
     "confirmDelete": "Delete team member “{name}”?",
@@ -116,6 +118,40 @@
       "notFound": "Team member not found.",
       "uploadMissing": "Choose a photo.",
       "uploadTooLarge": "The photo must be 5 MB or smaller.",
+      "uploadType": "Only JPEG, PNG, and WebP files are allowed.",
+      "storageUnavailable": "Image storage is not configured."
+    }
+  },
+  "serviceForm": {
+    "contentLocale": "Content language",
+    "contentLocaleHint": "The slug is shared and Latin-only. Fill the name and descriptions in the HY / EN / RU tabs.",
+    "slug": "Slug",
+    "slugHint": "Latin letters, numbers, and hyphens only. The same URL is used for every language.",
+    "image": "Image",
+    "removeImage": "Remove image",
+    "title": "Name",
+    "summary": "Short description",
+    "summaryHint": "Shown on the service card.",
+    "body": "Full description",
+    "bodyHint": "The detailed text is stored with the service record.",
+    "sortOrder": "Order",
+    "sortOrderHint": "Lower numbers appear first. You can also drag rows in the list.",
+    "visibility": "Visibility",
+    "published": "Published",
+    "hidden": "Hidden",
+    "featured": "Show on the home page",
+    "orderValue": "#{value}",
+    "dragHint": "Drag rows to change display order.",
+    "confirmDelete": "Delete service “{name}”?",
+    "saving": "Saving…",
+    "errors": {
+      "unauthorized": "You need to sign in.",
+      "invalid": "Check the required fields in all three languages.",
+      "slugInvalid": "The slug must use lowercase Latin letters, numbers, and hyphens.",
+      "slugTaken": "This slug is already in use.",
+      "notFound": "Service not found.",
+      "uploadMissing": "Choose an image.",
+      "uploadTooLarge": "The image must be 5 MB or smaller.",
       "uploadType": "Only JPEG, PNG, and WebP files are allowed.",
       "storageUnavailable": "Image storage is not configured."
     }

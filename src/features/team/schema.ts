@@ -53,6 +53,17 @@ export const teamMemberInputSchema = z.object({
   ),
   sortOrder: z.number().int().min(0).max(9999),
   visibility: z.enum(["PUBLISHED", "HIDDEN"]),
+  featured: z.boolean(),
 });
+
+export const teamMemberFlagsSchema = z
+  .object({
+    id: z.string().trim().min(1),
+    visibility: z.enum(["PUBLISHED", "HIDDEN"]).optional(),
+    featured: z.boolean().optional(),
+  })
+  .refine(
+    (value) => value.visibility !== undefined || value.featured !== undefined,
+  );
 
 export type TeamMemberInput = z.infer<typeof teamMemberInputSchema>;

@@ -42,5 +42,6 @@ export function createEmptyTeamMember(sortOrder: number): TeamMemberRecord {
     linkedInUrl: "",
     sortOrder,
     visibility: "PUBLISHED",
+    featured: false,
   };
 }
