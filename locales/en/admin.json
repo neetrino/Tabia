@@ -54,13 +54,15 @@
       "title": "News",
       "description": "Create and publish organization news.",
       "add": "Add news",
-      "drawerTitle": "New news item"
+      "drawerTitle": "New news item",
+      "editTitle": "Edit news item"
     },
     "insights": {
       "title": "Insights",
       "description": "Manage professional articles and analysis.",
       "add": "Add insight",
-      "drawerTitle": "New insight"
+      "drawerTitle": "New insight",
+      "editTitle": "Edit insight"
     },
     "services": {
       "title": "Services",
@@ -150,6 +152,53 @@
       "slugInvalid": "The slug must use lowercase Latin letters, numbers, and hyphens.",
       "slugTaken": "This slug is already in use.",
       "notFound": "Service not found.",
+      "uploadMissing": "Choose an image.",
+      "uploadTooLarge": "The image must be 5 MB or smaller.",
+      "uploadType": "Only JPEG, PNG, and WebP files are allowed.",
+      "storageUnavailable": "Image storage is not configured."
+    }
+  },
+  "publicationForm": {
+    "contentLocale": "Content language",
+    "contentLocaleHint": "The slug is shared and Latin-only. Fill the title, summary, and full text in the HY / EN / RU tabs.",
+    "slug": "Slug",
+    "slugHint": "Latin letters, numbers, and hyphens only. The same URL is used for every language.",
+    "cover": "Cover image",
+    "removeCover": "Remove cover image",
+    "title": "Title",
+    "summary": "Short description",
+    "summaryHint": "Shown on the card and listing pages.",
+    "body": "Full text",
+    "bodyHint": "Use headings, links, images, and text formatting in the editor.",
+    "publishedAt": "Publication date",
+    "publishedAtHint": "If you publish without a date, the current time is used.",
+    "saveDraft": "Save as draft",
+    "publish": "Publish",
+    "deactivate": "Deactivate",
+    "saving": "Saving…",
+    "confirmDelete": "Delete “{name}”?",
+    "status": {
+      "DRAFT": "Draft",
+      "PUBLISHED": "Published",
+      "ARCHIVED": "Deactivated"
+    },
+    "editor": {
+      "heading2": "Heading",
+      "heading3": "Subheading",
+      "bold": "Bold",
+      "italic": "Italic",
+      "link": "Link",
+      "image": "Insert image",
+      "bulletList": "Bullet list",
+      "orderedList": "Numbered list",
+      "linkPrompt": "Enter the link URL"
+    },
+    "errors": {
+      "unauthorized": "You need to sign in.",
+      "invalid": "Check the required fields in all three languages.",
+      "slugInvalid": "The slug must use lowercase Latin letters, numbers, and hyphens.",
+      "slugTaken": "This slug is already in use.",
+      "notFound": "Publication not found.",
       "uploadMissing": "Choose an image.",
       "uploadTooLarge": "The image must be 5 MB or smaller.",
       "uploadType": "Only JPEG, PNG, and WebP files are allowed.",

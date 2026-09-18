@@ -165,9 +165,9 @@ const publications = [
     summaryHy: "Կազմակերպությունը ներկայացնում է թարմացված ծառայություններ և թիմ։",
     summaryEn: "The firm presents an updated service offering and team.",
     summaryRu: "Компания представляет обновленные услуги и команду.",
-    bodyHy: "Մենք շարունակում ենք զարգացնել մասնագիտական աջակցությունը բիզնես հաճախորդների համար։",
-    bodyEn: "We continue to grow professional support for business clients.",
-    bodyRu: "Мы продолжаем развивать профессиональную поддержку бизнес-клиентов.",
+    bodyHy: "<p>Մենք շարունակում ենք զարգացնել մասնագիտական աջակցությունը բիզնես հաճախորդների համար։</p>",
+    bodyEn: "<p>We continue to grow professional support for business clients.</p>",
+    bodyRu: "<p>Мы продолжаем развивать профессиональную поддержку бизнес-клиентов.</p>",
   },
   {
     slug: "employment-updates",
@@ -181,9 +181,9 @@ const publications = [
     summaryHy: "Ինչպես կառուցել ներքին կանոնակարգեր՝ առանց ավելորդ ռիսկի։",
     summaryEn: "How to build internal policies without unnecessary risk.",
     summaryRu: "Как выстроить внутренние политики без лишнего риска.",
-    bodyHy: "Հստակ փաստաթղթավորումը նվազեցնում է վեճերի հավանականությունը և պաշտպանում երկու կողմերին։",
-    bodyEn: "Clear documentation reduces disputes and protects both sides.",
-    bodyRu: "Четкая документация снижает риск споров и защищает обе стороны.",
+    bodyHy: "<p>Հստակ փաստաթղթավորումը նվազեցնում է վեճերի հավանականությունը և պաշտպանում երկու կողմերին։</p>",
+    bodyEn: "<p>Clear documentation reduces disputes and protects both sides.</p>",
+    bodyRu: "<p>Четкая документация снижает риск споров и защищает обе стороны.</p>",
   },
   {
     slug: "tax-planning-note",
@@ -197,9 +197,9 @@ const publications = [
     summaryHy: "Գործարքի կառուցվածքը պետք է գնահատվի նաև հարկային տեսանկյունից։",
     summaryEn: "Deal structure should also be assessed from a tax perspective.",
     summaryRu: "Структуру сделки нужно оценивать и с налоговой точки зрения.",
-    bodyHy: "Վաղ վերլուծությունը օգնում է խուսափել թանկ հետևանքներից։",
-    bodyEn: "Early analysis helps avoid costly consequences.",
-    bodyRu: "Ранний анализ помогает избежать дорогостоящих последствий.",
+    bodyHy: "<p>Վաղ վերլուծությունը օգնում է խուսափել թանկ հետևանքներից։</p>",
+    bodyEn: "<p>Early analysis helps avoid costly consequences.</p>",
+    bodyRu: "<p>Ранний анализ помогает избежать дорогостоящих последствий.</p>",
   },
 ];
 

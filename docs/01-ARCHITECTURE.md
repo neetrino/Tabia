@@ -107,6 +107,9 @@ TeamMember (visibility + featured-on-home), Service (visibility + featured-on-ho
 ### Publication status
 `DRAFT` | `PUBLISHED` | `ARCHIVED`
 
+### Publication body
+Sanitized HTML — TipTap in admin (headings, bold/italic, links, images, lists); public pages render after sanitization.
+
 ### Multilingual DB fields
 `titleHy`, `titleEn`, `titleRu` (և նույն մոդելով description/body) — պարզ և հստակ Size B-ի համար
 

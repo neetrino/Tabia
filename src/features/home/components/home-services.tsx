@@ -2,7 +2,9 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import type { ServicePreview } from "@/features/services";
 import { Link } from "@/i18n/navigation";
+import { cn } from "@/shared/lib/cn";
 import { HOME_ASSETS } from "@/shared/config/content";
+import { CoverMedia } from "@/shared/ui/cover-media";
 import { EmptyState } from "@/shared/ui/empty-state";
 import { SectionLabel } from "@/shared/ui/section-label";
 
@@ -55,29 +57,90 @@ export async function HomeServices({ items }: HomeServicesProps) {
 }
 
 function ServiceCard({ item }: { item: ServicePreview }) {
+  const hasPhoto = Boolean(item.imageUrl) && !item.imageUrl?.endsWith(".svg");
+
   return (
     <Link
       href="/services"
-      className="relative block h-[295px] overflow-hidden rounded-[10px] bg-[linear-gradient(123deg,#fff_6%,#999_109%)]"
+      className={cn(
+        "group relative block h-[295px] overflow-hidden rounded-[10px]",
+        hasPhoto
+          ? "bg-[var(--brand-soft)]"
+          : "bg-[linear-gradient(123deg,#fff_6%,#999_109%)]",
+      )}
     >
-      <div className="pointer-events-none absolute -right-6 top-10 size-[349px]">
-        <Image
-          src={HOME_ASSETS.serviceScales}
-          alt=""
-          fill
-          className="object-cover"
-          sizes="349px"
-        />
-      </div>
-      <div className="relative z-10 flex h-full flex-col p-6">
+      <ServiceCardMedia imageUrl={item.imageUrl} title={item.title} />
+      <div
+        className={cn(
+          "relative z-10 flex h-full flex-col p-6",
+          hasPhoto && "justify-end",
+        )}
+      >
         <div className="flex items-start justify-between gap-4">
-          <h3 className="text-lg font-semibold text-black">{item.title}</h3>
-          <img src={HOME_ASSETS.serviceArrow} alt="" className="mt-2 block shrink-0" />
+          <h3
+            className={cn(
+              "max-w-[16rem] text-lg font-semibold",
+              hasPhoto ? "text-white" : "text-black",
+            )}
+          >
+            {item.title}
+          </h3>
+          <img
+            src={HOME_ASSETS.serviceArrow}
+            alt=""
+            className={cn("mt-2 block shrink-0", hasPhoto && "brightness-0 invert")}
+          />
         </div>
-        <p className="mt-3 max-w-[15rem] text-sm font-light leading-[21px] text-black/80">
+        <p
+          className={cn(
+            "mt-3 max-w-[15rem] text-sm font-light leading-[21px]",
+            hasPhoto ? "text-white/90" : "text-black/80",
+          )}
+        >
           {item.summary}
         </p>
       </div>
     </Link>
+  );
+}
+
+function ServiceCardMedia({
+  imageUrl,
+  title,
+}: {
+  imageUrl: string | null;
+  title: string;
+}) {
+  if (imageUrl) {
+    const isIllustration = imageUrl.endsWith(".svg");
+    return (
+      <>
+        <CoverMedia
+          src={imageUrl}
+          alt={title}
+          className={
+            isIllustration
+              ? "absolute inset-y-6 right-4 w-[48%] bg-transparent"
+              : "absolute inset-0 h-full w-full"
+          }
+          imageClassName={isIllustration ? "object-contain" : "object-cover"}
+        />
+        {isIllustration ? null : (
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+        )}
+      </>
+    );
+  }
+
+  return (
+    <div className="pointer-events-none absolute -right-6 top-10 size-[349px]">
+      <Image
+        src={HOME_ASSETS.serviceScales}
+        alt=""
+        fill
+        className="object-cover"
+        sizes="349px"
+      />
+    </div>
   );
 }

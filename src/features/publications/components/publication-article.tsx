@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import type { PublicationType } from "@prisma/client";
 import { formatPublishedDate } from "@/shared/lib/localized";
 import { CoverMedia } from "@/shared/ui/cover-media";
+import { PublicationBody } from "./publication-body";
 import { getPublishedPublicationBySlug } from "../queries";
 
 type PublicationArticleProps = {
@@ -51,9 +52,7 @@ export async function PublicationArticle({
       <p className="text-lg leading-relaxed text-[var(--muted)]">
         {article.summary}
       </p>
-      <div className="space-y-4 leading-relaxed whitespace-pre-line">
-        {article.body}
-      </div>
+      <PublicationBody html={article.body} />
     </article>
   );
 }

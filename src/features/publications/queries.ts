@@ -1,54 +1,66 @@
 import "server-only";
 
-import type { PublicationType } from "@prisma/client";
-import { prisma } from "@/shared/lib/prisma";
+import type { Publication } from "@prisma/client";
+import { defaultLocale, locales, type AppLocale } from "@/i18n/routing";
 import { localizedText } from "@/shared/lib/localized";
+import { prisma } from "@/shared/lib/prisma";
+import {
+  filterCachedPublications,
+  readPublishedPublicationsCache,
+  writePublishedPublicationsCache,
+} from "./cache";
+import { toPublicationAdminItem, toPublicationPreview } from "./map-publication";
+import type {
+  PublicationAdminItem,
+  PublicationPreview,
+  PublicationTypeValue,
+} from "./types";
 
-export type PublicationPreview = {
-  slug: string;
-  type: PublicationType;
-  title: string;
-  summary: string;
-  coverUrl: string | null;
-  publishedAt: Date | null;
-};
+function toAppLocale(locale: string): AppLocale {
+  return locales.includes(locale as AppLocale)
+    ? (locale as AppLocale)
+    : defaultLocale;
+}
 
-type GetPublishedPublicationsOptions = {
-  locale: string;
-  type?: PublicationType;
-  limit?: number;
-};
+const publishedOrder = [
+  { publishedAt: "desc" as const },
+  { createdAt: "desc" as const },
+];
 
+async function loadPublishedRows(): Promise<Publication[]> {
+  return prisma.publication.findMany({
+    where: { status: "PUBLISHED" },
+    orderBy: publishedOrder,
+  });
+}
+
+async function loadPublishedPreviews(
+  locale: AppLocale,
+): Promise<PublicationPreview[]> {
+  const cached = await readPublishedPublicationsCache(locale);
+  if (cached) {
+    return cached;
+  }
+
+  const items = (await loadPublishedRows()).map((row) =>
+    toPublicationPreview(row, locale),
+  );
+  await writePublishedPublicationsCache(locale, items);
+  return items;
+}
+
+/** Published news and insights for a public locale, newest first. */
 export async function getPublishedPublications({
   locale,
   type,
   limit,
-}: GetPublishedPublicationsOptions): Promise<PublicationPreview[]> {
-  const records = await prisma.publication.findMany({
-    where: {
-      status: "PUBLISHED",
-      ...(type ? { type } : {}),
-    },
-    orderBy: [{ publishedAt: "desc" }, { createdAt: "desc" }],
-    take: limit,
-  });
-
-  return records.map((record) => ({
-    slug: record.slug,
-    type: record.type,
-    title: localizedText(locale, {
-      hy: record.titleHy,
-      en: record.titleEn,
-      ru: record.titleRu,
-    }),
-    summary: localizedText(locale, {
-      hy: record.summaryHy,
-      en: record.summaryEn,
-      ru: record.summaryRu,
-    }),
-    coverUrl: record.coverUrl,
-    publishedAt: record.publishedAt,
-  }));
+}: {
+  locale: string;
+  type?: PublicationTypeValue;
+  limit?: number;
+}): Promise<PublicationPreview[]> {
+  const items = await loadPublishedPreviews(toAppLocale(locale));
+  return filterCachedPublications(items, type, limit);
 }
 
 export function getPublicationHref(item: PublicationPreview): string {
@@ -57,7 +69,7 @@ export function getPublicationHref(item: PublicationPreview): string {
 
 export async function getPublishedPublicationBySlug(
   locale: string,
-  type: PublicationType,
+  type: PublicationTypeValue,
   slug: string,
 ): Promise<(PublicationPreview & { body: string }) | null> {
   const record = await prisma.publication.findUnique({
@@ -69,24 +81,24 @@ export async function getPublishedPublicationBySlug(
   }
 
   return {
-    slug: record.slug,
-    type: record.type,
-    title: localizedText(locale, {
-      hy: record.titleHy,
-      en: record.titleEn,
-      ru: record.titleRu,
-    }),
-    summary: localizedText(locale, {
-      hy: record.summaryHy,
-      en: record.summaryEn,
-      ru: record.summaryRu,
-    }),
+    ...toPublicationPreview(record, locale),
     body: localizedText(locale, {
       hy: record.bodyHy,
       en: record.bodyEn,
       ru: record.bodyRu,
     }),
-    coverUrl: record.coverUrl,
-    publishedAt: record.publishedAt,
   };
+}
+
+/** All publications of one type for the admin list. */
+export async function getAdminPublications(
+  locale: string,
+  type: PublicationTypeValue,
+): Promise<PublicationAdminItem[]> {
+  const rows = await prisma.publication.findMany({
+    where: { type },
+    orderBy: [{ updatedAt: "desc" }, { createdAt: "desc" }],
+  });
+
+  return rows.map((row) => toPublicationAdminItem(row, locale));
 }
