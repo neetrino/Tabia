@@ -1,0 +1,49 @@
+{
+  "hero": {
+    "title": "Your rights. Our strategy.",
+    "titleLeft": "Your\nrights.",
+    "titleRight": "Our\nstrategy.",
+    "cta": "Get a consultation",
+    "secondaryCta": "Services",
+    "stats": [
+      { "value": "10+", "label": "Practice areas" },
+      { "value": "3", "label": "Languages" },
+      { "value": "24/7", "label": "Support" }
+    ]
+  },
+  "about": {
+    "label": "About us",
+    "title": "Legal experience <light>shaped by your business realities</light>.",
+    "quote": "<brand>TABIA</brand> combines deep legal knowledge, strategic thinking and practical advice — giving clients a decisive advantage.",
+    "cta": "Discover TABIA",
+    "stats": [
+      { "value": "15+", "label": "Years of experience" },
+      { "value": "100+", "label": "Clients" },
+      { "value": "10+", "label": "Practice areas" }
+    ]
+  },
+  "services": {
+    "label": "Our services",
+    "titleLead": "Legal support",
+    "titleTail": "on one platform",
+    "description": "Comprehensive legal solutions for your business and goals.\nProfessional support for resolving complex legal matters effectively.",
+    "viewAll": "All services"
+  },
+  "industries": { "title": "Industries & Practices" },
+  "team": {
+    "label": "Our team",
+    "title": "Specialists who speak the language of your interests",
+    "description": "A team of specialists that unites experience, knowledge and responsibility",
+    "highlightQuote": "\"You miss 100% of the shots you don't take\" -Wayne Gretzky - Michael Scott",
+    "highlightName": "Rambo",
+    "highlightRole": "Culture"
+  },
+  "publications": {
+    "label": "News",
+    "titleLead": "Stay",
+    "titleTail": "informed",
+    "description": "Changes in the legal landscape, important developments and professional analysis",
+    "viewAll": "All news",
+    "empty": "Publications will appear here soon."
+  }
+}

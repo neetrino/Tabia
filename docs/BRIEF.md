@@ -1,54 +1,87 @@
-# Նախագծի տեխզադրանք
+# Նախագծի տեխզադրանք — TABIA
 
-> Լրացրու՛ այս ֆայլը զարգացումը սկսելուց առաջ։
-> Լրացնելուց հետո — ուղարկի՛ր AI-ասիստենտին անալիզի և մեկնարկի համար [`project-onboarding` Skill](../.agents/skills/project-onboarding/SKILL.md)-ի համաձայն։
+> Լրացված է հաճախորդի տեխնիկական սպեցիֆիկացիայից (TABIA × NEETRINO)։
 
 ---
 
 ## Նկարագրություն
 
-[Ինչ նախագիծ է, 2–3 նախադասություն։ Ինչ խնդիր է լուծում։]
+TABIA-ի պաշտոնական կորպորատիվ կայք՝ բազմալեզու (hy / en / ru) հանրային էջերով և առանձին admin panel-ով։  
+Հանրային կայքը ներկայացնում է կազմակերպությունը, ծառայությունները, թիմը, ոլորտները, նորություններն ու վերլուծությունները։  
+Admin-ը կառավարում է միայն News, Insights, Services և Our Team բաժինները։
 
 ## Թիրախային լսարան
 
-[Ում համար է արտադրանքը։ Հիմնական օգտատիրոջ սցենարներ։]
+- Հաճախորդներ և գործընկերներ՝ ծառայությունների և կոնտակտի համար
+- Իրավաբանական / խորհրդատվական լսարան՝ Insights և News
+- Ներքին ադմին՝ կոնտենտի հրապարակման համար
 
 ## Հիմնական ֆունկցիաներ (առաջնայնացված)
 
-1. [Ֆունկցիա] — առաջնայնություն. բարձր
-2. [Ֆունկցիա] — առաջնայնություն. միջին
-3. [Ֆունկցիա] — առաջնայնություն. ցածր
+1. Բազմալեզու հանրային կայք (hy առաջնային, en, ru) + ընդհանուր Header/Footer — բարձր
+2. Home, About, Our Team, Services, Industries & Practices, News, Insights, Contact էջեր — բարձր
+3. Admin panel (News, Insights, Services, Team)՝ CRUD, draft/publish, հերթականություն, R2 նկարներ — բարձր
+4. Contact հայտի ձև → email ուղարկում — բարձր
+5. Redis cache դինամիկ ցուցակների համար — միջին
+6. News/Insights մանրամասն էջեր + rich text — բարձր
+7. SEO (Metadata) — միջին
 
-## Stack (եթե որոշված է)
+## Stack (որոշված)
 
-- **Տարբերակ A** — fullstack Next.js Vercel-ում
-- **Տարբերակ B** — Next.js frontend + NestJS backend (Render / Fly.io)
-- Եթե որոշված չէ — AI-ն կառաջարկի ֆունկցիաների հիման վրա
+- **Տարբերակ A** — fullstack Next.js (App Router)
+- PostgreSQL (Neon)
+- Server-side sessions (ոչ JWT) — Auth.js Database sessions
+- Redis cache (Upstash)
+- Cloudflare R2 — նկարներ
+- i18n՝ `locales/{hy,en,ru}/*.json` (էջային ֆայլեր՝ home.json, about.json, …)
 
 ## Դիզայն
 
-- Figma. [հղում]
-- UI Kit / դիզայն-համակարգ. [եթե կա]
+- Figma. դեռ չի տրամադրվել
+- UI Kit / դիզայն-համակարգ. կառուցվում է նախագծում (Tailwind + shadcn/ui)
 
 ## Ինտեգրացիաներ
 
-- [ ] Վճարային համակարգ (Stripe / YooKassa / այլ)
-- [ ] Email  mailing (Resend / SendGrid / այլ)
-- [ ] Աուտենտիֆիկացիա (Auth.js / Clerk / այլ)
-- [ ] Ֆայլերի պահոց (Cloudflare R2 — լռելյայն)
-- [ ] Արտաքին API. [թվարկել]
+- [ ] Վճարային համակարգ — ոչ
+- [x] Email (Resend) — Contact հայտեր
+- [x] Աուտենտիֆիկացիա — Auth.js, database sessions (ոչ JWT)
+- [x] Ֆայլերի պահոց — Cloudflare R2
+- [x] Redis — Upstash
+- [ ] Արտաքին API — ոչ (քարտեզ՝ ըստ անհրաժեշտության)
 
 ## Կոնտենտի լեզու
 
-- Ինտերֆեյսի հիմնական լեզու. [hy / en / բազմալեզու]
-- Պե՞տք է ինտերնացիոնալացում (i18n). այո / ոչ
+- Ինտերֆեյսի հիմնական լեզու. **hy**
+- Ինտերնացիոնալացում (i18n). **այո** — hy, en, ru
 
 ## Սահմանափակումներ
 
-- Ժամկետներ. [ամսաթիվ կամ «առանց դեդլայնի»]
-- Բյուջե. [եթե կան սահմանափակումներ վճարովի սերվիսների համար]
-- Տեխնիկական. [եթե կան — օր. պարտադիր հոստինգ, legacy API]
+- Ժամկետներ. առանց դեդլայնի (մեկնարկ՝ անմիջապես հաստատումից հետո)
+- Ստատիկ էջեր (admin-ից չեն կառավարվում). About, Industries & Practices, Contact բովանդակություն, Header/Footer ստատիկ մասեր
+- Admin-ից կառավարվում է միայն. News, Insights, Services, Our Team
+
+## Էջեր և բովանդակություն
+
+### Հանրային
+
+| Էջ | Նշում |
+|----|--------|
+| Home | Hero, About preview, Services (սահմանափակ), Industries, Team preview, News & Insights, Footer |
+| About | Պատմություն, առաքելություն, տեսլական, արժեքներ, սկզբունքներ — ստատիկ |
+| Our Team | Քարտեր + optional detail; հերթականություն admin-ից |
+| Services | Բոլոր ծառայություններ + detail; publish/hide, sort |
+| Industries & Practices | Ստատիկ ոլորտներ |
+| News / Insights | Ցուցակ + detail URL; admin CRUD + rich text |
+| Contact | Ստատիկ կոնտակտներ + հայտի ձև → email |
+
+### Admin
+
+- Sidebar նավիգացիա
+- Create/Edit՝ կողային Drawer
+- Rich text խմբագրիչ (վերնագրեր, bold/italic, հղումներ, նկարներ)
 
 ## Լրացուցիչ
 
-[Ցանկացած լրացուցիչ տեղեկություն, որը կարևոր է հաշվի առնել։]
+- Responsive. mobile / tablet / laptop / desktop
+- Header և Footer՝ բոլոր հանրային էջերում նույնը
+- Root-ում `locales/` կառուցվածք՝ hy, en, ru → էջային JSON ֆայլեր

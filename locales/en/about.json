@@ -1,0 +1,10 @@
+{
+  "title": "About",
+  "intro": "TABIA is a professional organization providing legal and advisory services.",
+  "history": { "title": "History", "body": "Organization history will be finalized with content." },
+  "mission": { "title": "Mission", "body": "Help clients make sustainable and legally sound decisions." },
+  "vision": { "title": "Vision", "body": "Be a trusted partner for business growth and legal security." },
+  "values": { "title": "Values", "items": ["Professionalism", "Transparency", "Responsibility", "Collaboration"] },
+  "principles": { "title": "Working principles", "body": "Detailed analysis, practical solutions, and long-term partnership." },
+  "experience": { "title": "Professional experience", "body": "The team combines industry experience with modern practice." }
+}

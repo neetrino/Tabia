@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fefefe;
+  --foreground: #0a0a0a;
+  --surface: #f7f7f7;
+  --cream: #f4f1ed;
+  --muted: #9a9590;
+  --muted-strong: #363636;
+  --border: #e5e1db;
+  --brand: #5a0b12;
+  --brand-deep: #3d070c;
+  --brand-soft: #f3e6e7;
+  --accent: #5a0b12;
+  --ink: #090909;
+  --nav: #d8d5d0;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-montserrat), var(--font-noto-sans-armenian);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-montserrat), var(--font-noto-sans-armenian),
+    system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+@layer base {
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+.home-hero-stage {
+  min-height: 36rem;
+}
+
+@media (min-width: 1024px) {
+  .home-hero-stage {
+    height: 921px;
+    min-height: 921px;
+  }
+}

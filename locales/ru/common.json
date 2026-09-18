@@ -1,0 +1,38 @@
+{
+  "brand": "TABIA",
+  "nav": {
+    "home": "Главная",
+    "about": "О нас",
+    "team": "Наша команда",
+    "services": "Услуги",
+    "industries": "Отрасли",
+    "news": "Новости",
+    "insights": "Аналитика",
+    "contact": "Контакты"
+  },
+  "actions": {
+    "readMore": "Читать далее",
+    "viewAll": "Смотреть все",
+    "submit": "Отправить",
+    "contactUs": "Связаться",
+    "menu": "Меню"
+  },
+  "footer": {
+    "description": "TABIA — профессиональные юридические и консультационные услуги.",
+    "quickLinks": "Быстрые ссылки",
+    "navigation": "Навигация",
+    "office": "Офис",
+    "createdBy": "Neetrino IT Company",
+    "copyright": "Copyright © {year} | Все права защищены | Создано {company}",
+    "contact": "Контакты",
+    "social": "Социальные сети",
+    "socialEmpty": "Ссылки будут добавлены после подтверждения.",
+    "socialLabels": {
+      "linkedin": "LinkedIn",
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "telegram": "Telegram"
+    },
+    "rights": "Все права защищены."
+  }
+}

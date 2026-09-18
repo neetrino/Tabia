@@ -1,0 +1,113 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum PublicationType {
+  NEWS
+  INSIGHT
+}
+
+enum PublicationStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum ContentVisibility {
+  PUBLISHED
+  HIDDEN
+}
+
+model User {
+  id           String        @id @default(cuid())
+  name         String?
+  email        String        @unique
+  passwordHash String
+  sessions     AdminSession[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model AdminSession {
+  id        String   @id @default(cuid())
+  tokenHash String   @unique
+  userId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model TeamMember {
+  id          String            @id @default(cuid())
+  slug        String            @unique
+  photoUrl    String?
+  nameHy      String
+  nameEn      String
+  nameRu      String
+  positionHy  String
+  positionEn  String
+  positionRu  String
+  bioHy       String            @db.Text
+  bioEn       String            @db.Text
+  bioRu       String            @db.Text
+  email       String?
+  phone       String?
+  linkedInUrl String?
+  sortOrder   Int               @default(0)
+  visibility  ContentVisibility @default(PUBLISHED)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  @@index([visibility, sortOrder])
+}
+
+model Service {
+  id         String            @id @default(cuid())
+  slug       String            @unique
+  imageUrl   String?
+  titleHy    String
+  titleEn    String
+  titleRu    String
+  summaryHy  String            @db.Text
+  summaryEn  String            @db.Text
+  summaryRu  String            @db.Text
+  bodyHy     String            @db.Text
+  bodyEn     String            @db.Text
+  bodyRu     String            @db.Text
+  sortOrder  Int               @default(0)
+  visibility ContentVisibility @default(PUBLISHED)
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @updatedAt
+
+  @@index([visibility, sortOrder])
+}
+
+model Publication {
+  id          String            @id @default(cuid())
+  slug        String
+  type        PublicationType
+  status      PublicationStatus @default(DRAFT)
+  coverUrl    String?
+  titleHy     String
+  titleEn     String
+  titleRu     String
+  summaryHy   String            @db.Text
+  summaryEn   String            @db.Text
+  summaryRu   String            @db.Text
+  bodyHy      String            @db.Text
+  bodyEn      String            @db.Text
+  bodyRu      String            @db.Text
+  publishedAt DateTime?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  @@unique([type, slug])
+  @@index([type, status, publishedAt])
+}

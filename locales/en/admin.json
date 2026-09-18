@@ -1,0 +1,85 @@
+{
+  "title": "Admin",
+  "brand": "TABIA ADMIN",
+  "locale": {
+    "label": "Language"
+  },
+  "login": {
+    "title": "TABIA Admin",
+    "subtitle": "Sign in with your admin credentials.",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Sign in",
+    "pending": "Signing in…",
+    "errors": {
+      "invalidCredentials": "Invalid email or password."
+    }
+  },
+  "logout": "Sign out",
+  "close": "Close",
+  "closeOverlay": "Close drawer overlay",
+  "empty": "No items yet. Use “{addLabel}” to create the first record.",
+  "nav": {
+    "dashboard": "Dashboard",
+    "news": "News",
+    "insights": "Insights",
+    "services": "Services",
+    "team": "Our Team"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Manage the dynamic sections of the TABIA website.",
+    "cards": {
+      "news": {
+        "title": "News",
+        "body": "Announcements and organization updates."
+      },
+      "insights": {
+        "title": "Insights",
+        "body": "Professional articles and analysis."
+      },
+      "services": {
+        "title": "Services",
+        "body": "Manage service cards and visibility."
+      },
+      "team": {
+        "title": "Our Team",
+        "body": "Team members, order, and profiles."
+      }
+    }
+  },
+  "resources": {
+    "placeholder": "The full create/edit form will be connected in the next phase.",
+    "news": {
+      "title": "News",
+      "description": "Create and publish organization news.",
+      "add": "Add news",
+      "drawerTitle": "New news item"
+    },
+    "insights": {
+      "title": "Insights",
+      "description": "Manage professional articles and analysis.",
+      "add": "Add insight",
+      "drawerTitle": "New insight"
+    },
+    "services": {
+      "title": "Services",
+      "description": "Manage services, visibility, and sort order.",
+      "add": "Add service",
+      "drawerTitle": "New service"
+    },
+    "team": {
+      "title": "Our Team",
+      "description": "Manage team members and display order.",
+      "add": "Add member",
+      "drawerTitle": "New team member"
+    }
+  },
+  "actions": {
+    "addNew": "Add new",
+    "edit": "Edit",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete"
+  }
+}
