@@ -13,7 +13,7 @@ export async function HomeHero() {
   const stats = t.raw("hero.stats") as HeroStat[];
 
   return (
-    <section className="relative bg-[#fefefe]">
+    <section className="relative bg-[#fefefe] lg:-mt-24">
       <div className="home-hero-stage relative mx-auto max-w-[1440px]">
         <div className="pointer-events-none relative mx-auto h-[22rem] w-[min(100%,783px)] overflow-hidden sm:h-[28rem] lg:absolute lg:left-[299px] lg:top-0 lg:mx-0 lg:h-[755px] lg:w-[783px]">
           <Image
