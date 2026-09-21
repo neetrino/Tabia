@@ -94,7 +94,7 @@ function HomeAboutMobile({
       <AboutStats
         stats={stats}
         compact
-        className="absolute inset-x-[19px] top-[491px]"
+        className="absolute inset-x-[19px] top-[467px]"
       />
     </div>
   );
@@ -120,7 +120,7 @@ function AboutStats({
       )}
     >
       {stats.map((stat) => (
-        <div key={stat.label} className="min-w-0">
+        <div key={stat.label} className={cn("min-w-0", compact && "flex flex-col")}>
           <dt className="sr-only">{stat.label}</dt>
           <dd
             className={cn(
@@ -136,7 +136,7 @@ function AboutStats({
             className={cn(
               "uppercase tracking-[1px]",
               compact
-                ? "text-[9px] font-normal leading-[13.5px] text-[#9a9590]"
+                ? "mt-auto text-[9px] font-normal leading-[13.5px] text-[#9a9590]"
                 : "pt-1 text-[10px] font-medium text-[var(--muted)]",
             )}
           >
