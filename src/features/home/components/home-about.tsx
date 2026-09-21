@@ -23,21 +23,12 @@ export async function HomeAbout() {
   const cta = t("about.cta");
 
   return (
-    <section className="relative bg-[linear-gradient(126.5deg,#151515_15.214%,#7a3737_81.251%)]">
-      <div className="absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2">
+    <section className="relative bg-gradient-to-b from-[#151515] to-[#7a3737] lg:bg-[linear-gradient(126.5deg,#151515_15.214%,#7a3737_81.251%)]">
+      <div className="absolute left-1/2 top-0 z-10 hidden -translate-x-1/2 -translate-y-1/2 lg:block">
         <SectionLabel>{t("about.label")}</SectionLabel>
       </div>
 
-      <div className="mx-auto max-w-[1400px] px-6 pb-16 pt-24 lg:hidden">
-        <h2 className="text-[clamp(2rem,7vw,3.25rem)] font-extrabold uppercase leading-[1.35] tracking-[-0.03em] text-white">
-          {title}
-        </h2>
-        <AboutStats stats={stats} className="mt-10" />
-        <AboutQuoteCard className="mt-10" quote={quote} cta={cta} />
-        <div className="relative mx-auto mt-8 h-[280px] w-full max-w-[607px] -scale-x-100">
-          <AboutBooksImage />
-        </div>
-      </div>
+      <HomeAboutMobile label={t("about.label")} quote={quote} cta={cta} stats={stats} />
 
       <div className="home-about-stage relative mx-auto hidden max-w-[1440px] lg:block">
         <div className="absolute left-[72px] top-[105px] w-[612px]">
@@ -61,27 +52,91 @@ export async function HomeAbout() {
   );
 }
 
+function HomeAboutMobile({
+  label,
+  quote,
+  cta,
+  stats,
+}: {
+  label: string;
+  quote: ReactNode;
+  cta: string;
+  stats: AboutStat[];
+}) {
+  const [firstWord, ...rest] = label.split(" ");
+
+  return (
+    <div className="relative h-[610px] overflow-x-clip lg:hidden">
+      <div className="pointer-events-none absolute left-[27px] top-[-59px] h-[456px] w-[416px]">
+        <div className="absolute left-1/2 top-1/2 h-[251px] w-[381px] -translate-x-1/2 -translate-y-1/2 rotate-[57.61deg]">
+          <AboutBooksImage />
+        </div>
+      </div>
+      <div className="absolute left-[201px] top-[86px] z-10 w-[181px]">
+        <h2 className="w-[254px] text-[36px] font-semibold uppercase leading-[44px] text-[var(--cream)]">
+          {firstWord}
+          {rest.length > 0 ? <br /> : null}
+          {rest.join(" ")}
+        </h2>
+        <p className="mt-[18px] text-[13px] leading-5 text-white">{quote}</p>
+        <ButtonLink
+          href="/about"
+          variant="ghost"
+          withArrow
+          className="mt-[25px] h-6 justify-start gap-2 px-0 py-0 text-xs font-extrabold leading-[18px] tracking-[1px] text-white hover:gap-2 hover:text-white [&_span]:text-base [&_span]:font-normal [&_span]:leading-6 [&_span]:text-white"
+        >
+          {cta}
+        </ButtonLink>
+      </div>
+      <AboutStats
+        stats={stats}
+        compact
+        className="absolute inset-x-[19px] top-[491px]"
+      />
+    </div>
+  );
+}
+
 function AboutStats({
   stats,
   className,
+  compact = false,
 }: {
   stats: AboutStat[];
   className?: string;
+  compact?: boolean;
 }) {
   return (
     <dl
       className={cn(
-        "grid grid-cols-3 gap-4 border-t border-white/10 pt-10",
+        "grid grid-cols-3 border-t",
+        compact
+          ? "gap-x-4 border-black/10 pt-6"
+          : "gap-4 border-white/10 pt-10",
         className,
       )}
     >
       {stats.map((stat) => (
         <div key={stat.label}>
           <dt className="sr-only">{stat.label}</dt>
-          <dd className="text-[36px] font-extrabold leading-10 text-white">
+          <dd
+            className={cn(
+              "text-white",
+              compact
+                ? "text-[28px] font-normal leading-9"
+                : "text-[36px] font-extrabold leading-10",
+            )}
+          >
             {stat.value}
           </dd>
-          <p className="pt-1 text-[10px] font-medium uppercase tracking-[1px] text-[var(--muted)]">
+          <p
+            className={cn(
+              "uppercase tracking-[1px]",
+              compact
+                ? "whitespace-nowrap text-[9px] font-normal leading-[13.5px] text-[#9a9590]"
+                : "pt-1 text-[10px] font-medium text-[var(--muted)]",
+            )}
+          >
             {stat.label}
           </p>
         </div>

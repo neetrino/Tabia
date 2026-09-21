@@ -6,6 +6,7 @@ import { HOME_ASSETS } from "@/shared/config/content";
 import { SiteBrand } from "@/shared/ui/site-brand";
 import { cn } from "@/shared/lib/cn";
 import { LocaleSwitcher } from "./locale-switcher";
+import { SiteHeaderMobile } from "./site-header-mobile";
 
 export type HeaderNavItem = {
   href: "/" | "/about" | "/services" | "/industries" | "/team" | "/news" | "/contact";
@@ -37,21 +38,19 @@ export function SiteHeaderBar({
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-4 z-50 mt-4 flex justify-center px-4 md:px-8">
-      <div className="flex h-16 w-full max-w-[1400px] items-center justify-between overflow-hidden rounded-full bg-black px-4 sm:h-20 sm:px-6 lg:px-16">
-        <SiteBrand label={brand} className="origin-left scale-90 sm:scale-100" />
+    <header className="sticky top-0 z-50 lg:top-4 lg:mt-4 lg:flex lg:justify-center lg:px-8">
+      <SiteHeaderMobile brand={brand} menuLabel={menuLabel} items={items} />
+      <div className="hidden h-20 w-full max-w-[1400px] items-center justify-between overflow-hidden rounded-full bg-black px-6 lg:flex lg:px-16">
+        <SiteBrand label={brand} />
         <DesktopNav items={items} pathname={pathname} />
-        <div className="flex items-center gap-3 sm:gap-6">
-          <div className="hidden md:block">
-            <LocaleSwitcher />
-          </div>
+        <div className="flex items-center gap-6">
+          <LocaleSwitcher />
           <Link
             href="/contact"
-            className="hidden h-12 items-center justify-center rounded-full bg-white px-6 text-base font-semibold leading-4 tracking-[0.3px] text-[var(--brand-cta)] lg:inline-flex"
+            className="inline-flex h-12 items-center justify-center rounded-full bg-white px-6 text-base font-semibold leading-4 tracking-[0.3px] text-[var(--brand-cta)]"
           >
             {contactLabel}
           </Link>
-          <MobileNav items={items} menuLabel={menuLabel} />
         </div>
       </div>
     </header>
@@ -161,39 +160,6 @@ function DesktopNav({
         );
       })}
     </nav>
-  );
-}
-
-function MobileNav({
-  items,
-  menuLabel,
-}: {
-  items: LabeledNavItem[];
-  menuLabel: string;
-}) {
-  return (
-    <details className="relative lg:hidden">
-      <summary className="cursor-pointer list-none rounded-full border border-white/20 px-3 py-2 text-sm text-[var(--cream)] [&::-webkit-details-marker]:hidden">
-        {menuLabel}
-      </summary>
-      <nav className="absolute right-0 mt-3 w-56 rounded-2xl border border-white/10 bg-black p-3 shadow-lg">
-        <div className="mb-3 border-b border-white/10 pb-3 md:hidden">
-          <LocaleSwitcher />
-        </div>
-        <ul className="space-y-1">
-          {items.map((item) => (
-            <li key={item.key}>
-              <Link
-                href={item.href}
-                className="block rounded-full px-3 py-2 text-sm text-[var(--cream)] hover:bg-white/10 hover:text-[var(--cream)]/80"
-              >
-                {item.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    </details>
   );
 }
 

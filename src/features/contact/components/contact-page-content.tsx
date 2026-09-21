@@ -10,8 +10,16 @@ export async function ContactPageContent() {
         <h1 className="text-4xl md:text-5xl">{t("title")}</h1>
         <p className="text-[var(--muted)]">{t("subtitle")}</p>
         <dl className="space-y-4 text-sm">
-          <ContactDetail label={t("phone")} value={t("phoneValue")} />
-          <ContactDetail label={t("email")} value={t("emailValue")} />
+          <ContactDetail
+            label={t("phone")}
+            value={t("phoneValue")}
+            href={`tel:${t("phoneValue").replace(/[^\d+]/g, "")}`}
+          />
+          <ContactDetail
+            label={t("email")}
+            value={t("emailValue")}
+            href={`mailto:${t("emailValue")}`}
+          />
           <ContactDetail label={t("address")} value={t("addressValue")} />
           <ContactDetail label={t("hours")} value={t("hoursValue")} />
         </dl>
@@ -21,11 +29,27 @@ export async function ContactPageContent() {
   );
 }
 
-function ContactDetail({ label, value }: { label: string; value: string }) {
+function ContactDetail({
+  label,
+  value,
+  href,
+}: {
+  label: string;
+  value: string;
+  href?: string;
+}) {
   return (
     <div>
       <dt className="font-semibold">{label}</dt>
-      <dd className="text-[var(--muted)]">{value}</dd>
+      <dd className="whitespace-pre-line text-[var(--muted)]">
+        {href ? (
+          <a href={href} target="_blank" rel="noopener noreferrer">
+            {value}
+          </a>
+        ) : (
+          value
+        )}
+      </dd>
     </div>
   );
 }

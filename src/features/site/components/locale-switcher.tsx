@@ -11,10 +11,34 @@ const labels: Record<AppLocale, string> = {
   ru: "RU",
 };
 
-export function LocaleSwitcher() {
+type LocaleSwitcherProps = {
+  variant?: "inline" | "pill";
+};
+
+export function LocaleSwitcher({ variant = "inline" }: LocaleSwitcherProps) {
   const locale = useLocale() as AppLocale;
   const pathname = usePathname();
   const router = useRouter();
+
+  const selectLocale = (next: AppLocale) => {
+    if (next === locale) {
+      return;
+    }
+    router.replace(pathname, { locale: next });
+  };
+
+  if (variant === "pill") {
+    const next = locales[(locales.indexOf(locale) + 1) % locales.length] ?? locale;
+    return (
+      <button
+        type="button"
+        className="flex h-[37px] w-[57px] shrink-0 items-center justify-center rounded-[20px] bg-white text-sm leading-[16.5px] tracking-[1.2px] text-black"
+        onClick={() => selectLocale(next)}
+      >
+        {labels[locale]}
+      </button>
+    );
+  }
 
   return (
     <div className="flex items-center gap-1">
@@ -29,12 +53,7 @@ export function LocaleSwitcher() {
               ? "text-[var(--cream)]"
               : "text-[var(--muted)] hover:text-[var(--cream)]",
           )}
-          onClick={() => {
-            if (item === locale) {
-              return;
-            }
-            router.replace(pathname, { locale: item });
-          }}
+          onClick={() => selectLocale(item)}
         >
           {labels[item]}
         </button>

@@ -8,6 +8,7 @@ export const HOME_ASSETS = {
   serviceScales: "/images/home/service-scales.png",
   footerKnight: "/images/home/footer-knight.png",
   logo: "/images/brand/logo.svg",
+  logoDark: "/images/brand/logo-dark.svg",
   navHome: "/images/icons/nav-home.svg",
   serviceArrow: "/images/icons/service-arrow.svg",
   socialInstagram: "/images/icons/social-instagram.svg",

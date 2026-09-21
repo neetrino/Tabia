@@ -54,7 +54,8 @@ body {
 }
 
 .home-hero-stage {
-  min-height: 36rem;
+  height: 874px;
+  min-height: 874px;
 }
 
 @media (min-width: 1024px) {

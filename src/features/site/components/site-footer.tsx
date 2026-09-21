@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { HOME_ASSETS, SITE_SOCIAL } from "@/shared/config/content";
 import { SiteBrand } from "@/shared/ui/site-brand";
+import { cn } from "@/shared/lib/cn";
 
 const links = [
   { href: "/about", key: "about" as const },
@@ -25,39 +26,50 @@ export async function SiteFooter() {
   });
 
   return (
-    <footer className="relative border-t border-white/[0.26] bg-[#090909] text-[var(--nav)]">
-      <div className="pointer-events-none absolute bottom-0 left-[calc(50%-5px)] size-[580px] -translate-x-1/2">
+    <footer className="relative overflow-hidden border-t border-white/[0.26] bg-[#090909] text-[var(--nav)] lg:overflow-visible">
+      <div className="pointer-events-none absolute left-[-34px] top-[156px] size-[470px] lg:bottom-0 lg:left-[calc(50%-5px)] lg:top-auto lg:z-20 lg:h-[580px] lg:w-[580px] lg:-translate-x-1/2">
         <Image
           src={HOME_ASSETS.footerKnight}
           alt=""
           fill
-          className="object-cover"
-          sizes="580px"
+          className="object-contain lg:object-cover lg:object-center"
+          sizes="(min-width: 1024px) 580px, 470px"
         />
       </div>
-      <div className="relative z-10 mx-auto max-w-[1400px] px-6 pb-10 pt-12 lg:px-16">
-        <div className="flex flex-col gap-12 lg:min-h-[243px] lg:flex-row lg:items-start lg:justify-between">
+      <div className="relative z-10 mx-auto max-w-[1400px] px-5 pb-[68px] pt-10 lg:px-16 lg:pb-10 lg:pt-12">
+        <div className="lg:flex lg:min-h-[243px] lg:items-start lg:justify-between">
           <FooterIdentity
             brand={t("brand")}
             social={social}
             socialLabel={(id) => t(`footer.socialLabels.${id}`)}
             phoneLabel={contact("phone")}
-            phoneValue={contact("phoneValue")}
+            phone={contact("phoneValue")}
             emailLabel={contact("email")}
-            emailValue={contact("emailValue")}
-            officeLabel={t("footer.office")}
-            officeValue={contact("addressValue")}
+            email={contact("emailValue")}
+            addressLabel={t("footer.office")}
+            address={contact("addressValue")}
           />
-          <FooterNav
-            title={t("footer.navigation")}
-            items={links.map((item) => ({
-              href: item.href,
-              label: t(`nav.${item.key}`),
-            }))}
-          />
+          <div className="mt-6 grid grid-cols-2 gap-x-6 lg:mt-0 lg:block lg:w-full lg:max-w-[282px]">
+            <FooterNav
+              title={t("footer.navigation")}
+              items={links.map((item) => ({
+                href: item.href,
+                label: t(`nav.${item.key}`),
+              }))}
+            />
+            <FooterContact
+              phoneLabel={contact("phone")}
+              phone={contact("phoneValue")}
+              emailLabel={contact("email")}
+              email={contact("emailValue")}
+              addressLabel={t("footer.office")}
+              address={contact("addressValue")}
+              className="self-center lg:hidden"
+            />
+          </div>
         </div>
-        <div className="mt-16 border-t border-white/5 pt-8">
-          <p className="w-fit bg-[#090909] text-xs font-extralight uppercase leading-[17px] text-white">
+        <div className="mt-8 border-t border-white/5 pt-6 lg:mt-16 lg:pt-8">
+          <p className="text-[10px] font-normal uppercase leading-[15px] text-white lg:w-fit lg:bg-[#090909] lg:text-xs lg:font-extralight lg:leading-[17px]">
             {t.rich("footer.copyright", {
               year,
               br: () => <br />,
@@ -78,6 +90,63 @@ export async function SiteFooter() {
     </footer>
   );
 }
+
+function FooterContact({
+  phoneLabel,
+  phone,
+  emailLabel,
+  email,
+  addressLabel,
+  address,
+  className,
+}: {
+  phoneLabel: string;
+  phone: string;
+  emailLabel: string;
+  email: string;
+  addressLabel: string;
+  address: string;
+  className?: string;
+}) {
+  return (
+    <address className={cn("flex flex-col items-end gap-4 text-right not-italic", className)}>
+      <div>
+        <p className="text-[9px] uppercase leading-[13.5px] tracking-[1px] text-[var(--muted)]">
+          {phoneLabel}
+        </p>
+        <a
+          href={`tel:${phone.replace(/[^\d+]/g, "")}`}
+          className="mt-1 block text-[13px] leading-5 text-[var(--nav)]"
+        >
+          {phone}
+        </a>
+      </div>
+      <div>
+        <p className="text-[9px] uppercase leading-[13.5px] tracking-[1px] text-[var(--muted)]">
+          {emailLabel}
+        </p>
+        <a
+          href={`mailto:${email}`}
+          className="mt-1 block text-[13px] leading-5 text-[var(--nav)]"
+        >
+          {email}
+        </a>
+      </div>
+      <div>
+        <p className="text-[9px] uppercase leading-[13.5px] tracking-[1px] text-[var(--muted)]">
+          {addressLabel}
+        </p>
+        <p className="mt-1 whitespace-pre-line text-[13px] leading-5 text-[var(--nav)]">{address}</p>
+      </div>
+    </address>
+  );
+}
+
+type FooterSocial = {
+  id: string;
+  href: string;
+  icon: string;
+};
 
 function FooterFact({
   label,
@@ -106,36 +175,33 @@ function FooterFact({
   );
 }
 
-type FooterSocial = {
-  id: string;
-  href: string;
-  icon: string;
-};
-
 function FooterIdentity({
   brand,
   social,
   socialLabel,
   phoneLabel,
-  phoneValue,
+  phone,
   emailLabel,
-  emailValue,
-  officeLabel,
-  officeValue,
+  email,
+  addressLabel,
+  address,
 }: {
   brand: string;
   social: FooterSocial[];
   socialLabel: (id: string) => string;
   phoneLabel: string;
-  phoneValue: string;
+  phone: string;
   emailLabel: string;
-  emailValue: string;
-  officeLabel: string;
-  officeValue: string;
+  email: string;
+  addressLabel: string;
+  address: string;
 }) {
   return (
-    <div className="w-full max-w-[392px]">
-      <SiteBrand label={brand} />
+    <div className="flex w-full flex-col items-center lg:max-w-[392px] lg:items-start">
+      <SiteBrand
+        label={brand}
+        className="[&_img]:h-[30px] [&_img]:w-[104px] lg:[&_img]:h-[38px] lg:[&_img]:w-[131px]"
+      />
       <ul className="flex h-[88px] items-center gap-4">
         {social.map((item) => (
           <li key={item.id}>
@@ -149,10 +215,10 @@ function FooterIdentity({
           </li>
         ))}
       </ul>
-      <address className="space-y-4 text-sm not-italic">
-        <FooterFact label={phoneLabel} value={phoneValue} />
-        <FooterFact label={emailLabel} value={emailValue} />
-        <FooterFact label={officeLabel} value={officeValue} multiline />
+      <address className="hidden space-y-4 text-sm not-italic lg:block">
+        <FooterFact label={phoneLabel} value={phone} />
+        <FooterFact label={emailLabel} value={email} />
+        <FooterFact label={addressLabel} value={address} multiline />
       </address>
     </div>
   );
@@ -174,11 +240,11 @@ function FooterNav({
   items: { href: (typeof links)[number]["href"]; label: string }[];
 }) {
   return (
-    <div className="w-full max-w-[282px] lg:pt-[60px]">
-      <p className="text-[10px] font-semibold uppercase leading-[15px] tracking-[3px] text-[var(--muted)]">
+    <div className="w-full lg:max-w-[282px] lg:pt-[60px]">
+      <p className="text-[9px] font-normal uppercase leading-[13.5px] tracking-[3px] text-[var(--muted)] lg:text-[10px] lg:font-semibold lg:leading-[15px]">
         {title}
       </p>
-      <ul className="mt-6 space-y-3 text-sm font-light leading-5">
+      <ul className="mt-4 flex flex-col gap-2 text-[13px] font-normal leading-5 lg:mt-6 lg:gap-3 lg:text-sm lg:font-light">
         {items.map((item) => (
           <li key={item.href}>
             <Link href={item.href} className="transition hover:text-white">

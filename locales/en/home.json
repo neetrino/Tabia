@@ -32,8 +32,9 @@
   "industries": { "title": "Industries & Practices" },
   "team": {
     "label": "Our team",
-    "title": "Specialists who\nspeak the language of your interests",
-    "description": "A team of specialists that unites experience, knowledge and responsibility"
+    "title": "Specialists who\nspeak the language of <em>your interests</em>",
+    "description": "A team of specialists that unites experience, knowledge and responsibility",
+    "viewAll": "All"
   },
   "publications": {
     "label": "News",
@@ -41,6 +42,7 @@
     "titleTail": "informed",
     "description": "Changes in the legal landscape, important developments and professional analysis",
     "viewAll": "All news",
+    "viewAllShort": "All",
     "empty": "Publications will appear here soon."
   }
 }

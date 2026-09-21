@@ -8,17 +8,35 @@ type SiteBrandProps = {
   label: string;
   href?: "/" | null;
   className?: string;
+  mark?: "inverse" | "ink";
 };
 
-export function SiteBrand({ label, href = "/", className }: SiteBrandProps) {
-  const pathname = usePathname();
+const marks = {
+  inverse: { src: HOME_ASSETS.logo, width: 131, height: 38 },
+  ink: { src: HOME_ASSETS.logoDark, width: 104, height: 30 },
+} as const;
 
-  const mark = (
-    <img src={HOME_ASSETS.logo} alt={label} width={131} height={38} className="block" />
+export function SiteBrand({
+  label,
+  href = "/",
+  className,
+  mark = "inverse",
+}: SiteBrandProps) {
+  const pathname = usePathname();
+  const markAsset = marks[mark];
+
+  const logo = (
+    <img
+      src={markAsset.src}
+      alt={label}
+      width={markAsset.width}
+      height={markAsset.height}
+      className="block"
+    />
   );
 
   if (!href) {
-    return <span className={cn("inline-flex items-center", className)}>{mark}</span>;
+    return <span className={cn("inline-flex items-center", className)}>{logo}</span>;
   }
 
   return (
@@ -34,7 +52,7 @@ export function SiteBrand({ label, href = "/", className }: SiteBrandProps) {
         window.scrollTo({ top: 0, behavior: "smooth" });
       }}
     >
-      {mark}
+      {logo}
     </Link>
   );
 }
