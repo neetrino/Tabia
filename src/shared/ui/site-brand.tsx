@@ -10,7 +10,7 @@ type SiteBrandProps = {
 
 export function SiteBrand({ label, href = "/", className }: SiteBrandProps) {
   const mark = (
-    <img src={HOME_ASSETS.logo} alt={label} className="block" />
+    <img src={HOME_ASSETS.logo} alt={label} width={131} height={38} className="block" />
   );
 
   if (!href) {

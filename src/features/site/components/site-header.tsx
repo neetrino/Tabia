@@ -8,7 +8,6 @@ const navItems: HeaderNavItem[] = [
   { href: "/industries", key: "industries" },
   { href: "/team", key: "team" },
   { href: "/news", key: "news" },
-  { href: "/insights", key: "insights" },
   { href: "/contact", key: "contact" },
 ];
 

@@ -7,8 +7,8 @@ import { cn } from "@/shared/lib/cn";
 import { LocaleSwitcher } from "./locale-switcher";
 
 export type HeaderNavItem = {
-  href: "/" | "/about" | "/services" | "/industries" | "/team" | "/news" | "/insights" | "/contact";
-  key: "home" | "about" | "services" | "industries" | "team" | "news" | "insights" | "contact";
+  href: "/" | "/about" | "/services" | "/industries" | "/team" | "/news" | "/contact";
+  key: "home" | "about" | "services" | "industries" | "team" | "news" | "contact";
 };
 
 type LabeledNavItem = HeaderNavItem & { label: string };
@@ -30,7 +30,7 @@ export function SiteHeaderBar({
 
   return (
     <header className="sticky top-4 z-50 mt-4 flex justify-center px-4 md:px-8">
-      <div className="flex h-16 w-full max-w-[1372px] items-center justify-between overflow-hidden rounded-full bg-black px-4 sm:h-20 sm:px-6 lg:px-16">
+      <div className="flex h-16 w-full max-w-[1400px] items-center justify-between overflow-hidden rounded-full bg-black px-4 sm:h-20 sm:px-6 lg:px-16">
         <SiteBrand label={brand} className="origin-left scale-90 sm:scale-100" />
         <DesktopNav items={items} pathname={pathname} />
         <div className="flex items-center gap-3 sm:gap-6">
@@ -39,7 +39,7 @@ export function SiteHeaderBar({
           </div>
           <Link
             href="/contact"
-            className="hidden h-12 items-center rounded-full bg-white px-6 text-base font-semibold tracking-[0.3px] text-[var(--brand)] lg:inline-flex"
+            className="hidden h-12 items-center justify-center rounded-full bg-white px-6 text-base font-semibold leading-4 tracking-[0.3px] text-[var(--brand-cta)] lg:inline-flex"
           >
             {contactLabel}
           </Link>
@@ -67,14 +67,20 @@ function DesktopNav({
             href={item.href}
             aria-current={active ? "page" : undefined}
             className={cn(
-              "flex items-center gap-1 text-xs font-medium tracking-[0.3px]",
+              "flex items-center gap-1 font-medium",
               active
-                ? "rounded-full bg-white px-4 py-1.5 text-sm text-[var(--ink)]"
-                : "text-[var(--cream)] hover:text-[var(--cream)]/80",
+                ? "rounded-full bg-white px-4 py-1.5 text-sm leading-5 text-[var(--ink)]"
+                : "text-xs leading-4 tracking-[0.3px] text-[var(--nav)] hover:text-[var(--cream)]",
             )}
           >
             {item.key === "home" && active ? (
-              <img src={HOME_ASSETS.navHome} alt="" className="block" />
+              <img
+                src={HOME_ASSETS.navHome}
+                alt=""
+                width={14}
+                height={14}
+                className="block size-[14px]"
+              />
             ) : null}
             {item.label}
           </Link>
