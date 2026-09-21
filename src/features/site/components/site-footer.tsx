@@ -56,11 +56,19 @@ export async function SiteFooter() {
             }))}
           />
         </div>
-        <p className="mt-16 border-t border-white/5 pt-8 text-xs font-extralight uppercase leading-[17px] text-white">
+        <p className="mt-16 border-t border-white/5 pt-8 text-sm font-extralight uppercase leading-5 text-white">
           {t.rich("footer.copyright", {
             year,
-            company: t("footer.createdBy"),
-            b: (chunks) => <span className="font-normal">{chunks}</span>,
+            a: (chunks) => (
+              <a
+                href="https://neetrino.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold underline-offset-2 hover:underline"
+              >
+                {chunks}
+              </a>
+            ),
           })}
         </p>
       </div>

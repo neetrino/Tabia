@@ -2,7 +2,8 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import type { ServicePreview } from "@/features/services";
 import { Link } from "@/i18n/navigation";
-import { HOME_ASSETS } from "@/shared/config/content";
+import { HOME_ASSETS, SERVICE_ILLUSTRATION_FRAME } from "@/shared/config/content";
+import { cn } from "@/shared/lib/cn";
 import { EmptyState } from "@/shared/ui/empty-state";
 import { SectionLabel } from "@/shared/ui/section-label";
 
@@ -57,19 +58,25 @@ export async function HomeServices({ items }: HomeServicesProps) {
 }
 
 function ServiceCard({ item }: { item: ServicePreview }) {
+  const frameClass =
+    SERVICE_ILLUSTRATION_FRAME[item.slug] ??
+    "left-[153px] top-[42px] size-[302px]";
+
   return (
     <Link
       href={`/services/${item.slug}`}
       className="group relative block h-[295px] overflow-hidden rounded-[10px] bg-[linear-gradient(-57deg,#fff_6%,#d6d6d6_109%)]"
     >
       {item.imageUrl ? (
-        <Image
-          src={item.imageUrl}
-          alt=""
-          fill
-          className="object-contain object-right-bottom p-4 pt-16 transition duration-500 group-hover:scale-[1.03]"
-          sizes="410px"
-        />
+        <div className={cn("absolute overflow-hidden", frameClass)}>
+          <Image
+            src={item.imageUrl}
+            alt=""
+            fill
+            className="object-cover transition duration-500 group-hover:scale-[1.03]"
+            sizes="410px"
+          />
+        </div>
       ) : (
         <div className="pointer-events-none absolute -right-6 top-10 size-[349px]">
           <Image
