@@ -22,7 +22,7 @@
     "quickLinks": "Быстрые ссылки",
     "navigation": "Навигация",
     "office": "Офис",
-    "copyright": "© {year} | Все права защищены | Создано <a>Neetrino</a>",
+    "copyright": "© {year} | Все права защищены |<br></br>Создано <a>Neetrino</a>",
     "contact": "Контакты",
     "social": "Социальные сети",
     "socialEmpty": "Ссылки будут добавлены после подтверждения.",

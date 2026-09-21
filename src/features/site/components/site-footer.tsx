@@ -26,16 +26,16 @@ export async function SiteFooter() {
 
   return (
     <footer className="relative border-t border-white/[0.26] bg-[#090909] text-[var(--nav)]">
-      <div className="pointer-events-none absolute left-[calc(50%-5px)] top-[-79px] size-[572px] -translate-x-1/2">
+      <div className="pointer-events-none absolute bottom-0 left-[calc(50%-5px)] size-[580px] -translate-x-1/2">
         <Image
           src={HOME_ASSETS.footerKnight}
           alt=""
           fill
           className="object-cover"
-          sizes="572px"
+          sizes="580px"
         />
       </div>
-      <div className="relative z-10 mx-auto max-w-[1400px] px-6 pb-10 pt-20 lg:px-16">
+      <div className="relative z-10 mx-auto max-w-[1400px] px-6 pb-10 pt-12 lg:px-16">
         <div className="flex flex-col gap-12 lg:min-h-[243px] lg:flex-row lg:items-start lg:justify-between">
           <FooterIdentity
             brand={t("brand")}
@@ -56,21 +56,24 @@ export async function SiteFooter() {
             }))}
           />
         </div>
-        <p className="mt-16 border-t border-white/5 pt-8 text-sm font-extralight uppercase leading-5 text-white">
-          {t.rich("footer.copyright", {
-            year,
-            a: (chunks) => (
-              <a
-                href="https://neetrino.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-bold underline-offset-2 hover:underline"
-              >
-                {chunks}
-              </a>
-            ),
-          })}
-        </p>
+        <div className="mt-16 border-t border-white/5 pt-8">
+          <p className="w-fit bg-[#090909] text-xs font-extralight uppercase leading-[17px] text-white">
+            {t.rich("footer.copyright", {
+              year,
+              br: () => <br />,
+              a: (chunks) => (
+                <a
+                  href="https://neetrino.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-bold underline-offset-2 hover:underline"
+                >
+                  {chunks}
+                </a>
+              ),
+            })}
+          </p>
+        </div>
       </div>
     </footer>
   );
@@ -138,10 +141,10 @@ function FooterIdentity({
           <li key={item.id}>
             {item.href ? (
               <a href={item.href} target="_blank" rel="noreferrer">
-                <img src={item.icon} alt={socialLabel(item.id)} width={40} height={40} />
+                <SocialMark icon={item.icon} label={socialLabel(item.id)} />
               </a>
             ) : (
-              <img src={item.icon} alt={socialLabel(item.id)} width={40} height={40} />
+              <SocialMark icon={item.icon} label={socialLabel(item.id)} />
             )}
           </li>
         ))}
@@ -152,6 +155,14 @@ function FooterIdentity({
         <FooterFact label={officeLabel} value={officeValue} multiline />
       </address>
     </div>
+  );
+}
+
+function SocialMark({ icon, label }: { icon: string; label: string }) {
+  return (
+    <span className="grid size-10 place-items-center rounded-full bg-white">
+      <img src={icon} alt={label} width={40} height={40} className="block size-10" />
+    </span>
   );
 }
 
