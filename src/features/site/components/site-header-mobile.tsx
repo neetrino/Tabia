@@ -18,7 +18,7 @@ export function SiteHeaderMobile({ brand, menuLabel, items }: SiteHeaderMobilePr
     <div className="flex h-28 items-center justify-between bg-white/[0.09] px-5 backdrop-blur-[8px] lg:hidden">
       <SiteBrand label={brand} mark="ink" />
       <div className="flex items-center gap-3">
-        <LocaleSwitcher variant="pill" />
+        <LocaleSwitcher variant="dropdown" />
         <MobileMenu items={items} menuLabel={menuLabel} />
       </div>
     </div>
@@ -61,5 +61,5 @@ function MobileMenu({
 }
 
 function MenuBar() {
-  return <span aria-hidden className="block h-0.5 w-5 bg-black" />;
+  return <span aria-hidden className="block h-0.5 w-5 bg-white" />;
 }

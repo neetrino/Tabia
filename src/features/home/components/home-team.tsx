@@ -16,7 +16,7 @@ export async function HomeTeam({ items }: HomeTeamProps) {
 
   return (
     <section className="relative bg-white">
-      <div className="absolute left-1/2 top-0 z-10 hidden -translate-x-1/2 -translate-y-1/2 lg:block">
+      <div className="absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2">
         <SectionLabel>{t("team.label")}</SectionLabel>
       </div>
       <div className="mx-auto max-w-[1281px] px-5 pb-[133px] pt-12 lg:px-8 lg:pb-24 lg:pr-16 lg:pt-[60px]">

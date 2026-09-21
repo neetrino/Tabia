@@ -20,15 +20,18 @@ export async function HomeAbout() {
   const quote = t.rich("about.quote", {
     brand: (chunks) => <span className="font-bold">{chunks}</span>,
   });
+  const mobileQuote = t.rich("about.quote", {
+    brand: (chunks) => chunks,
+  });
   const cta = t("about.cta");
 
   return (
     <section className="relative bg-gradient-to-b from-[#151515] to-[#7a3737] lg:bg-[linear-gradient(126.5deg,#151515_15.214%,#7a3737_81.251%)]">
-      <div className="absolute left-1/2 top-0 z-10 hidden -translate-x-1/2 -translate-y-1/2 lg:block">
+      <div className="absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2">
         <SectionLabel>{t("about.label")}</SectionLabel>
       </div>
 
-      <HomeAboutMobile label={t("about.label")} quote={quote} cta={cta} stats={stats} />
+      <HomeAboutMobile label={t("about.label")} quote={mobileQuote} cta={cta} stats={stats} />
 
       <div className="home-about-stage relative mx-auto hidden max-w-[1440px] lg:block">
         <div className="absolute left-[72px] top-[105px] w-[612px]">
@@ -67,7 +70,7 @@ function HomeAboutMobile({
 
   return (
     <div className="relative h-[610px] overflow-x-clip lg:hidden">
-      <div className="pointer-events-none absolute left-[27px] top-[-59px] h-[456px] w-[416px]">
+      <div className="pointer-events-none absolute left-[-185px] top-[-59px] h-[456px] w-[416px]">
         <div className="absolute left-1/2 top-1/2 h-[251px] w-[381px] -translate-x-1/2 -translate-y-1/2 rotate-[57.61deg]">
           <AboutBooksImage />
         </div>
@@ -117,7 +120,7 @@ function AboutStats({
       )}
     >
       {stats.map((stat) => (
-        <div key={stat.label}>
+        <div key={stat.label} className="min-w-0">
           <dt className="sr-only">{stat.label}</dt>
           <dd
             className={cn(
@@ -133,7 +136,7 @@ function AboutStats({
             className={cn(
               "uppercase tracking-[1px]",
               compact
-                ? "whitespace-nowrap text-[9px] font-normal leading-[13.5px] text-[#9a9590]"
+                ? "text-[9px] font-normal leading-[13.5px] text-[#9a9590]"
                 : "pt-1 text-[10px] font-medium text-[var(--muted)]",
             )}
           >
