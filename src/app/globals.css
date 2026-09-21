@@ -63,3 +63,10 @@ body {
     min-height: 921px;
   }
 }
+
+@media (min-width: 1024px) {
+  .home-about-stage {
+    height: 704px;
+    min-height: 704px;
+  }
+}
