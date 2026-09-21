@@ -110,7 +110,7 @@ function PublicationCard({
       <CoverMedia
         src={item.coverUrl}
         alt={item.title}
-        className="h-40 w-full shrink-0 rounded-none bg-[#1a1a1a] lg:size-40 lg:rounded-xl"
+        className="h-40 w-full shrink-0 rounded-b-2xl bg-[#1a1a1a] lg:size-40 lg:rounded-xl"
         imageClassName="object-cover opacity-70"
       />
       <div className="flex min-w-0 flex-1 flex-col p-4 lg:justify-between lg:p-0 lg:py-1">
