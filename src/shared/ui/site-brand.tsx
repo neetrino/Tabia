@@ -1,4 +1,6 @@
-import { Link } from "@/i18n/navigation";
+"use client";
+
+import { Link, usePathname } from "@/i18n/navigation";
 import { HOME_ASSETS } from "@/shared/config/content";
 import { cn } from "@/shared/lib/cn";
 
@@ -9,6 +11,8 @@ type SiteBrandProps = {
 };
 
 export function SiteBrand({ label, href = "/", className }: SiteBrandProps) {
+  const pathname = usePathname();
+
   const mark = (
     <img src={HOME_ASSETS.logo} alt={label} width={131} height={38} className="block" />
   );
@@ -18,7 +22,18 @@ export function SiteBrand({ label, href = "/", className }: SiteBrandProps) {
   }
 
   return (
-    <Link href={href} className={cn("inline-flex items-center", className)}>
+    <Link
+      href={href}
+      className={cn("inline-flex items-center", className)}
+      onClick={(event) => {
+        if (pathname !== "/") {
+          return;
+        }
+
+        event.preventDefault();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }}
+    >
       {mark}
     </Link>
   );

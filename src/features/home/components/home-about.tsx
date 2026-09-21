@@ -58,12 +58,10 @@ export async function HomeAbout() {
             <ButtonLink
               href="/about"
               variant="ghost"
-              className="mt-6 text-sm uppercase tracking-[1px] text-[#232323]"
+              withArrow
+              className="mt-6 text-sm uppercase tracking-[1px] text-[#232323] [&_span]:text-[#444]"
             >
               {t("about.cta")}
-              <span aria-hidden className="text-lg text-[#444]">
-                →
-              </span>
             </ButtonLink>
           </aside>
         </div>
