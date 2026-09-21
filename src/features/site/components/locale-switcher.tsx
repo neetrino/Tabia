@@ -23,13 +23,18 @@ export function LocaleSwitcher() {
           key={item}
           type="button"
           className={cn(
-            "px-2 py-1 text-xs font-semibold leading-4 tracking-[1.2px]",
+            "px-2 py-1 text-xs font-semibold leading-4 tracking-[1.2px] transition-colors duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
             index < locales.length - 1 && "border-r border-white/20",
             item === locale
               ? "text-[var(--cream)]"
               : "text-[var(--muted)] hover:text-[var(--cream)]",
           )}
-          onClick={() => router.replace(pathname, { locale: item })}
+          onClick={() => {
+            if (item === locale) {
+              return;
+            }
+            router.replace(pathname, { locale: item });
+          }}
         >
           {labels[item]}
         </button>
