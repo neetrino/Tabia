@@ -113,7 +113,7 @@ function AboutQuoteCard({
         href="/about"
         variant="ghost"
         withArrow
-        className="mt-auto h-14 w-[252px] justify-end gap-3 self-stretch px-8 py-4 text-sm font-semibold uppercase tracking-[1px] text-[#232323] [&_span]:text-[#444]"
+        className="mt-auto h-14 w-full justify-center gap-3 whitespace-nowrap px-0 py-4 text-sm font-semibold uppercase tracking-[1px] text-[#232323] [&_span]:text-[#444]"
       >
         {cta}
       </ButtonLink>
