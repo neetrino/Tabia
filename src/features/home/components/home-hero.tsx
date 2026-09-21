@@ -28,13 +28,13 @@ export async function HomeHero() {
         <h1 className="sr-only">{t("hero.title")}</h1>
         <p
           aria-hidden
-          className="whitespace-pre-line break-words px-6 text-right text-[clamp(1.75rem,5vw,3.125rem)] font-extrabold uppercase leading-none tracking-[-0.05em] text-black lg:absolute lg:left-[calc(50%-720px)] lg:top-[182px] lg:w-[609px] lg:px-0"
+          className="whitespace-pre-line break-words px-6 text-right font-hero text-[clamp(1.75rem,5vw,3.125rem)] font-normal uppercase leading-none tracking-[-0.05em] text-black lg:absolute lg:left-[calc(50%-720px)] lg:top-[182px] lg:w-[609px] lg:px-0"
         >
           {t("hero.titleLeft")}
         </p>
         <p
           aria-hidden
-          className="whitespace-pre-line break-words px-6 text-[clamp(1.75rem,5vw,3.125rem)] font-extrabold uppercase leading-none tracking-[-0.05em] text-black lg:absolute lg:left-[785px] lg:top-[332px] lg:px-0"
+          className="whitespace-pre-line break-words px-6 font-hero text-[clamp(1.75rem,5vw,3.125rem)] font-normal uppercase leading-none tracking-[-0.05em] text-black lg:absolute lg:left-[785px] lg:top-[332px] lg:px-0"
         >
           {t("hero.titleRight")}
         </p>

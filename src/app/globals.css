@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Big Fat Boii";
+  src: url("/fonts/BigFatBoii.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --background: #fefefe;
   --foreground: #0a0a0a;
@@ -21,6 +29,8 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-montserrat), var(--font-noto-sans-armenian);
+  --font-hero: "Big Fat Boii", var(--font-montserrat),
+    var(--font-noto-sans-armenian), system-ui, sans-serif;
 }
 
 body {
