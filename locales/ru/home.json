@@ -32,11 +32,11 @@
   "industries": { "title": "Отрасли и практики" },
   "team": {
     "label": "Наша команда",
-    "title": "Специалисты, которые говорят на языке ваших интересов",
+    "title": "Специалисты, которые\nговорят на языке ваших интересов",
     "description": "Команда специалистов, объединяющая опыт, знания и ответственность",
-    "highlightQuote": "\"You miss 100% of the shots you don't take\" -Wayne Gretzky - Michael Scott",
+    "highlightQuote": "\"You miss 100% of the shots you\ndon't take\" -Wayne Gretzky -\nMichael Scott",
     "highlightName": "Rambo",
-    "highlightRole": "Культура"
+    "highlightRole": "Должность"
   },
   "publications": {
     "label": "Новости",
@@ -44,6 +44,8 @@
     "titleTail": "в курсе",
     "description": "Изменения в правовой среде, важные события и профессиональная аналитика",
     "viewAll": "Все новости",
-    "empty": "Публикации скоро появятся."
+    "empty": "Публикации скоро появятся.",
+    "categoryNews": "Бизнес-консалтинг",
+    "categoryInsight": "Разрешение споров"
   }
 }

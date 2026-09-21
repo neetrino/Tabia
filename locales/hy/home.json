@@ -34,11 +34,11 @@
   },
   "team": {
     "label": "Մեր թիմը",
-    "title": "Մասնագետներ, ովքեր խոսում են Ձեր շահերի լեզվով",
+    "title": "Մասնագետներ, ովքեր\nխոսում են Ձեր շահերի լեզվով",
     "description": "Մասնագետների թիմ, որը միավորում է փորձը, գիտելիքն ու պատասխանատվությունը",
-    "highlightQuote": "\"You miss 100% of the shots you don't take\" -Wayne Gretzky - Michael Scott",
+    "highlightQuote": "\"You miss 100% of the shots you\ndon't take\" -Wayne Gretzky -\nMichael Scott",
     "highlightName": "Rambo",
-    "highlightRole": "Մշակույթ"
+    "highlightRole": "Հաստիք"
   },
   "publications": {
     "label": "Նորություններ",
@@ -46,6 +46,8 @@
     "titleTail": "տեղեկացված",
     "description": "Իրավական դաշտի փոփոխություններ, կարևոր զարգացումներ և մասնագիտական վերլուծություններ",
     "viewAll": "Բոլոր նորությունները",
-    "empty": "Հրապարակումները շուտով կհայտնվեն։"
+    "empty": "Հրապարակումները շուտով կհայտնվեն։",
+    "categoryNews": "Բիզնես խորհրդատվություն",
+    "categoryInsight": "Վեճերի լուծում"
   }
 }

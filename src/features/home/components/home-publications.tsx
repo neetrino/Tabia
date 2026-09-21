@@ -23,44 +23,48 @@ export async function HomePublications({
   const readMore = common("actions.readMore");
 
   return (
-    <section className="relative bg-[var(--ink)]">
+    <section className="relative bg-black">
       <div className="absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2">
         <SectionLabel>{t("publications.label")}</SectionLabel>
       </div>
-      <div className="mx-auto max-w-[1400px] px-6 pb-28 pt-28 lg:px-16">
-        <div className="mb-6 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <h2 className="max-w-4xl text-[clamp(2rem,5vw,3.5rem)] uppercase leading-[1] text-[var(--cream)]">
+      <div className="mx-auto max-w-[1440px] px-6 pb-28 pt-28 lg:px-[85px] lg:pb-32 lg:pt-[123px]">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between lg:gap-8">
+          <h2 className="max-w-[914px] text-[clamp(2rem,5vw,3.5rem)] uppercase leading-none text-[var(--cream)] lg:text-[56px] lg:leading-[56px]">
             <span className="block font-extrabold">
               {t("publications.titleLead")}
             </span>
-            <span className="block font-extralight text-white">
+            <span className="mt-[7px] block font-extralight text-white">
               {t("publications.titleTail")}
             </span>
           </h2>
           <Link
             href="/news"
-            className="shrink-0 border-b border-white/30 pb-1 text-[10px] font-semibold uppercase tracking-[1px] text-white"
+            className="shrink-0 self-start border-b border-white/30 pb-1 text-[10px] font-semibold uppercase tracking-[1px] text-white lg:mt-[94px]"
           >
             {t("publications.viewAll")} →
           </Link>
         </div>
-        <p className="mb-12 max-w-2xl text-sm uppercase tracking-[0.35px] text-white">
+
+        <p className="mt-8 max-w-[493px] text-sm uppercase leading-[21px] tracking-[0.35px] text-white lg:mt-[38px]">
           {t("publications.description")}
         </p>
+
         {items.length === 0 ? (
           <EmptyState
             message={t("publications.empty")}
-            className="border-white/20 bg-white/5 text-white/70"
+            className="mt-16 border-white/20 bg-white/5 text-white/70 lg:mt-[65px]"
           />
         ) : (
-          <div className="grid gap-6 lg:grid-cols-2">
+          <div className="mt-16 grid gap-6 lg:mt-[65px] lg:grid-cols-2">
             {items.map((item) => (
               <PublicationCard
                 key={`${item.type}-${item.slug}`}
                 item={item}
                 locale={locale}
                 typeLabel={
-                  item.type === "NEWS" ? common("nav.news") : common("nav.insights")
+                  item.type === "NEWS"
+                    ? t("publications.categoryNews")
+                    : t("publications.categoryInsight")
                 }
                 readMore={readMore}
               />
@@ -89,7 +93,7 @@ function PublicationCard({
   const href = getPublicationHref(item);
 
   return (
-    <article className="flex gap-5 rounded-2xl bg-white p-5">
+    <article className="flex gap-5 rounded-2xl border border-white/5 bg-white p-5">
       <CoverMedia
         src={item.coverUrl}
         alt={item.title}
@@ -99,19 +103,19 @@ function PublicationCard({
       <div className="flex min-w-0 flex-1 flex-col justify-between py-1">
         <div>
           <div className="flex flex-wrap items-center gap-3">
-            <p className="text-[10px] font-semibold uppercase tracking-[1px] text-[var(--brand)]">
+            <p className="text-[10px] font-semibold uppercase leading-[15px] tracking-[1px] text-[var(--brand)]">
               {typeLabel}
             </p>
             {date ? (
               <time
                 dateTime={item.publishedAt?.toISOString()}
-                className="text-[10px] text-[var(--muted)]"
+                className="text-[10px] leading-[15px] text-[var(--muted)]"
               >
                 {date}
               </time>
             ) : null}
           </div>
-          <h3 className="mt-2 text-sm font-bold leading-5 text-[#212121]">
+          <h3 className="mt-2 text-sm font-bold leading-[19.25px] text-[#212121]">
             {item.title}
           </h3>
           <p className="mt-2 line-clamp-2 text-xs font-light leading-[19.5px] text-[var(--muted)]">
@@ -120,7 +124,7 @@ function PublicationCard({
         </div>
         <Link
           href={href}
-          className="mt-3 text-[10px] font-semibold uppercase tracking-[1px] text-[var(--brand)]"
+          className="mt-3 text-[10px] font-semibold uppercase leading-[15px] tracking-[1px] text-[var(--brand)]"
         >
           {readMore} →
         </Link>
