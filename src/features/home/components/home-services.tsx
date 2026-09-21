@@ -23,8 +23,8 @@ export async function HomeServices({ items }: HomeServicesProps) {
       <div className="absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2">
         <SectionLabel>{t("services.label")}</SectionLabel>
       </div>
-      <div className="home-services-stage relative mx-auto max-w-[1440px] px-6 pb-20 pt-24 lg:px-0 lg:pb-0 lg:pt-0">
-        <div className="flex flex-col gap-6 lg:absolute lg:left-[84px] lg:top-[105px] lg:w-[1272px] lg:flex-row lg:items-start lg:justify-between lg:gap-0">
+      <div className="mx-auto max-w-[1400px] px-6 pb-28 pt-28 lg:px-16 lg:pb-32 lg:pt-[105px]">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-8">
           <h2 className="max-w-[979px] text-[clamp(2rem,5vw,3.5rem)] uppercase leading-none text-[var(--cream)] lg:text-[56px] lg:leading-[56px]">
             <span className="block font-extrabold">{t("services.titleLead")}</span>
             <span className="mt-1 block font-extralight text-white lg:mt-[9px]">
@@ -33,23 +33,23 @@ export async function HomeServices({ items }: HomeServicesProps) {
           </h2>
           <Link
             href="/services"
-            className="shrink-0 self-start border-b border-white/30 pb-1 text-[10px] font-semibold uppercase tracking-[1px] text-white lg:mt-[137px]"
+            className="shrink-0 self-start border-b border-white/30 pb-1 text-[10px] font-semibold uppercase tracking-[1px] text-white lg:mb-1 lg:self-auto"
           >
             {t("services.viewAll")} →
           </Link>
         </div>
 
-        <p className="mt-8 max-w-[805px] whitespace-pre-line text-sm uppercase leading-[21px] tracking-[0.35px] text-white lg:absolute lg:left-[84px] lg:top-[303px] lg:mt-0">
+        <p className="mt-10 max-w-[805px] whitespace-pre-line text-sm uppercase leading-[21px] tracking-[0.35px] text-white lg:mt-14">
           {t("services.description")}
         </p>
 
         {items.length === 0 ? (
           <EmptyState
             message={services("empty")}
-            className="mt-12 border-white/20 bg-white/5 text-white/70 lg:absolute lg:left-16 lg:top-[391px] lg:mt-0 lg:w-[1272px]"
+            className="mt-16 border-white/20 bg-white/5 text-white/70 lg:mt-20"
           />
         ) : (
-          <div className="mt-12 grid gap-[23px] sm:grid-cols-2 xl:grid-cols-3 lg:absolute lg:left-16 lg:top-[391px] lg:mt-0 lg:w-[1272px]">
+          <div className="mt-16 grid gap-[23px] sm:grid-cols-2 xl:grid-cols-3 lg:mt-20">
             {items.map((item) => (
               <ServiceCard key={item.slug} item={item} />
             ))}
