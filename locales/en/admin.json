@@ -1,0 +1,209 @@
+{
+  "title": "Admin",
+  "brand": "TABIA ADMIN",
+  "locale": {
+    "label": "Language"
+  },
+  "login": {
+    "title": "TABIA Admin",
+    "subtitle": "Sign in with your admin credentials.",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Sign in",
+    "pending": "Signing in…",
+    "errors": {
+      "invalidCredentials": "Invalid email or password.",
+      "rateLimited": "Too many attempts. Try again later."
+    }
+  },
+  "logout": "Sign out",
+  "close": "Close",
+  "closeOverlay": "Close drawer overlay",
+  "empty": "No items yet. Use “{addLabel}” to create the first record.",
+  "nav": {
+    "dashboard": "Dashboard",
+    "news": "News",
+    "insights": "Insights",
+    "services": "Services",
+    "team": "Our Team"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Manage the dynamic sections of the TABIA website.",
+    "cards": {
+      "news": {
+        "title": "News",
+        "body": "Announcements and organization updates."
+      },
+      "insights": {
+        "title": "Insights",
+        "body": "Professional articles and analysis."
+      },
+      "services": {
+        "title": "Services",
+        "body": "Manage service cards and visibility."
+      },
+      "team": {
+        "title": "Our Team",
+        "body": "Team members, order, and profiles."
+      }
+    }
+  },
+  "resources": {
+    "placeholder": "The full create/edit form will be connected in the next phase.",
+    "news": {
+      "title": "News",
+      "description": "Create and publish organization news.",
+      "add": "Add news",
+      "drawerTitle": "New news item",
+      "editTitle": "Edit news item"
+    },
+    "insights": {
+      "title": "Insights",
+      "description": "Manage professional articles and analysis.",
+      "add": "Add insight",
+      "drawerTitle": "New insight",
+      "editTitle": "Edit insight"
+    },
+    "services": {
+      "title": "Services",
+      "description": "Manage services, visibility, and sort order.",
+      "add": "Add service",
+      "drawerTitle": "New service",
+      "editTitle": "Edit service"
+    },
+    "team": {
+      "title": "Our Team",
+      "description": "Manage team members and display order.",
+      "add": "Add member",
+      "drawerTitle": "New team member",
+      "editTitle": "Edit team member"
+    }
+  },
+  "actions": {
+    "addNew": "Add new",
+    "edit": "Edit",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete"
+  },
+  "teamForm": {
+    "contentLocale": "Content language",
+    "contentLocaleHint": "The slug is shared and Latin-only. Fill name, role, and descriptions in the HY / EN / RU tabs.",
+    "slug": "Slug",
+    "slugHint": "Latin letters, numbers, and hyphens only. The same URL is used for every language.",
+    "photo": "Photo",
+    "removePhoto": "Remove photo",
+    "name": "First and last name",
+    "position": "Position",
+    "bio": "Short description",
+    "bioHint": "Shown on the team card.",
+    "details": "Detailed biography",
+    "detailsHint": "If filled for the current language, the card will link to a profile page.",
+    "email": "Email",
+    "phone": "Phone",
+    "linkedIn": "LinkedIn URL",
+    "sortOrder": "Order",
+    "sortOrderHint": "Lower numbers appear first. You can also drag rows in the list.",
+    "visibility": "Visibility",
+    "published": "Published",
+    "hidden": "Hidden",
+    "featured": "Show on the home page",
+    "orderValue": "#{value}",
+    "dragHint": "Drag rows to change display order.",
+    "confirmDelete": "Delete team member “{name}”?",
+    "saving": "Saving…",
+    "errors": {
+      "unauthorized": "You need to sign in.",
+      "invalid": "Check the required fields in all three languages.",
+      "slugInvalid": "The slug must use lowercase Latin letters, numbers, and hyphens.",
+      "slugTaken": "This slug is already in use.",
+      "notFound": "Team member not found.",
+      "uploadMissing": "Choose a photo.",
+      "uploadTooLarge": "The photo must be 5 MB or smaller.",
+      "uploadType": "Only JPEG, PNG, and WebP files are allowed.",
+      "storageUnavailable": "Image storage is not configured."
+    }
+  },
+  "serviceForm": {
+    "contentLocale": "Content language",
+    "contentLocaleHint": "The slug is shared and Latin-only. Fill the name and descriptions in the HY / EN / RU tabs.",
+    "slug": "Slug",
+    "slugHint": "Latin letters, numbers, and hyphens only. The same URL is used for every language.",
+    "image": "Image",
+    "removeImage": "Remove image",
+    "title": "Name",
+    "summary": "Short description",
+    "summaryHint": "Shown on the service card.",
+    "body": "Full description",
+    "bodyHint": "The detailed text is stored with the service record.",
+    "sortOrder": "Order",
+    "sortOrderHint": "Lower numbers appear first. You can also drag rows in the list.",
+    "visibility": "Visibility",
+    "published": "Published",
+    "hidden": "Hidden",
+    "featured": "Show on the home page",
+    "orderValue": "#{value}",
+    "dragHint": "Drag rows to change display order.",
+    "confirmDelete": "Delete service “{name}”?",
+    "saving": "Saving…",
+    "errors": {
+      "unauthorized": "You need to sign in.",
+      "invalid": "Check the required fields in all three languages.",
+      "slugInvalid": "The slug must use lowercase Latin letters, numbers, and hyphens.",
+      "slugTaken": "This slug is already in use.",
+      "notFound": "Service not found.",
+      "uploadMissing": "Choose an image.",
+      "uploadTooLarge": "The image must be 5 MB or smaller.",
+      "uploadType": "Only JPEG, PNG, and WebP files are allowed.",
+      "storageUnavailable": "Image storage is not configured."
+    }
+  },
+  "publicationForm": {
+    "contentLocale": "Content language",
+    "contentLocaleHint": "The slug is shared and Latin-only. Fill the title, summary, and full text in the HY / EN / RU tabs.",
+    "slug": "Slug",
+    "slugHint": "Latin letters, numbers, and hyphens only. The same URL is used for every language.",
+    "cover": "Cover image",
+    "removeCover": "Remove cover image",
+    "title": "Title",
+    "summary": "Short description",
+    "summaryHint": "Shown on the card and listing pages.",
+    "body": "Full text",
+    "bodyHint": "Use headings, links, images, and text formatting in the editor.",
+    "publishedAt": "Publication date",
+    "publishedAtHint": "If you publish without a date, the current time is used.",
+    "saveDraft": "Save as draft",
+    "publish": "Publish",
+    "deactivate": "Deactivate",
+    "saving": "Saving…",
+    "confirmDelete": "Delete “{name}”?",
+    "status": {
+      "DRAFT": "Draft",
+      "PUBLISHED": "Published",
+      "ARCHIVED": "Deactivated"
+    },
+    "editor": {
+      "heading2": "Heading",
+      "heading3": "Subheading",
+      "bold": "Bold",
+      "italic": "Italic",
+      "link": "Link",
+      "image": "Insert image",
+      "bulletList": "Bullet list",
+      "orderedList": "Numbered list",
+      "linkPrompt": "Enter the link URL"
+    },
+    "errors": {
+      "unauthorized": "You need to sign in.",
+      "invalid": "Check the required fields in all three languages.",
+      "slugInvalid": "The slug must use lowercase Latin letters, numbers, and hyphens.",
+      "slugTaken": "This slug is already in use.",
+      "notFound": "Publication not found.",
+      "uploadMissing": "Choose an image.",
+      "uploadTooLarge": "The image must be 5 MB or smaller.",
+      "uploadType": "Only JPEG, PNG, and WebP files are allowed.",
+      "storageUnavailable": "Image storage is not configured."
+    }
+  }
+}

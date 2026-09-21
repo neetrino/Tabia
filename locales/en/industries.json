@@ -1,0 +1,26 @@
+{
+  "title": "Industries & Practices",
+  "subtitle": "Key areas of practice.",
+  "items": [
+    {
+      "id": "corporate",
+      "name": "Corporate law",
+      "description": "Company structure, governance, and transactions."
+    },
+    {
+      "id": "employment",
+      "name": "Employment law",
+      "description": "Employment relations and internal policies."
+    },
+    {
+      "id": "tax",
+      "name": "Tax advisory",
+      "description": "Tax planning and compliance."
+    },
+    {
+      "id": "disputes",
+      "name": "Dispute resolution",
+      "description": "Representation and negotiated outcomes."
+    }
+  ]
+}

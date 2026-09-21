@@ -1,0 +1,26 @@
+{
+  "title": "Contact",
+  "subtitle": "Reach out for collaboration or advice.",
+  "phone": "Phone",
+  "email": "Email",
+  "address": "Address",
+  "hours": "Working hours",
+  "phoneValue": "+374 10 123 456",
+  "emailValue": "info@tabia.am",
+  "addressValue": "15 Baghramyan Avenue, Yerevan, Armenia",
+  "hoursValue": "Mon–Fri 10:00–18:00",
+  "form": {
+    "fullName": "Full name",
+    "email": "Email",
+    "phone": "Phone number",
+    "company": "Company",
+    "service": "Interested service",
+    "message": "Message",
+    "pending": "Sending…",
+    "success": "Your request has been sent.",
+    "error": "Failed to send. Please try again.",
+    "invalid": "Please check the form fields and try again.",
+    "rateLimited": "Too many requests. Try again later.",
+    "unavailable": "Email sending is unavailable. Call or write to us directly."
+  }
+}

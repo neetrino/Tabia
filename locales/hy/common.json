@@ -1,0 +1,38 @@
+{
+  "brand": "TABIA",
+  "nav": {
+    "home": "Գլխավոր",
+    "about": "Մեր մասին",
+    "team": "Մեր թիմը",
+    "services": "Ծառայություններ",
+    "industries": "Ոլորտներ",
+    "news": "Նորություններ",
+    "insights": "Վերլուծություններ",
+    "contact": "Կապ"
+  },
+  "actions": {
+    "readMore": "Կարդալ ավելին",
+    "viewAll": "Տեսնել բոլորը",
+    "submit": "Ուղարկել",
+    "contactUs": "Կապ հաստատել",
+    "menu": "Մենյու"
+  },
+  "footer": {
+    "description": "TABIA — մասնագիտական իրավաբանական և խորհրդատվական ծառայություններ։",
+    "quickLinks": "Արագ հղումներ",
+    "navigation": "Նավիգացիա",
+    "office": "Գրասենյակ",
+    "createdBy": "Neetrino IT Company",
+    "copyright": "Copyright © {year} | Բոլոր իրավունքները պաշտպանված են | Ստեղծվել է {company} կողմից",
+    "contact": "Կապ",
+    "social": "Սոցիալական ցանցեր",
+    "socialEmpty": "Հղումները կավելացվեն հաստատումից հետո։",
+    "socialLabels": {
+      "linkedin": "LinkedIn",
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "telegram": "Telegram"
+    },
+    "rights": "Բոլոր իրավունքները պաշտպանված են։"
+  }
+}

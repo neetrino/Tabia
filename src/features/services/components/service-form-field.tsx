@@ -1,0 +1,34 @@
+import { cn } from "@/shared/lib/cn";
+
+type ServiceFormFieldProps = {
+  id: string;
+  label: string;
+  hint?: string;
+  children: React.ReactNode;
+};
+
+export const serviceInputClassName =
+  "w-full rounded-md border border-[var(--border)] px-3 py-2 text-sm";
+
+export function ServiceFormField({
+  id,
+  label,
+  hint,
+  children,
+}: ServiceFormFieldProps) {
+  return (
+    <div className="space-y-1">
+      <label htmlFor={id} className="text-sm font-medium">
+        {label}
+      </label>
+      {children}
+      {hint ? (
+        <p className="text-xs text-[var(--muted)]">{hint}</p>
+      ) : null}
+    </div>
+  );
+}
+
+export function serviceTextAreaClassName(extra?: string): string {
+  return cn(serviceInputClassName, "min-h-24 resize-y", extra);
+}

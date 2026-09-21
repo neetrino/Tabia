@@ -1,0 +1,38 @@
+{
+  "brand": "TABIA",
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "team": "Our Team",
+    "services": "Services",
+    "industries": "Industries",
+    "news": "News",
+    "insights": "Insights",
+    "contact": "Contact"
+  },
+  "actions": {
+    "readMore": "Read more",
+    "viewAll": "View all",
+    "submit": "Submit",
+    "contactUs": "Get in touch",
+    "menu": "Menu"
+  },
+  "footer": {
+    "description": "TABIA — professional legal and advisory services.",
+    "quickLinks": "Quick links",
+    "navigation": "Navigation",
+    "office": "Office",
+    "createdBy": "Neetrino IT Company",
+    "copyright": "Copyright © {year} | All rights reserved | Created by {company}",
+    "contact": "Contact",
+    "social": "Social",
+    "socialEmpty": "Links will be added after confirmation.",
+    "socialLabels": {
+      "linkedin": "LinkedIn",
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "telegram": "Telegram"
+    },
+    "rights": "All rights reserved."
+  }
+}
