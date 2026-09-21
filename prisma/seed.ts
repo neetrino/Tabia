@@ -15,63 +15,117 @@ const prisma = new PrismaClient({ adapter: new PrismaPg(pool) });
 const services = [
   {
     slug: "corporate-advisory",
-    imageUrl: "/images/industries/corporate.svg",
+    imageUrl: "/images/services/corporate.png",
     sortOrder: 1,
     featured: true,
-    titleHy: "Կորպորատիվ խորհրդատվություն",
-    titleEn: "Corporate advisory",
-    titleRu: "Корпоративное консультирование",
-    summaryHy: "Ընկերության կառուցվածք, կառավարում և գործարքների իրավական աջակցություն։",
-    summaryEn: "Company structure, governance, and legal support for transactions.",
+    titleHy:
+      "Կորպորատիվ, առևտրային և մասնավոր հաճախորդների խորհրդատվություն",
+    titleEn: "Corporate, commercial and private client advisory",
+    titleRu: "Корпоративное, коммерческое и частное консультирование",
+    summaryHy:
+      "Ընկերության կառուցվածք, կառավարում և գործարքների իրավական աջակցություն։",
+    summaryEn:
+      "Company structure, governance, and legal support for transactions.",
     summaryRu: "Структура компании, управление и правовая поддержка сделок.",
-    bodyHy: "Աջակցում ենք կորպորատիվ որոշումներին՝ սկսած հիմնադրումից մինչև վերակազմակերպում։",
+    bodyHy:
+      "Աջակցում ենք կորպորատիվ որոշումներին՝ սկսած հիմնադրումից մինչև վերակազմակերպում։",
     bodyEn: "We support corporate decisions from formation through reorganization.",
     bodyRu: "Поддерживаем корпоративные решения от создания до реорганизации.",
   },
   {
-    slug: "employment-advisory",
-    imageUrl: "/images/industries/employment.svg",
+    slug: "natural-resources",
+    imageUrl: "/images/services/resources.png",
     sortOrder: 2,
     featured: true,
-    titleHy: "Աշխատանքային իրավունք",
-    titleEn: "Employment law",
-    titleRu: "Трудовое право",
-    summaryHy: "Աշխատանքային հարաբերություններ, ներքին կանոնակարգեր և ռիսկերի կառավարում։",
-    summaryEn: "Employment relations, internal policies, and risk management.",
-    summaryRu: "Трудовые отношения, внутренние политики и управление рисками.",
-    bodyHy: "Օգնում ենք կառուցել համապատասխան և թափանցիկ աշխատանքային գործընթացներ։",
-    bodyEn: "We help build compliant and transparent employment processes.",
-    bodyRu: "Помогаем выстроить прозрачные и соответствующие трудовые процессы.",
+    titleHy:
+      "Բնական ռեսուրսներ, ենթակառուցվածքներ և ՊՊԳ (Պետություն-մասնավոր գործընկերություն)",
+    titleEn: "Natural resources, infrastructure and PPP",
+    titleRu: "Природные ресурсы, инфраструктура и ГЧП",
+    summaryHy:
+      "Բնական ռեսուրսների, ենթակառուցվածքների և պետություն-մասնավոր գործընկերության նախագծերի իրավական աջակցություն։",
+    summaryEn:
+      "Legal support for natural resources, infrastructure, and PPP projects.",
+    summaryRu:
+      "Правовая поддержка проектов в сфере природных ресурсов, инфраструктуры и ГЧП.",
+    bodyHy:
+      "Ուղեկցում ենք խոշոր ենթակառուցվածքային և ռեսուրսային գործարքները՝ ռիսկերի կառավարմամբ։",
+    bodyEn:
+      "We guide major infrastructure and resource transactions with risk control.",
+    bodyRu:
+      "Сопровождаем крупные инфраструктурные и ресурсные сделки с управлением рисками.",
   },
   {
-    slug: "tax-advisory",
-    imageUrl: "/images/industries/tax.svg",
+    slug: "tax-digital-strategy",
+    imageUrl: "/images/services/tax-digital.png",
     sortOrder: 3,
     featured: true,
-    titleHy: "Հարկային խորհրդատվություն",
-    titleEn: "Tax advisory",
-    titleRu: "Налоговое консультирование",
-    summaryHy: "Հարկային պլանավորում և համապատասխանություն գործարար որոշումներում։",
-    summaryEn: "Tax planning and compliance in business decisions.",
-    summaryRu: "Налоговое планирование и соответствие в бизнес-решениях.",
-    bodyHy: "Վերլուծում ենք հարկային հետևանքները և առաջարկում գործնական լուծումներ։",
-    bodyEn: "We analyze tax implications and propose practical solutions.",
-    bodyRu: "Анализируем налоговые последствия и предлагаем практические решения.",
+    titleHy: "Հարկային և թվային ռազմավարության խորհրդատվություն",
+    titleEn: "Tax and digital strategy advisory",
+    titleRu: "Налоговое и цифровое стратегическое консультирование",
+    summaryHy:
+      "Հարկային պլանավորում և թվային ռազմավարության իրավական համապատասխանություն։",
+    summaryEn: "Tax planning and legal alignment for digital strategy.",
+    summaryRu:
+      "Налоговое планирование и правовое сопровождение цифровой стратегии.",
+    bodyHy:
+      "Վերլուծում ենք հարկային և թվային հետևանքները և առաջարկում գործնական լուծումներ։",
+    bodyEn:
+      "We analyze tax and digital implications and propose practical solutions.",
+    bodyRu:
+      "Анализируем налоговые и цифровые последствия и предлагаем практические решения.",
   },
   {
-    slug: "dispute-resolution",
-    imageUrl: "/images/industries/disputes.svg",
+    slug: "banking-finance",
+    imageUrl: "/images/services/banking.png",
     sortOrder: 4,
     featured: true,
-    titleHy: "Վեճերի լուծում",
-    titleEn: "Dispute resolution",
-    titleRu: "Разрешение споров",
-    summaryHy: "Ներկայացուցչություն և բանակցային լուծումներ բիզնես վեճերում։",
-    summaryEn: "Representation and negotiated outcomes in business disputes.",
-    summaryRu: "Представительство и переговорные решения в бизнес-спорах.",
-    bodyHy: "Աշխատում ենք նախ բանակցային լուծման, ապա՝ պաշտպանության ուղղությամբ։",
-    bodyEn: "We start with negotiated resolution, then representation if needed.",
-    bodyRu: "Сначала ищем переговорное решение, затем — представительство.",
+    titleHy: "Բանկային գործ, ֆինանսներ և կապիտալի շուկաներ",
+    titleEn: "Banking, finance and capital markets",
+    titleRu: "Банковское дело, финансы и рынки капитала",
+    summaryHy:
+      "Բանկային, ֆինանսական և կապիտալի շուկաների գործարքների իրավական աջակցություն։",
+    summaryEn: "Legal support for banking, finance, and capital markets deals.",
+    summaryRu:
+      "Правовая поддержка банковских, финансовых сделок и рынков капитала.",
+    bodyHy:
+      "Աջակցում ենք ֆինանսավորման կառուցվածքներին և կապիտալի շուկայի գործարքներին։",
+    bodyEn: "We support financing structures and capital markets transactions.",
+    bodyRu: "Поддерживаем структуры финансирования и сделки на рынках капитала.",
+  },
+  {
+    slug: "aml-compliance",
+    imageUrl: "/images/services/compliance.png",
+    sortOrder: 5,
+    featured: true,
+    titleHy:
+      "ՓԼ/ԱՖ դեմ պայքար և կարգավորող համապատասխանության (քոմփլայենս) խորհրդատվություն",
+    titleEn: "AML/CFT and regulatory compliance advisory",
+    titleRu: "ПОД/ФТ и регуляторный комплаенс",
+    summaryHy:
+      "ՓԼ/ԱՖ դեմ պայքարի և կարգավորող համապատասխանության խորհրդատվություն։",
+    summaryEn: "Advisory on AML/CFT and regulatory compliance programs.",
+    summaryRu: "Консультирование по ПОД/ФТ и регуляторному комплаенсу.",
+    bodyHy:
+      "Կառուցում ենք համապատասխանության քաղաքականություններ և գործընթացներ։",
+    bodyEn: "We build compliance policies and operational processes.",
+    bodyRu: "Выстраиваем политики и процессы комплаенса.",
+  },
+  {
+    slug: "criminal-advisory",
+    imageUrl: "/images/services/criminal.png",
+    sortOrder: 6,
+    featured: true,
+    titleHy: "Ռազմավարական քրեաիրավական խորհրդատվություն",
+    titleEn: "Strategic criminal law advisory",
+    titleRu: "Стратегическое уголовно-правовое консультирование",
+    summaryHy: "Ռազմավարական քրեաիրավական խորհրդատվություն և պաշտպանություն։",
+    summaryEn: "Strategic criminal law advisory and defense.",
+    summaryRu: "Стратегическое уголовно-правовое консультирование и защита.",
+    bodyHy:
+      "Ապահովում ենք ռազմավարական աջակցություն քրեաիրավական ռիսկերի կառավարման համար։",
+    bodyEn: "We provide strategic support for managing criminal law risks.",
+    bodyRu:
+      "Обеспечиваем стратегическую поддержку в управлении уголовно-правовыми рисками.",
   },
 ];
 
@@ -223,6 +277,8 @@ async function seedAdmin(): Promise<void> {
 }
 
 async function seedContent(): Promise<void> {
+  const serviceSlugs = services.map((service) => service.slug);
+
   for (const service of services) {
     await prisma.service.upsert({
       where: { slug: service.slug },
@@ -230,6 +286,11 @@ async function seedContent(): Promise<void> {
       create: service,
     });
   }
+
+  await prisma.service.updateMany({
+    where: { slug: { notIn: serviceSlugs } },
+    data: { featured: false, visibility: "HIDDEN" },
+  });
 
   for (const member of team) {
     await prisma.teamMember.upsert({

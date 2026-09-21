@@ -2,9 +2,11 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import type { ServicePreview } from "@/features/services";
 import { Link } from "@/i18n/navigation";
+import {
+  HOME_ASSETS,
+  SERVICE_ILLUSTRATION_FRAME,
+} from "@/shared/config/content";
 import { cn } from "@/shared/lib/cn";
-import { HOME_ASSETS } from "@/shared/config/content";
-import { CoverMedia } from "@/shared/ui/cover-media";
 import { EmptyState } from "@/shared/ui/empty-state";
 import { SectionLabel } from "@/shared/ui/section-label";
 
@@ -17,35 +19,37 @@ export async function HomeServices({ items }: HomeServicesProps) {
   const services = await getTranslations("services");
 
   return (
-    <section className="relative bg-[var(--ink)]">
+    <section className="relative bg-gradient-to-b from-[#090909] to-[#2a2a2a]">
       <div className="absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2">
         <SectionLabel>{t("services.label")}</SectionLabel>
       </div>
-      <div className="mx-auto max-w-[1400px] px-6 pb-24 pt-28 lg:px-16">
-        <div className="mb-6 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <h2 className="max-w-4xl text-[clamp(2rem,5vw,3.5rem)] uppercase leading-[1] text-[var(--cream)]">
+      <div className="home-services-stage relative mx-auto max-w-[1440px] px-6 pb-20 pt-24 lg:px-0 lg:pb-0 lg:pt-0">
+        <div className="flex flex-col gap-6 lg:absolute lg:left-[84px] lg:top-[105px] lg:w-[1272px] lg:flex-row lg:items-start lg:justify-between lg:gap-0">
+          <h2 className="max-w-[979px] text-[clamp(2rem,5vw,3.5rem)] uppercase leading-none text-[var(--cream)] lg:text-[56px] lg:leading-[56px]">
             <span className="block font-extrabold">{t("services.titleLead")}</span>
-            <span className="block font-extralight text-white">
+            <span className="mt-1 block font-extralight text-white lg:mt-[9px]">
               {t("services.titleTail")}
             </span>
           </h2>
           <Link
             href="/services"
-            className="shrink-0 border-b border-white/30 pb-1 text-[10px] font-semibold uppercase tracking-[1px] text-white"
+            className="shrink-0 self-start border-b border-white/30 pb-1 text-[10px] font-semibold uppercase tracking-[1px] text-white lg:mt-[137px]"
           >
             {t("services.viewAll")} →
           </Link>
         </div>
-        <p className="mb-12 max-w-2xl whitespace-pre-line text-sm uppercase tracking-[0.35px] text-white">
+
+        <p className="mt-8 max-w-[805px] whitespace-pre-line text-sm uppercase leading-[21px] tracking-[0.35px] text-white lg:absolute lg:left-[84px] lg:top-[303px] lg:mt-0">
           {t("services.description")}
         </p>
+
         {items.length === 0 ? (
           <EmptyState
             message={services("empty")}
-            className="border-white/20 bg-white/5 text-white/70"
+            className="mt-12 border-white/20 bg-white/5 text-white/70 lg:absolute lg:left-16 lg:top-[391px] lg:mt-0 lg:w-[1272px]"
           />
         ) : (
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-12 grid gap-[23px] sm:grid-cols-2 xl:grid-cols-3 lg:absolute lg:left-16 lg:top-[391px] lg:mt-0 lg:w-[1272px]">
             {items.map((item) => (
               <ServiceCard key={item.slug} item={item} />
             ))}
@@ -57,90 +61,49 @@ export async function HomeServices({ items }: HomeServicesProps) {
 }
 
 function ServiceCard({ item }: { item: ServicePreview }) {
-  const hasPhoto = Boolean(item.imageUrl) && !item.imageUrl?.endsWith(".svg");
+  const frameClass =
+    SERVICE_ILLUSTRATION_FRAME[item.slug] ??
+    "bottom-0 right-0 h-[70%] w-[70%]";
 
   return (
     <Link
       href={`/services/${item.slug}`}
-      className={cn(
-        "group relative block h-[295px] overflow-hidden rounded-[10px]",
-        hasPhoto
-          ? "bg-[var(--brand-soft)]"
-          : "bg-[linear-gradient(123deg,#fff_6%,#999_109%)]",
-      )}
+      className="group relative block h-[295px] overflow-hidden rounded-[10px] bg-[linear-gradient(-57deg,#fff_6%,#d6d6d6_109%)]"
     >
-      <ServiceCardMedia imageUrl={item.imageUrl} title={item.title} />
-      <div
-        className={cn(
-          "relative z-10 flex h-full flex-col p-6",
-          hasPhoto && "justify-end",
-        )}
-      >
-        <div className="flex items-start justify-between gap-4">
-          <h3
-            className={cn(
-              "max-w-[16rem] text-lg font-semibold",
-              hasPhoto ? "text-white" : "text-black",
-            )}
-          >
-            {item.title}
-          </h3>
-          <img
-            src={HOME_ASSETS.serviceArrow}
+      {item.imageUrl ? (
+        <div className={cn("absolute overflow-hidden", frameClass)}>
+          <Image
+            src={item.imageUrl}
             alt=""
-            className={cn("mt-2 block shrink-0", hasPhoto && "brightness-0 invert")}
+            fill
+            className="object-cover transition duration-500 group-hover:scale-[1.03]"
+            sizes="410px"
           />
         </div>
-        <p
-          className={cn(
-            "mt-3 max-w-[15rem] text-sm font-light leading-[21px]",
-            hasPhoto ? "text-white/90" : "text-black/80",
-          )}
-        >
-          {item.summary}
-        </p>
+      ) : (
+        <div className="pointer-events-none absolute -right-6 top-10 size-[349px]">
+          <Image
+            src={HOME_ASSETS.serviceScales}
+            alt=""
+            fill
+            className="object-cover"
+            sizes="349px"
+          />
+        </div>
+      )}
+
+      <div className="relative z-10 flex items-start justify-between gap-6 px-5 pt-[23px]">
+        <h3 className="w-[248px] text-lg font-semibold leading-normal text-black">
+          {item.title}
+        </h3>
+        <img
+          src={HOME_ASSETS.serviceArrow}
+          alt=""
+          width={29}
+          height={16}
+          className="mt-1 block shrink-0"
+        />
       </div>
     </Link>
-  );
-}
-
-function ServiceCardMedia({
-  imageUrl,
-  title,
-}: {
-  imageUrl: string | null;
-  title: string;
-}) {
-  if (imageUrl) {
-    const isIllustration = imageUrl.endsWith(".svg");
-    return (
-      <>
-        <CoverMedia
-          src={imageUrl}
-          alt={title}
-          className={
-            isIllustration
-              ? "absolute inset-y-6 right-4 w-[48%] bg-transparent"
-              : "absolute inset-0 h-full w-full"
-          }
-          imageClassName={isIllustration ? "object-contain" : "object-cover"}
-        />
-        {isIllustration ? null : (
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-        )}
-      </>
-    );
-  }
-
-  return (
-    <div className="pointer-events-none absolute -right-6 top-10 size-[349px]">
-      <Image
-        src={HOME_ASSETS.serviceScales}
-        alt=""
-        fill
-        className="object-cover"
-        sizes="349px"
-      />
-    </div>
   );
 }
