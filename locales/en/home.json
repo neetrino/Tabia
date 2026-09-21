@@ -33,10 +33,7 @@
   "team": {
     "label": "Our team",
     "title": "Specialists who\nspeak the language of your interests",
-    "description": "A team of specialists that unites experience, knowledge and responsibility",
-    "highlightQuote": "\"You miss 100% of the shots you\ndon't take\" -Wayne Gretzky -\nMichael Scott",
-    "highlightName": "Rambo",
-    "highlightRole": "Role"
+    "description": "A team of specialists that unites experience, knowledge and responsibility"
   },
   "publications": {
     "label": "News",
@@ -44,8 +41,6 @@
     "titleTail": "informed",
     "description": "Changes in the legal landscape, important developments and professional analysis",
     "viewAll": "All news",
-    "empty": "Publications will appear here soon.",
-    "categoryNews": "Business advisory",
-    "categoryInsight": "Dispute resolution"
+    "empty": "Publications will appear here soon."
   }
 }

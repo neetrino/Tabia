@@ -7,7 +7,7 @@
   "hours": "Working hours",
   "phoneValue": "+374 10 123 456",
   "emailValue": "info@tabia.am",
-  "addressValue": "15 Baghramyan Avenue, Yerevan, Armenia",
+  "addressValue": "15 Baghramyan Avenue,\nYerevan, Armenia",
   "hoursValue": "Mon–Fri 10:00–18:00",
   "form": {
     "fullName": "Full name",

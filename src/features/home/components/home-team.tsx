@@ -1,7 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import type { TeamMemberPreview } from "@/features/team";
-import { HOME_ASSETS } from "@/shared/config/content";
 import { getInitials } from "@/shared/lib/localized";
 import { CoverMedia } from "@/shared/ui/cover-media";
 import { EmptyState } from "@/shared/ui/empty-state";
@@ -11,14 +10,9 @@ type HomeTeamProps = {
   items: TeamMemberPreview[];
 };
 
-type TeamSlot =
-  | { type: "member"; member: TeamMemberPreview }
-  | { type: "highlight" };
-
 export async function HomeTeam({ items }: HomeTeamProps) {
   const t = await getTranslations("home");
   const team = await getTranslations("team");
-  const slots = buildTeamSlots(items);
 
   return (
     <section className="relative bg-white">
@@ -36,37 +30,14 @@ export async function HomeTeam({ items }: HomeTeamProps) {
           <EmptyState message={team("empty")} className="mt-12" />
         ) : (
           <div className="mt-10 grid gap-x-6 gap-y-12 pt-4 sm:grid-cols-2 xl:grid-cols-4 lg:mt-14">
-            {slots.map((slot) =>
-              slot.type === "highlight" ? (
-                <HighlightCard
-                  key="highlight"
-                  quote={t("team.highlightQuote")}
-                  name={t("team.highlightName")}
-                  role={t("team.highlightRole")}
-                />
-              ) : (
-                <MemberCard key={slot.member.slug} member={slot.member} />
-              ),
-            )}
+            {items.map((member) => (
+              <MemberCard key={member.slug} member={member} />
+            ))}
           </div>
         )}
       </div>
     </section>
   );
-}
-
-function buildTeamSlots(items: TeamMemberPreview[]): TeamSlot[] {
-  const members = items.slice(0, 7);
-  const leading = members.slice(0, 3).map((member) => ({
-    type: "member" as const,
-    member,
-  }));
-  const rest = members.slice(3).map((member) => ({
-    type: "member" as const,
-    member,
-  }));
-
-  return [...leading, { type: "highlight" }, ...rest];
 }
 
 function MemberCard({ member }: { member: TeamMemberPreview }) {
@@ -102,50 +73,6 @@ function MemberCard({ member }: { member: TeamMemberPreview }) {
           {member.position}
         </p>
       </Link>
-    </article>
-  );
-}
-
-function HighlightCard({
-  quote,
-  name,
-  role,
-}: {
-  quote: string;
-  name: string;
-  role: string;
-}) {
-  return (
-    <article>
-      <div className="mb-4 flex h-72 flex-col justify-between rounded-3xl bg-[var(--brand)] p-6">
-        <div className="flex items-center">
-          <span className="grid size-8 place-items-center rounded-full bg-white">
-            <img
-              src={HOME_ASSETS.quoteLeft}
-              alt=""
-              width={12}
-              height={11}
-              className="block"
-            />
-          </span>
-          <span className="ml-2 grid size-8 place-items-center rounded-full bg-white">
-            <img
-              src={HOME_ASSETS.quoteRight}
-              alt=""
-              width={12}
-              height={12}
-              className="block"
-            />
-          </span>
-        </div>
-        <p className="whitespace-pre-line text-sm leading-[21px] text-white">
-          {quote}
-        </p>
-      </div>
-      <p className="inline-flex rounded-full border border-[#747878] px-[17px] py-[7px] text-[13px] font-semibold leading-[13px] tracking-[0.26px] text-[#0a0a0a]">
-        {name}
-      </p>
-      <p className="mt-2 pl-2 text-sm leading-[21px] text-[#444748]">{role}</p>
     </article>
   );
 }

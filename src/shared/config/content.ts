@@ -10,23 +10,10 @@ export const HOME_ASSETS = {
   logo: "/images/brand/logo.svg",
   navHome: "/images/icons/nav-home.svg",
   serviceArrow: "/images/icons/service-arrow.svg",
-  quoteLeft: "/images/icons/quote-left.svg",
-  quoteRight: "/images/icons/quote-right.svg",
   socialInstagram: "/images/icons/social-instagram.svg",
   socialFacebook: "/images/icons/social-facebook.svg",
   socialTelegram: "/images/icons/social-telegram.svg",
 } as const;
-
-/** Per-slug illustration frame classes matching Figma card crops (node 64:31). */
-export const SERVICE_ILLUSTRATION_FRAME: Record<string, string> = {
-  "corporate-advisory": "left-[153px] top-[42px] size-[302px]",
-  "natural-resources": "left-[153px] top-[62px] size-[302px]",
-  "tax-digital-strategy": "left-[100px] top-[23px] size-[368px]",
-  "banking-finance": "left-[88px] top-[100px] h-[240px] w-[360px]",
-  "aml-compliance": "left-[130px] top-[23px] size-[366px]",
-  "criminal-advisory":
-    "left-[25.37%] right-[-14.39%] top-[62px] aspect-[1402/1122]",
-};
 
 export const SITE_SOCIAL = [
   {

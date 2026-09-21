@@ -63,8 +63,8 @@ export async function HomePublications({
                 locale={locale}
                 typeLabel={
                   item.type === "NEWS"
-                    ? t("publications.categoryNews")
-                    : t("publications.categoryInsight")
+                    ? common("nav.news")
+                    : common("nav.insights")
                 }
                 readMore={readMore}
               />

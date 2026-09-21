@@ -23,7 +23,7 @@
     "navigation": "Նավիգացիա",
     "office": "Գրասենյակ",
     "createdBy": "Neetrino IT Company",
-    "copyright": "Copyright © {year} | Բոլոր իրավունքները պաշտպանված են | Ստեղծվել է {company} կողմից",
+    "copyright": "Copyright © {year} | Բոլոր իրավունքները պաշտպանված են | Ստեղծվել է <b>{company}</b> կողմից",
     "contact": "Կապ",
     "social": "Սոցիալական ցանցեր",
     "socialEmpty": "Հղումները կավելացվեն հաստատումից հետո։",

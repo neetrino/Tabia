@@ -1,10 +1,7 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import {
-  HOME_ASSETS,
-  getConfiguredSocialLinks,
-} from "@/shared/config/content";
+import { HOME_ASSETS, SITE_SOCIAL } from "@/shared/config/content";
 import { SiteBrand } from "@/shared/ui/site-brand";
 
 const links = [
@@ -16,19 +13,20 @@ const links = [
   { href: "/contact", key: "contact" as const },
 ];
 
-const footerSocialIds = new Set(["instagram", "facebook", "telegram"]);
+const footerSocialIds = ["instagram", "facebook", "telegram"] as const;
 
 export async function SiteFooter() {
   const t = await getTranslations("common");
   const contact = await getTranslations("contact");
   const year = new Date().getFullYear();
-  const social = getConfiguredSocialLinks()
-    .filter((item) => footerSocialIds.has(item.id))
-    .map((item) => ({ id: item.id, href: item.href, icon: item.icon }));
+  const social = footerSocialIds.flatMap((id) => {
+    const item = SITE_SOCIAL.find((entry) => entry.id === id);
+    return item ? [{ id, href: item.href, icon: item.icon }] : [];
+  });
 
   return (
-    <footer className="relative overflow-hidden border-t border-white/25 bg-[var(--ink)] text-[var(--nav)]">
-      <div className="pointer-events-none absolute left-1/2 top-[-79px] size-[572px] -translate-x-1/2">
+    <footer className="relative border-t border-white/[0.26] bg-[#090909] text-[var(--nav)]">
+      <div className="pointer-events-none absolute left-[calc(50%-5px)] top-[-79px] size-[572px] -translate-x-1/2">
         <Image
           src={HOME_ASSETS.footerKnight}
           alt=""
@@ -38,7 +36,7 @@ export async function SiteFooter() {
         />
       </div>
       <div className="relative z-10 mx-auto max-w-[1400px] px-6 pb-10 pt-20 lg:px-16">
-        <div className="grid gap-12 lg:grid-cols-[1fr_auto]">
+        <div className="flex flex-col gap-12 lg:min-h-[243px] lg:flex-row lg:items-start lg:justify-between">
           <FooterIdentity
             brand={t("brand")}
             social={social}
@@ -58,10 +56,11 @@ export async function SiteFooter() {
             }))}
           />
         </div>
-        <p className="mt-16 border-t border-white/5 pt-8 text-xs font-extralight uppercase text-white">
-          {t("footer.copyright", {
+        <p className="mt-16 border-t border-white/5 pt-8 text-xs font-extralight uppercase leading-[17px] text-white">
+          {t.rich("footer.copyright", {
             year,
             company: t("footer.createdBy"),
+            b: (chunks) => <span className="font-normal">{chunks}</span>,
           })}
         </p>
       </div>
@@ -69,11 +68,29 @@ export async function SiteFooter() {
   );
 }
 
-function FooterFact({ label, value }: { label: string; value: string }) {
+function FooterFact({
+  label,
+  value,
+  multiline = false,
+}: {
+  label: string;
+  value: string;
+  multiline?: boolean;
+}) {
   return (
     <div>
-      <p className="text-[10px] uppercase tracking-[1px] text-[var(--muted)]">{label}</p>
-      <p className="mt-1 text-sm font-light text-[var(--nav)]">{value}</p>
+      <p className="text-[10px] uppercase leading-[15px] tracking-[1px] text-[var(--muted)]">
+        {label}
+      </p>
+      <p
+        className={
+          multiline
+            ? "mt-1 whitespace-pre-line text-sm font-light leading-[22.75px] text-[var(--nav)]"
+            : "mt-1 text-sm font-light leading-5 text-[var(--nav)]"
+        }
+      >
+        {value}
+      </p>
     </div>
   );
 }
@@ -106,23 +123,25 @@ function FooterIdentity({
   officeValue: string;
 }) {
   return (
-    <div className="max-w-sm space-y-6">
+    <div className="w-full max-w-[392px]">
       <SiteBrand label={brand} />
-      {social.length > 0 ? (
-        <ul className="flex gap-4">
-          {social.map((item) => (
-            <li key={item.id}>
+      <ul className="flex h-[88px] items-center gap-4">
+        {social.map((item) => (
+          <li key={item.id}>
+            {item.href ? (
               <a href={item.href} target="_blank" rel="noreferrer">
-                <img src={item.icon} alt={socialLabel(item.id)} />
+                <img src={item.icon} alt={socialLabel(item.id)} width={40} height={40} />
               </a>
-            </li>
-          ))}
-        </ul>
-      ) : null}
+            ) : (
+              <img src={item.icon} alt={socialLabel(item.id)} width={40} height={40} />
+            )}
+          </li>
+        ))}
+      </ul>
       <address className="space-y-4 text-sm not-italic">
         <FooterFact label={phoneLabel} value={phoneValue} />
         <FooterFact label={emailLabel} value={emailValue} />
-        <FooterFact label={officeLabel} value={officeValue} />
+        <FooterFact label={officeLabel} value={officeValue} multiline />
       </address>
     </div>
   );
@@ -136,11 +155,11 @@ function FooterNav({
   items: { href: (typeof links)[number]["href"]; label: string }[];
 }) {
   return (
-    <div>
-      <p className="text-[10px] font-semibold uppercase tracking-[3px] text-[var(--muted)]">
+    <div className="w-full max-w-[282px] lg:pt-[60px]">
+      <p className="text-[10px] font-semibold uppercase leading-[15px] tracking-[3px] text-[var(--muted)]">
         {title}
       </p>
-      <ul className="mt-6 space-y-3 text-sm font-light">
+      <ul className="mt-6 space-y-3 text-sm font-light leading-5">
         {items.map((item) => (
           <li key={item.href}>
             <Link href={item.href} className="transition hover:text-white">

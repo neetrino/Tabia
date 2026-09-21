@@ -23,7 +23,7 @@
     "navigation": "Navigation",
     "office": "Office",
     "createdBy": "Neetrino IT Company",
-    "copyright": "Copyright © {year} | All rights reserved | Created by {company}",
+    "copyright": "Copyright © {year} | All rights reserved | Created by <b>{company}</b>",
     "contact": "Contact",
     "social": "Social",
     "socialEmpty": "Links will be added after confirmation.",
