@@ -40,7 +40,7 @@ export async function HomeTeam({ items }: HomeTeamProps) {
           <EmptyState message={team("empty")} className="mt-12" />
         ) : (
           <div className="mt-[63px] -mx-5 overflow-x-auto pt-8 [-ms-overflow-style:none] [scrollbar-width:none] lg:mx-0 lg:mt-14 lg:overflow-visible lg:pt-4 [&::-webkit-scrollbar]:hidden">
-            <div className="-ml-[75px] flex w-max gap-4 pr-5 lg:ml-0 lg:grid lg:w-auto lg:grid-cols-2 lg:gap-x-6 lg:gap-y-12 lg:pr-0 xl:grid-cols-4">
+            <div className="flex w-max gap-4 px-5 lg:grid lg:w-auto lg:grid-cols-2 lg:gap-x-6 lg:gap-y-12 lg:px-0 xl:grid-cols-4">
               {items.map((member) => (
                 <MemberCard key={member.slug} member={member} />
               ))}

@@ -27,7 +27,8 @@
     "titleLead": "Legal support",
     "titleTail": "on one platform",
     "description": "Comprehensive legal solutions for your business and goals.\nProfessional support for resolving complex legal matters effectively.",
-    "viewAll": "All services"
+    "viewAll": "All services",
+    "viewAllShort": "All"
   },
   "industries": { "title": "Industries & Practices" },
   "team": {

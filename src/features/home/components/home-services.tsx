@@ -20,25 +20,35 @@ export async function HomeServices({ items }: HomeServicesProps) {
       <div className="absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2">
         <SectionLabel>{t("services.label")}</SectionLabel>
       </div>
-      <div className="mx-auto max-w-[1400px] px-6 pb-28 pt-28 lg:px-16 lg:pb-32 lg:pt-[105px]">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-8">
-          <h2 className="max-w-[979px] text-[clamp(2rem,5vw,3.5rem)] uppercase leading-none text-[var(--cream)] lg:text-[56px] lg:leading-[56px]">
-            <span className="block font-extrabold">{t("services.titleLead")}</span>
-            <span className="mt-1 block font-extralight text-white lg:mt-[9px]">
+      <div className="mx-auto max-w-[1400px] px-5 pb-28 pt-12 lg:px-16 lg:pb-32 lg:pt-[105px]">
+        <div className="flex flex-col gap-[7px] lg:flex-row lg:items-end lg:justify-between lg:gap-8">
+          <h2 className="max-w-[363px] text-[36px] uppercase leading-[44px] text-[var(--cream)] lg:max-w-[979px] lg:text-[56px] lg:leading-[56px]">
+            <span className="block font-semibold lg:font-extrabold">
+              {t("services.titleLead")}
+            </span>
+            <span className="mt-[7px] block font-light text-white lg:mt-[9px] lg:font-extralight">
               {t("services.titleTail")}
             </span>
           </h2>
           <Link
             href="/services"
-            className="shrink-0 self-start border-b border-white/30 pb-1 text-[10px] font-semibold uppercase tracking-[1px] text-white lg:mb-1 lg:self-auto"
+            className="hidden shrink-0 self-start border-b border-white/30 pb-1 text-[10px] font-semibold uppercase tracking-[1px] text-white lg:mb-1 lg:inline lg:self-auto"
           >
             {t("services.viewAll")} →
           </Link>
         </div>
 
-        <p className="mt-10 max-w-[805px] whitespace-pre-line text-sm uppercase leading-[21px] tracking-[0.35px] text-white lg:mt-14">
-          {t("services.description")}
-        </p>
+        <div className="mt-3 flex w-full max-w-[362px] items-end gap-4 lg:mt-14 lg:max-w-none">
+          <p className="w-[179px] shrink-0 text-[11px] uppercase leading-[18px] tracking-[0.35px] text-white lg:w-auto lg:max-w-[805px] lg:whitespace-pre-line lg:text-sm lg:leading-[21px]">
+            {t("services.description")}
+          </p>
+          <Link
+            href="/services"
+            className="ml-auto shrink-0 border-b border-white/30 pb-1 text-sm uppercase leading-[13.5px] tracking-[1px] text-white lg:hidden"
+          >
+            {t("services.viewAllShort")} →
+          </Link>
+        </div>
 
         {items.length === 0 ? (
           <EmptyState
@@ -46,10 +56,12 @@ export async function HomeServices({ items }: HomeServicesProps) {
             className="mt-16 border-white/20 bg-white/5 text-white/70 lg:mt-20"
           />
         ) : (
-          <div className="mt-16 grid gap-[23px] sm:grid-cols-2 xl:grid-cols-3 lg:mt-20">
-            {items.map((item) => (
-              <ServiceCard key={item.slug} item={item} />
-            ))}
+          <div className="mt-10 -mx-5 overflow-x-auto pt-6 [-ms-overflow-style:none] [scrollbar-width:none] lg:mx-0 lg:mt-20 lg:overflow-visible lg:pt-0 [&::-webkit-scrollbar]:hidden">
+            <div className="flex w-max snap-x snap-mandatory gap-4 px-5 lg:grid lg:w-auto lg:snap-none lg:grid-cols-2 lg:gap-[23px] lg:px-0 xl:grid-cols-3">
+              {items.map((item) => (
+                <ServiceCard key={item.slug} item={item} />
+              ))}
+            </div>
           </div>
         )}
       </div>
@@ -65,18 +77,29 @@ function ServiceCard({ item }: { item: ServicePreview }) {
   return (
     <Link
       href={`/services/${item.slug}`}
-      className="group relative block h-[295px] overflow-hidden rounded-[10px] bg-[linear-gradient(-57deg,#fff_6%,#d6d6d6_109%)]"
+      className="group relative block h-[220px] w-[calc(100vw-5.5rem)] max-w-[362px] shrink-0 snap-start overflow-hidden rounded-xl bg-[linear-gradient(-43deg,#fff_12%,#999_101%)] lg:h-[295px] lg:w-auto lg:max-w-none lg:snap-align-none lg:rounded-[10px] lg:bg-[linear-gradient(-57deg,#fff_6%,#d6d6d6_109%)]"
     >
       {item.imageUrl ? (
-        <div className={cn("absolute overflow-hidden", frameClass)}>
-          <Image
-            src={item.imageUrl}
-            alt=""
-            fill
-            className="object-cover transition duration-500 group-hover:scale-[1.03]"
-            sizes="410px"
-          />
-        </div>
+        <>
+          <div className="absolute left-[181px] top-[37px] size-[222px] overflow-hidden lg:hidden">
+            <Image
+              src={item.imageUrl}
+              alt=""
+              fill
+              className="object-cover transition duration-500 group-hover:scale-[1.03]"
+              sizes="222px"
+            />
+          </div>
+          <div className={cn("absolute hidden overflow-hidden lg:block", frameClass)}>
+            <Image
+              src={item.imageUrl}
+              alt=""
+              fill
+              className="object-cover transition duration-500 group-hover:scale-[1.03]"
+              sizes="410px"
+            />
+          </div>
+        </>
       ) : (
         <div className="pointer-events-none absolute -right-6 top-10 size-[349px]">
           <Image
@@ -89,8 +112,8 @@ function ServiceCard({ item }: { item: ServicePreview }) {
         </div>
       )}
 
-      <div className="relative z-10 flex items-start justify-between gap-6 px-5 pt-[23px]">
-        <h3 className="w-[248px] text-lg font-semibold leading-normal text-black">
+      <div className="relative z-10 flex items-start justify-between gap-4 px-5 pt-5 lg:gap-6 lg:pt-[23px]">
+        <h3 className="w-[246px] text-sm font-semibold leading-normal text-black lg:w-[248px] lg:text-lg">
           {item.title}
         </h3>
         <img
