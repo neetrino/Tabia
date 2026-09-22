@@ -158,7 +158,7 @@ function BurgerBar({
 }) {
   return (
     <span
-      className="absolute left-0 top-1/2 block h-0.5 w-5 -translate-y-1/2 bg-white motion-reduce:!transition-none"
+      className="absolute left-0 top-[calc(50%-1px)] block h-0.5 w-5 bg-white motion-reduce:!transition-none"
       style={{
         opacity: fade && open ? 0 : 1,
         transform: open ? openTransform : closedTransform,
