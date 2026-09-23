@@ -17,33 +17,50 @@ export function TeamMemberCard({
 }: TeamMemberCardProps) {
   return (
     <article className="flex h-full flex-col">
-      <CoverMedia
-        src={member.photoUrl}
-        alt={member.name}
-        className="h-72 rounded-3xl bg-white"
-        imageClassName="object-cover object-top grayscale"
-        fallback={
-          <div className="grid h-full place-items-center bg-[var(--brand)] text-4xl tracking-[0.12em] text-white/80">
-            {getInitials(member.name)}
-          </div>
-        }
-      />
-      <div className="flex flex-1 flex-col pt-4">
-        <h2 className="text-lg tracking-tight">{member.name}</h2>
-        <p className="mt-1 text-sm text-[var(--muted)]">{member.position}</p>
-        <p className="mt-3 text-sm leading-relaxed text-[#444748]">
+      <Link
+        href={member.hasProfile ? `/team/${member.slug}` : "/team"}
+        className="group block"
+      >
+        <div className="relative h-64 overflow-hidden rounded-2xl bg-white lg:h-72 lg:rounded-3xl">
+          <CoverMedia
+            src={member.photoUrl}
+            alt={member.name}
+            className="h-full rounded-none bg-white"
+            imageClassName="object-cover object-top"
+            fallback={
+              <div className="grid h-full place-items-center bg-[var(--brand)] text-4xl tracking-[0.12em] text-white/80">
+                {getInitials(member.name)}
+              </div>
+            }
+          />
+          {member.photoUrl ? (
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 bg-white/20 mix-blend-saturation"
+            />
+          ) : null}
+        </div>
+        <p className="mt-3 inline-flex rounded-full border border-[#747878] px-3 py-1 text-[11px] font-normal leading-[16.5px] tracking-[0.26px] text-[#0a0a0a] lg:mt-4 lg:px-[17px] lg:py-[7px] lg:text-[13px] lg:font-semibold lg:leading-[13px]">
+          {member.name}
+        </p>
+        <p className="mt-2 pl-1 text-xs leading-[18px] text-[#444748] lg:text-sm lg:leading-[21px]">
+          {member.position}
+        </p>
+      </Link>
+      {member.bio ? (
+        <p className="mt-3 line-clamp-3 text-sm font-light leading-relaxed text-[#444748]">
           {member.bio}
         </p>
-        <TeamMemberContacts member={member} linkedInLabel={linkedInLabel} />
-        {member.hasProfile ? (
-          <Link
-            href={`/team/${member.slug}`}
-            className="mt-4 text-sm font-semibold text-[var(--brand)] hover:underline"
-          >
-            {readMoreLabel}
-          </Link>
-        ) : null}
-      </div>
+      ) : null}
+      <TeamMemberContacts member={member} linkedInLabel={linkedInLabel} />
+      {member.hasProfile ? (
+        <Link
+          href={`/team/${member.slug}`}
+          className="mt-4 text-[10px] font-semibold uppercase tracking-[1px] text-[var(--brand)] transition hover:gap-3"
+        >
+          {readMoreLabel} →
+        </Link>
+      ) : null}
     </article>
   );
 }
@@ -66,10 +83,10 @@ function TeamMemberContacts({
         <li>
           <a
             href={`mailto:${member.email}`}
-            className="inline-flex items-center gap-2 hover:text-[var(--brand)]"
+            className="inline-flex items-center gap-2 transition hover:text-[var(--brand)]"
           >
-            <Mail className="size-4" />
-            {member.email}
+            <Mail className="size-4 shrink-0" />
+            <span className="truncate">{member.email}</span>
           </a>
         </li>
       ) : null}
@@ -77,9 +94,9 @@ function TeamMemberContacts({
         <li>
           <a
             href={`tel:${member.phone}`}
-            className="inline-flex items-center gap-2 hover:text-[var(--brand)]"
+            className="inline-flex items-center gap-2 transition hover:text-[var(--brand)]"
           >
-            <Phone className="size-4" />
+            <Phone className="size-4 shrink-0" />
             {member.phone}
           </a>
         </li>
@@ -90,9 +107,9 @@ function TeamMemberContacts({
             href={member.linkedInUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 hover:text-[var(--brand)]"
+            className="inline-flex items-center gap-2 transition hover:text-[var(--brand)]"
           >
-            <ExternalLink className="size-4" />
+            <ExternalLink className="size-4 shrink-0" />
             {linkedInLabel}
           </a>
         </li>
