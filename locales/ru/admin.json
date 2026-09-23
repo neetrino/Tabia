@@ -19,6 +19,7 @@
   "logout": "Выход",
   "close": "Закрыть",
   "closeOverlay": "Закрыть панель",
+  "reorderItemAria": "Перетащите, чтобы изменить порядок «{name}»",
   "empty": "Записей пока нет. Используйте «{addLabel}», чтобы создать первую.",
   "nav": {
     "dashboard": "Панель",
@@ -87,6 +88,13 @@
     "cancel": "Отмена",
     "delete": "Удалить"
   },
+  "confirm": {
+    "title": "Подтвердите действие",
+    "confirm": "Подтвердить",
+    "delete": "Удалить",
+    "deactivate": "Деактивировать",
+    "hide": "Скрыть"
+  },
   "teamForm": {
     "contentLocale": "Язык контента",
     "contentLocaleHint": "Slug один на все языки и только латиницей. Имя, должность и описания заполните во вкладках HY / EN / RU.",
@@ -112,6 +120,7 @@
     "orderValue": "#{value}",
     "dragHint": "Перетащите строки, чтобы изменить порядок.",
     "confirmDelete": "Удалить участника «{name}»?",
+    "confirmHide": "Скрыть участника «{name}» на сайте?",
     "saving": "Сохранение…",
     "errors": {
       "unauthorized": "Необходимо войти.",
@@ -146,6 +155,7 @@
     "orderValue": "#{value}",
     "dragHint": "Перетащите строки, чтобы изменить порядок.",
     "confirmDelete": "Удалить услугу «{name}»?",
+    "confirmHide": "Скрыть услугу «{name}» на сайте?",
     "saving": "Сохранение…",
     "errors": {
       "unauthorized": "Необходимо войти.",
@@ -178,6 +188,7 @@
     "deactivate": "Деактивировать",
     "saving": "Сохранение…",
     "confirmDelete": "Удалить публикацию «{name}»?",
+    "confirmDeactivate": "Деактивировать «{name}»? Публикация исчезнет с сайта.",
     "status": {
       "DRAFT": "Черновик",
       "PUBLISHED": "Опубликовано",

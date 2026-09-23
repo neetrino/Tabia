@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
 import {
+  AdminConfirmDialog,
   AdminContentLocaleSwitcher,
   AdminDrawerHeaderActions,
 } from "@/features/admin/client";
@@ -36,8 +37,14 @@ export function PublicationAdminForm({
   const [contentLocale, setContentLocale] = useState<AppLocale>(defaultLocale);
   const [errorKey, setErrorKey] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
+  const [confirmDeactivate, setConfirmDeactivate] = useState(false);
 
   const isActive = values.status === "PUBLISHED";
+  const displayTitle =
+    values.titleEn.trim() ||
+    values.titleHy.trim() ||
+    values.titleRu.trim() ||
+    values.slug;
 
   function submit(
     status: PublicationStatusValue,
@@ -63,6 +70,14 @@ export function PublicationAdminForm({
     });
   }
 
+  function handleStatusToggle(): void {
+    if (isActive) {
+      setConfirmDeactivate(true);
+      return;
+    }
+    submit("PUBLISHED", { close: false });
+  }
+
   return (
     <form
       className="space-y-6"
@@ -85,9 +100,7 @@ export function PublicationAdminForm({
               "motion-reduce:transition-none disabled:opacity-60",
               isActive ? "bg-emerald-500" : "bg-red-500",
             )}
-            onClick={() =>
-              submit(isActive ? "ARCHIVED" : "PUBLISHED", { close: false })
-            }
+            onClick={handleStatusToggle}
           >
             <span
               className={cn(
@@ -149,6 +162,17 @@ export function PublicationAdminForm({
           {t("actions.cancel")}
         </button>
       </div>
+      <AdminConfirmDialog
+        open={confirmDeactivate}
+        message={form("confirmDeactivate", { name: displayTitle })}
+        confirmLabel={t("confirm.deactivate")}
+        pending={pending}
+        onCancel={() => setConfirmDeactivate(false)}
+        onConfirm={() => {
+          setConfirmDeactivate(false);
+          submit("ARCHIVED", { close: false });
+        }}
+      />
     </form>
   );
 }

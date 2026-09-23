@@ -19,6 +19,7 @@
   "logout": "Sign out",
   "close": "Close",
   "closeOverlay": "Close drawer overlay",
+  "reorderItemAria": "Drag to reorder “{name}”",
   "empty": "No items yet. Use “{addLabel}” to create the first record.",
   "nav": {
     "dashboard": "Dashboard",
@@ -87,6 +88,13 @@
     "cancel": "Cancel",
     "delete": "Delete"
   },
+  "confirm": {
+    "title": "Please confirm",
+    "confirm": "Confirm",
+    "delete": "Delete",
+    "deactivate": "Deactivate",
+    "hide": "Hide"
+  },
   "teamForm": {
     "contentLocale": "Content language",
     "contentLocaleHint": "The slug is shared and Latin-only. Fill name, role, and descriptions in the HY / EN / RU tabs.",
@@ -112,6 +120,7 @@
     "orderValue": "#{value}",
     "dragHint": "Drag rows to change display order.",
     "confirmDelete": "Delete team member “{name}”?",
+    "confirmHide": "Hide team member “{name}” from the public site?",
     "saving": "Saving…",
     "errors": {
       "unauthorized": "You need to sign in.",
@@ -146,6 +155,7 @@
     "orderValue": "#{value}",
     "dragHint": "Drag rows to change display order.",
     "confirmDelete": "Delete service “{name}”?",
+    "confirmHide": "Hide service “{name}” from the public site?",
     "saving": "Saving…",
     "errors": {
       "unauthorized": "You need to sign in.",
@@ -178,6 +188,7 @@
     "deactivate": "Deactivate",
     "saving": "Saving…",
     "confirmDelete": "Delete “{name}”?",
+    "confirmDeactivate": "Deactivate “{name}”? It will no longer appear on the public site.",
     "status": {
       "DRAFT": "Draft",
       "PUBLISHED": "Published",

@@ -2,6 +2,7 @@
 
 import { useOptimistic, useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
+import { AdminConfirmDialog } from "@/features/admin/client";
 import { cn } from "@/shared/lib/cn";
 import {
   deletePublicationAction,
@@ -17,6 +18,11 @@ type PublicationAdminListProps = {
   onChanged: () => void;
 };
 
+type PendingConfirm =
+  | { kind: "delete"; item: PublicationAdminItem }
+  | { kind: "deactivate"; item: PublicationAdminItem }
+  | null;
+
 export function PublicationAdminList({
   type,
   publications,
@@ -28,6 +34,7 @@ export function PublicationAdminList({
   const [items, setOptimisticItems] = useOptimistic(publications);
   const [pending, startTransition] = useTransition();
   const [errorKey, setErrorKey] = useState<string | null>(null);
+  const [confirm, setConfirm] = useState<PendingConfirm>(null);
   const addLabel =
     type === "NEWS" ? t("resources.news.add") : t("resources.insights.add");
 
@@ -46,13 +53,32 @@ export function PublicationAdminList({
     });
   }
 
-  function remove(publication: PublicationAdminItem): void {
-    if (!window.confirm(form("confirmDelete", { name: publication.displayTitle }))) {
+  function requestTogglePublished(
+    publication: PublicationAdminItem,
+    published: boolean,
+  ): void {
+    if (!published) {
+      setConfirm({ kind: "deactivate", item: publication });
+      return;
+    }
+    setStatus(publication.id, true);
+  }
+
+  function runConfirmedAction(): void {
+    if (!confirm) {
+      return;
+    }
+
+    const current = confirm;
+    setConfirm(null);
+
+    if (current.kind === "deactivate") {
+      setStatus(current.item.id, false);
       return;
     }
 
     startTransition(async () => {
-      const result = await deletePublicationAction(publication.id);
+      const result = await deletePublicationAction(current.item.id);
       if (result.errorKey) {
         setErrorKey(result.errorKey);
         return;
@@ -89,14 +115,33 @@ export function PublicationAdminList({
               publication={publication}
               disabled={pending}
               onEdit={onEdit}
-              onDelete={remove}
-              onTogglePublished={(item, published) =>
-                setStatus(item.id, published)
-              }
+              onDelete={(item) => setConfirm({ kind: "delete", item })}
+              onTogglePublished={requestTogglePublished}
             />
           </li>
         ))}
       </ul>
+      <AdminConfirmDialog
+        open={confirm !== null}
+        message={
+          confirm
+            ? form(
+                confirm.kind === "delete"
+                  ? "confirmDelete"
+                  : "confirmDeactivate",
+                { name: confirm.item.displayTitle },
+              )
+            : ""
+        }
+        confirmLabel={
+          confirm?.kind === "delete"
+            ? t("confirm.delete")
+            : t("confirm.deactivate")
+        }
+        pending={pending}
+        onCancel={() => setConfirm(null)}
+        onConfirm={runConfirmedAction}
+      />
     </div>
   );
 }
