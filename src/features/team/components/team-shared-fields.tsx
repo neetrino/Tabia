@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { AdminSelect } from "@/features/admin/client";
 import type { ContentVisibilityValue, TeamMemberRecord } from "../types";
 import { TeamFormField, teamInputClassName } from "./team-form-field";
 
@@ -76,17 +77,17 @@ export function TeamSharedFields({
         />
       </TeamFormField>
       <TeamFormField id="visibility" label={t("visibility")}>
-        <select
+        <AdminSelect
           id="visibility"
           value={values.visibility}
-          className={teamInputClassName}
-          onChange={(event) =>
-            update("visibility", event.target.value as ContentVisibilityValue)
+          options={[
+            { value: "PUBLISHED", label: t("published") },
+            { value: "HIDDEN", label: t("hidden") },
+          ]}
+          onChange={(visibility: ContentVisibilityValue) =>
+            update("visibility", visibility)
           }
-        >
-          <option value="PUBLISHED">{t("published")}</option>
-          <option value="HIDDEN">{t("hidden")}</option>
-        </select>
+        />
       </TeamFormField>
     </>
   );

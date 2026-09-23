@@ -2,8 +2,12 @@
 
 import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
-import { AdminContentLocaleSwitcher } from "@/features/admin/client";
+import {
+  AdminContentLocaleSwitcher,
+  AdminDrawerHeaderActions,
+} from "@/features/admin/client";
 import { defaultLocale, type AppLocale } from "@/i18n/routing";
+import { cn } from "@/shared/lib/cn";
 import { savePublicationAction } from "../actions";
 import type { PublicationRecord, PublicationStatusValue } from "../types";
 import { PublicationCoverField } from "./publication-cover-field";
@@ -16,12 +20,14 @@ import { PublicationSharedFields } from "./publication-shared-fields";
 type PublicationAdminFormProps = {
   values: PublicationRecord;
   onSaved: () => void;
+  onChanged?: () => void;
   onCancel: () => void;
 };
 
 export function PublicationAdminForm({
   values: initialValues,
   onSaved,
+  onChanged,
   onCancel,
 }: PublicationAdminFormProps) {
   const t = useTranslations("admin");
@@ -31,7 +37,12 @@ export function PublicationAdminForm({
   const [errorKey, setErrorKey] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
 
-  function submit(status: PublicationStatusValue): void {
+  const isActive = values.status === "PUBLISHED";
+
+  function submit(
+    status: PublicationStatusValue,
+    options: { close: boolean } = { close: true },
+  ): void {
     startTransition(async () => {
       const { id, ...rest } = values;
       const result = await savePublicationAction({
@@ -43,7 +54,12 @@ export function PublicationAdminForm({
         setErrorKey(result.errorKey);
         return;
       }
-      onSaved();
+      setValues((current) => ({ ...current, status }));
+      if (options.close) {
+        onSaved();
+        return;
+      }
+      onChanged?.();
     });
   }
 
@@ -55,6 +71,35 @@ export function PublicationAdminForm({
         submit("DRAFT");
       }}
     >
+      {values.id ? (
+        <AdminDrawerHeaderActions>
+          <button
+            type="button"
+            role="switch"
+            aria-checked={isActive}
+            aria-label={isActive ? form("deactivate") : form("publish")}
+            title={isActive ? form("deactivate") : form("publish")}
+            disabled={pending}
+            className={cn(
+              "relative h-9 w-[3.25rem] shrink-0 rounded-[15px] transition-colors duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
+              "motion-reduce:transition-none disabled:opacity-60",
+              isActive ? "bg-emerald-500" : "bg-red-500",
+            )}
+            onClick={() =>
+              submit(isActive ? "ARCHIVED" : "PUBLISHED", { close: false })
+            }
+          >
+            <span
+              className={cn(
+                "absolute top-1 size-7 rounded-[12px] bg-white shadow-sm",
+                "transition-[left] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                "motion-reduce:transition-none",
+                isActive ? "left-[1.35rem]" : "left-1",
+              )}
+            />
+          </button>
+        </AdminDrawerHeaderActions>
+      ) : null}
       <div className="flex flex-wrap items-end justify-between gap-4">
         <AdminContentLocaleSwitcher
           value={contentLocale}
@@ -102,24 +147,6 @@ export function PublicationAdminForm({
         >
           {pending ? form("saving") : form("saveDraft")}
         </button>
-        <button
-          type="button"
-          disabled={pending}
-          className="rounded-[15px] bg-[var(--brand)] px-5 py-2.5 text-sm font-medium text-white transition-transform duration-200 ease-out hover:scale-105 disabled:opacity-60 motion-reduce:transition-none motion-reduce:hover:scale-100"
-          onClick={() => submit("PUBLISHED")}
-        >
-          {pending ? form("saving") : form("publish")}
-        </button>
-        {values.id ? (
-          <button
-            type="button"
-            disabled={pending}
-            className="rounded-[15px] px-4 py-2.5 text-sm text-red-700 transition-transform duration-200 ease-out hover:scale-105 hover:bg-[var(--surface)] disabled:opacity-60 motion-reduce:transition-none motion-reduce:hover:scale-100"
-            onClick={() => submit("ARCHIVED")}
-          >
-            {form("deactivate")}
-          </button>
-        ) : null}
         <button
           type="button"
           className="rounded-[15px] border border-[var(--border)] px-5 py-2.5 text-sm transition-transform duration-200 ease-out hover:scale-105 hover:bg-[var(--surface)] motion-reduce:transition-none motion-reduce:hover:scale-100"

@@ -1,6 +1,14 @@
 "use client";
 
-import { useEffect, useId, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useId,
+  useLayoutEffect,
+  useState,
+  type ReactNode,
+} from "react";
 import { X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/shared/lib/cn";
@@ -21,6 +29,29 @@ const drawerWidthClassName: Record<AdminDrawerSize, string> = {
   wide: "w-[87%] max-w-3xl md:w-[70%] md:max-w-none",
 };
 
+const AdminDrawerHeaderActionsContext = createContext<
+  ((node: ReactNode) => void) | null
+>(null);
+
+/** Places children in the open sheet header, next to the close button. */
+export function AdminDrawerHeaderActions({
+  children,
+}: {
+  children: ReactNode;
+}): null {
+  const setHeaderActions = useContext(AdminDrawerHeaderActionsContext);
+
+  useLayoutEffect(() => {
+    if (!setHeaderActions) {
+      return;
+    }
+    setHeaderActions(children);
+    return () => setHeaderActions(null);
+  }, [children, setHeaderActions]);
+
+  return null;
+}
+
 function prefersReducedMotion(): boolean {
   return (
     typeof window !== "undefined" &&
@@ -38,6 +69,7 @@ export function AdminDrawer({
   const t = useTranslations("admin");
   const titleId = useId();
   const [present, setPresent] = useState(open);
+  const [headerActions, setHeaderActions] = useState<ReactNode>(null);
 
   if (open && !present) {
     setPresent(true);
@@ -124,23 +156,28 @@ export function AdminDrawer({
         }}
       >
         <div className="flex items-center justify-between gap-3 border-b border-[var(--border)] px-6 pt-6 pb-4">
-          <h2 id={titleId} className="text-lg font-semibold">
+          <h2 id={titleId} className="min-w-0 flex-1 truncate text-lg font-semibold">
             {title}
           </h2>
-          <button
-            type="button"
-            aria-label={t("close")}
-            onClick={onClose}
-            className={cn(
-              "flex size-9 shrink-0 items-center justify-center rounded-[15px] bg-[var(--brand)] text-white",
-              "transition-transform duration-200 ease-out hover:scale-105 focus-visible:scale-105",
-              "motion-reduce:transition-none",
-            )}
-          >
-            <X className="size-4" strokeWidth={3} aria-hidden />
-          </button>
+          <div className="flex shrink-0 items-center gap-2">
+            {headerActions}
+            <button
+              type="button"
+              aria-label={t("close")}
+              onClick={onClose}
+              className={cn(
+                "flex size-9 shrink-0 items-center justify-center rounded-[15px] bg-[var(--brand)] text-white",
+                "transition-transform duration-200 ease-out hover:scale-105 focus-visible:scale-105",
+                "motion-reduce:transition-none",
+              )}
+            >
+              <X className="size-4" strokeWidth={3} aria-hidden />
+            </button>
+          </div>
         </div>
-        <div className="flex-1 overflow-y-auto p-6">{children}</div>
+        <AdminDrawerHeaderActionsContext.Provider value={setHeaderActions}>
+          <div className="flex-1 overflow-y-auto p-6">{children}</div>
+        </AdminDrawerHeaderActionsContext.Provider>
       </div>
     </div>
   );
