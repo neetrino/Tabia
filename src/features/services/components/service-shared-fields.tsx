@@ -1,8 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { AdminSelect } from "@/features/admin/client";
-import type { ContentVisibilityValue, ServiceRecord } from "../types";
+import type { ServiceRecord } from "../types";
 import { ServiceFormField, serviceInputClassName } from "./service-form-field";
 
 type ServiceSharedFieldsProps = {
@@ -50,19 +49,6 @@ export function ServiceSharedFields({
           className={serviceInputClassName}
           onChange={(event) =>
             update("sortOrder", Number(event.target.value) || 0)
-          }
-        />
-      </ServiceFormField>
-      <ServiceFormField id="visibility" label={t("visibility")}>
-        <AdminSelect
-          id="visibility"
-          value={values.visibility}
-          options={[
-            { value: "PUBLISHED", label: t("published") },
-            { value: "HIDDEN", label: t("hidden") },
-          ]}
-          onChange={(visibility: ContentVisibilityValue) =>
-            update("visibility", visibility)
           }
         />
       </ServiceFormField>

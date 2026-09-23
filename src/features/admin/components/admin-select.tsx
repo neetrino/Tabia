@@ -16,6 +16,7 @@ type AdminSelectProps<T extends string> = {
   onChange: (value: T) => void;
   disabled?: boolean;
   placeholder?: string;
+  size?: "md" | "sm";
 };
 
 const PANEL_EASE = "ease-[cubic-bezier(0.22,1,0.36,1)]";
@@ -27,11 +28,13 @@ export function AdminSelect<T extends string>({
   onChange,
   disabled,
   placeholder,
+  size = "md",
 }: AdminSelectProps<T>) {
   const listId = useId();
   const rootRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const selected = options.find((option) => option.value === value);
+  const compact = size === "sm";
 
   useEffect(() => {
     if (!open) {
@@ -70,10 +73,11 @@ export function AdminSelect<T extends string>({
         aria-expanded={open}
         aria-controls={listId}
         className={cn(
-          "flex w-full items-center justify-between gap-3 rounded-[15px] border border-[var(--border)] bg-white px-3 py-2.5 text-left text-sm",
+          "flex w-full items-center justify-between gap-2 rounded-[15px] border border-[var(--border)] bg-white text-left text-sm",
           "transition-[border-color,box-shadow,transform] duration-200",
           PANEL_EASE,
           "hover:border-[var(--brand)]/40 focus-visible:border-[var(--brand)]",
+          compact ? "px-3 py-1.5" : "gap-3 px-3 py-2.5",
           open && "border-[var(--brand)] shadow-sm",
           disabled && "opacity-60",
         )}

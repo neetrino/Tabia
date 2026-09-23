@@ -99,6 +99,7 @@ export function ServiceAdminPanel({
             key={editing.id || `new-${formKey}`}
             values={editing}
             onSaved={refresh}
+            onChanged={() => router.refresh()}
             onCancel={() => {
               setOpen(false);
               setEditing(null);
