@@ -33,7 +33,7 @@ export function ServiceAdminRow({
       <CoverMedia
         src={service.imageUrl}
         alt={service.displayTitle}
-        className="size-12 shrink-0 rounded-[15px]"
+        className="size-12 shrink-0 rounded-[10px]"
         fallback={
           <div className="grid h-full place-items-center bg-[var(--brand)] text-xs text-white/80">
             {getInitials(service.displayTitle)}
@@ -61,7 +61,10 @@ export function ServiceAdminRow({
         aria-pressed={service.featured}
         aria-label={form("featured")}
         className="flex size-8 items-center justify-center rounded-[15px] disabled:opacity-60"
-        onClick={() => onToggleFeatured(service, !service.featured)}
+        onClick={(event) => {
+          event.stopPropagation();
+          onToggleFeatured(service, !service.featured);
+        }}
       >
         <Star
           className={cn(
@@ -76,7 +79,10 @@ export function ServiceAdminRow({
         type="button"
         aria-label={t("actions.edit")}
         className="flex size-8 items-center justify-center rounded-[15px] text-[var(--brand)] transition-transform duration-200 ease-out hover:scale-105 hover:bg-[var(--surface)] motion-reduce:transition-none motion-reduce:hover:scale-100"
-        onClick={() => onEdit(service)}
+        onClick={(event) => {
+          event.stopPropagation();
+          onEdit(service);
+        }}
       >
         <Pencil className="size-4" />
       </button>
@@ -84,7 +90,10 @@ export function ServiceAdminRow({
         type="button"
         aria-label={t("actions.delete")}
         className="flex size-8 items-center justify-center rounded-[15px] text-red-700 transition-transform duration-200 ease-out hover:scale-105 hover:bg-[var(--surface)] motion-reduce:transition-none motion-reduce:hover:scale-100"
-        onClick={() => onDelete(service)}
+        onClick={(event) => {
+          event.stopPropagation();
+          onDelete(service);
+        }}
       >
         <Trash2 className="size-4" />
       </button>

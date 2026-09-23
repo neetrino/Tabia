@@ -25,7 +25,10 @@ export function TeamAdminSwitch({
         checked ? "bg-[var(--brand)]" : "bg-[var(--border)]",
         disabled && "opacity-60",
       )}
-      onClick={() => onChange(!checked)}
+      onClick={(event) => {
+        event.stopPropagation();
+        onChange(!checked);
+      }}
     >
       <span
         className={cn(

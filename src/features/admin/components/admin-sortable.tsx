@@ -103,6 +103,9 @@ export function AdminSortableGrip({
       )}
       {...attributes}
       {...listeners}
+      onClick={(event) => {
+        event.stopPropagation();
+      }}
     >
       <GripVertical className="size-4" strokeWidth={1.75} aria-hidden />
     </button>

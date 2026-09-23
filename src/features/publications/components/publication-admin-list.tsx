@@ -105,11 +105,16 @@ export function PublicationAdminList({
           <li
             key={publication.id}
             className={cn(
-              "flex items-center gap-3 rounded-[15px] border border-[var(--border)] bg-white p-3",
+              "flex cursor-pointer items-center gap-3 rounded-[15px] border border-[var(--border)] bg-white p-3",
               "transition-[border-color,box-shadow,transform] duration-200 ease-out",
               "hover:border-[var(--brand)]/30 hover:shadow-sm motion-reduce:transition-none",
               pending && "opacity-70",
             )}
+            onClick={() => {
+              if (!pending) {
+                onEdit(publication);
+              }
+            }}
           >
             <PublicationAdminRow
               publication={publication}

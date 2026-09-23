@@ -55,12 +55,17 @@ function TeamSortableRow({
       ref={setNodeRef}
       style={style}
       className={cn(
-        "flex items-center gap-3 rounded-[15px] border border-[var(--border)] bg-white p-3",
+        "flex cursor-pointer items-center gap-3 rounded-[15px] border border-[var(--border)] bg-white p-3",
         "transition-[border-color,box-shadow] duration-200 ease-out",
         "hover:border-[var(--brand)]/30 hover:shadow-sm motion-reduce:transition-none",
-        isDragging && "relative z-10 bg-[var(--surface)] opacity-70 shadow-md",
+        isDragging && "relative z-10 cursor-grabbing bg-[var(--surface)] opacity-70 shadow-md",
         disabled && !isDragging && "opacity-70",
       )}
+      onClick={() => {
+        if (!disabled && !isDragging) {
+          onEdit(member);
+        }
+      }}
     >
       <AdminSortableGrip
         label={t("reorderItemAria", { name: member.displayName })}

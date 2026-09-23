@@ -33,7 +33,7 @@ export function TeamAdminMemberRow({
       <CoverMedia
         src={member.photoUrl}
         alt={member.displayName}
-        className="size-12 shrink-0 rounded-[15px]"
+        className="size-12 shrink-0 rounded-[10px]"
         fallback={
           <div className="grid h-full place-items-center bg-[var(--brand)] text-xs text-white/80">
             {getInitials(member.displayName)}
@@ -61,7 +61,10 @@ export function TeamAdminMemberRow({
         aria-pressed={member.featured}
         aria-label={form("featured")}
         className="flex size-8 items-center justify-center rounded-[15px] disabled:opacity-60"
-        onClick={() => onToggleFeatured(member, !member.featured)}
+        onClick={(event) => {
+          event.stopPropagation();
+          onToggleFeatured(member, !member.featured);
+        }}
       >
         <Star
           className={cn(
@@ -76,7 +79,10 @@ export function TeamAdminMemberRow({
         type="button"
         aria-label={t("actions.edit")}
         className="flex size-8 items-center justify-center rounded-[15px] text-[var(--brand)] transition-transform duration-200 ease-out hover:scale-105 hover:bg-[var(--surface)] motion-reduce:transition-none motion-reduce:hover:scale-100"
-        onClick={() => onEdit(member)}
+        onClick={(event) => {
+          event.stopPropagation();
+          onEdit(member);
+        }}
       >
         <Pencil className="size-4" />
       </button>
@@ -84,7 +90,10 @@ export function TeamAdminMemberRow({
         type="button"
         aria-label={t("actions.delete")}
         className="flex size-8 items-center justify-center rounded-[15px] text-red-700 transition-transform duration-200 ease-out hover:scale-105 hover:bg-[var(--surface)] motion-reduce:transition-none motion-reduce:hover:scale-100"
-        onClick={() => onDelete(member)}
+        onClick={(event) => {
+          event.stopPropagation();
+          onDelete(member);
+        }}
       >
         <Trash2 className="size-4" />
       </button>
