@@ -18,17 +18,17 @@ export function TeamMemberCard({
   const href = `/team/${member.slug}` as const;
 
   return (
-    <article className="group relative flex h-full flex-col transition duration-500 hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+    <article className="group relative flex h-full flex-col overflow-hidden rounded-[24px] border border-black/[0.06] bg-[var(--surface)] p-3 transition duration-300 hover:-translate-y-1 hover:border-black/10 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] motion-reduce:transform-none">
       <Link
         href={href}
-        className="absolute inset-0 z-[1] rounded-3xl"
+        className="absolute inset-0 z-[1] rounded-[24px]"
         aria-label={member.name}
       />
-      <div className="relative h-64 overflow-hidden rounded-2xl bg-white lg:h-72 lg:rounded-3xl">
+      <div className="relative h-48 w-full overflow-hidden rounded-2xl bg-white lg:h-56">
         <CoverMedia
           src={member.photoUrl}
           alt={member.name}
-          className="h-full rounded-none bg-white"
+          className="h-full rounded-2xl bg-white"
           imageClassName="object-cover object-top transition duration-500 group-hover:scale-[1.03]"
           fallback={
             <div className="grid h-full place-items-center bg-[var(--brand)] text-4xl tracking-[0.12em] text-white/80">
@@ -39,25 +39,27 @@ export function TeamMemberCard({
         {member.photoUrl ? (
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 bg-white/20 mix-blend-saturation"
+            className="pointer-events-none absolute inset-0 rounded-2xl bg-white/20 mix-blend-saturation"
           />
         ) : null}
       </div>
-      <p className="relative mt-3 inline-flex w-fit rounded-full border border-[#747878] px-3 py-1 text-[11px] font-normal leading-[16.5px] tracking-[0.26px] text-[#0a0a0a] lg:mt-4 lg:px-[17px] lg:py-[7px] lg:text-[13px] lg:font-semibold lg:leading-[13px]">
-        {member.name}
-      </p>
-      <p className="relative mt-2 line-clamp-2 min-h-[36px] pl-1 text-xs leading-[18px] text-[#444748] lg:min-h-[42px] lg:text-sm lg:leading-[21px]">
-        {member.position}
-      </p>
-      <p className="relative mt-3 line-clamp-3 min-h-[4.5rem] text-sm font-light leading-relaxed text-[#444748]">
-        {member.bio || "\u00a0"}
-      </p>
-      <div className="relative z-10 mt-4 min-h-[4.75rem]">
-        <TeamMemberContacts member={member} linkedInLabel={linkedInLabel} />
+      <div className="relative flex flex-1 flex-col pt-4">
+        <p className="inline-flex w-fit max-w-full truncate rounded-full border border-[#747878] px-3 py-1 text-[11px] font-normal leading-[16.5px] tracking-[0.26px] text-[#0a0a0a] lg:px-[17px] lg:py-[7px] lg:text-[13px] lg:font-semibold lg:leading-[13px]">
+          {member.name}
+        </p>
+        <p className="mt-2 line-clamp-2 min-h-[36px] text-xs leading-[18px] text-[#444748] lg:min-h-[42px] lg:text-sm lg:leading-[21px]">
+          {member.position}
+        </p>
+        <p className="mt-3 line-clamp-3 min-h-[4.5rem] text-sm font-light leading-relaxed text-[#444748]">
+          {member.bio || "\u00a0"}
+        </p>
+        <div className="relative z-10 mt-4 min-h-[4.75rem]">
+          <TeamMemberContacts member={member} linkedInLabel={linkedInLabel} />
+        </div>
+        <span className="mt-auto pt-4 text-[10px] font-semibold uppercase tracking-[1px] text-[var(--brand)] transition group-hover:translate-x-0.5">
+          {readMoreLabel} →
+        </span>
       </div>
-      <span className="relative mt-auto pt-4 text-[10px] font-semibold uppercase tracking-[1px] text-[var(--brand)] transition group-hover:translate-x-0.5">
-        {readMoreLabel} →
-      </span>
     </article>
   );
 }
@@ -75,7 +77,7 @@ function TeamMemberContacts({
   }
 
   return (
-    <ul className="relative z-10 mt-4 space-y-2 text-sm text-[#444748]">
+    <ul className="space-y-2 text-sm text-[#444748]">
       {member.email ? (
         <li>
           <a

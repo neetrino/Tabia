@@ -27,7 +27,7 @@ export async function TeamPageContent({ locale }: TeamPageContentProps) {
       {items.length === 0 ? (
         <EmptyState message={t("empty")} className="mt-12 lg:mt-16" />
       ) : (
-        <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:mt-16 lg:gap-x-6 lg:gap-y-12 xl:grid-cols-4">
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:mt-16 lg:gap-6 xl:grid-cols-4">
           {items.map((member, index) => (
             <Reveal key={member.slug} className="h-full" delay={revealDelay(index)}>
               <TeamMemberCard
