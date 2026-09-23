@@ -53,19 +53,71 @@ body {
   outline-offset: 2px;
 }
 
+/*
+ * iPad Mini (744), Air (820 / 1024) and Pro (834 / 1032) share the 1440px
+ * desktop canvas, scaled to the viewport. Phones stay on the mobile layout.
+ */
+@custom-variant md {
+  @media (width >= 768px) {
+    @slot;
+  }
+
+  @media (width >= 744px) and (width < 768px) and (height >= 520px) {
+    :where(.desktop-canvas) & {
+      @slot;
+    }
+  }
+}
+
+@custom-variant lg {
+  @media (width >= 1024px) {
+    @slot;
+  }
+
+  @media (width >= 744px) and (width < 1024px) and (height >= 520px) {
+    :where(.desktop-canvas) & {
+      @slot;
+    }
+  }
+}
+
+@custom-variant xl {
+  @media (width >= 1280px) {
+    @slot;
+  }
+
+  @media (width >= 744px) and (width < 1280px) and (height >= 520px) {
+    :where(.desktop-canvas) & {
+      @slot;
+    }
+  }
+}
+
+@media (width >= 744px) and (width < 1440px) and (height >= 520px) {
+  html {
+    overflow-x: clip;
+  }
+
+  .desktop-canvas {
+    --desktop-canvas-width: 1440px;
+    width: var(--desktop-canvas-width);
+    min-height: calc(100vh * var(--desktop-canvas-width) / 100vw);
+    zoom: calc(100vw / var(--desktop-canvas-width));
+  }
+}
+
 .home-hero-stage {
   height: 874px;
   min-height: 874px;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1024px),
+  (min-width: 744px) and (max-width: 1439px) and (min-height: 520px) {
   .home-hero-stage {
     height: 921px;
     min-height: 921px;
   }
-}
 
-@media (min-width: 1024px) {
   .home-about-stage {
     height: 704px;
     min-height: 704px;

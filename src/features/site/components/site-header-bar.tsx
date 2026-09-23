@@ -84,13 +84,11 @@ function DesktopNav({
         return;
       }
 
-      const navBox = nav.getBoundingClientRect();
-      const itemBox = activeEl.getBoundingClientRect();
       setPill({
-        left: itemBox.left - navBox.left,
-        top: itemBox.top - navBox.top,
-        width: itemBox.width,
-        height: itemBox.height,
+        left: activeEl.offsetLeft,
+        top: activeEl.offsetTop,
+        width: activeEl.offsetWidth,
+        height: activeEl.offsetHeight,
       });
     };
 
