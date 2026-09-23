@@ -9,21 +9,29 @@ import type { HeaderNavItem } from "./site-header-bar";
 
 type LabeledNavItem = HeaderNavItem & { label: string };
 
+type HeaderTone = "light" | "ink";
+
 type SiteHeaderMobileProps = {
   brand: string;
   menuLabel: string;
   items: LabeledNavItem[];
+  tone?: HeaderTone;
 };
 
 const MENU_EASE = "ease-[cubic-bezier(0.22,1,0.36,1)]";
 
-export function SiteHeaderMobile({ brand, menuLabel, items }: SiteHeaderMobileProps) {
+export function SiteHeaderMobile({
+  brand,
+  menuLabel,
+  items,
+  tone = "light",
+}: SiteHeaderMobileProps) {
   return (
     <div className="flex h-28 items-center justify-between bg-white/[0.09] px-5 backdrop-blur-[8px] lg:hidden">
       <SiteBrand label={brand} mark="ink" />
       <div className="flex items-center gap-3">
-        <LocaleSwitcher variant="dropdown" />
-        <MobileMenu items={items} menuLabel={menuLabel} />
+        <LocaleSwitcher variant="dropdown" tone={tone} />
+        <MobileMenu items={items} menuLabel={menuLabel} tone={tone} />
       </div>
     </div>
   );
@@ -32,9 +40,11 @@ export function SiteHeaderMobile({ brand, menuLabel, items }: SiteHeaderMobilePr
 function MobileMenu({
   items,
   menuLabel,
+  tone,
 }: {
   items: LabeledNavItem[];
   menuLabel: string;
+  tone: HeaderTone;
 }) {
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -77,7 +87,7 @@ function MobileMenu({
         onClick={() => setOpen((value) => !value)}
         className="flex size-9 cursor-pointer items-center justify-center"
       >
-        <BurgerIcon open={open} />
+        <BurgerIcon open={open} tone={tone} />
       </button>
       <nav
         id={menuId}
@@ -122,22 +132,25 @@ function MobileMenu({
   );
 }
 
-function BurgerIcon({ open }: { open: boolean }) {
+function BurgerIcon({ open, tone }: { open: boolean; tone: HeaderTone }) {
   return (
     <span aria-hidden className="relative block h-3.5 w-5">
       <BurgerBar
         open={open}
+        tone={tone}
         closedTransform="translate3d(0,-6px,0) rotate(0deg)"
         openTransform="translate3d(0,0,0) rotate(45deg)"
       />
       <BurgerBar
         open={open}
+        tone={tone}
         closedTransform="translate3d(0,0,0) scaleX(1)"
         openTransform="translate3d(0,0,0) scaleX(0)"
         fade
       />
       <BurgerBar
         open={open}
+        tone={tone}
         closedTransform="translate3d(0,6px,0) rotate(0deg)"
         openTransform="translate3d(0,0,0) rotate(-45deg)"
       />
@@ -147,18 +160,23 @@ function BurgerIcon({ open }: { open: boolean }) {
 
 function BurgerBar({
   open,
+  tone,
   closedTransform,
   openTransform,
   fade = false,
 }: {
   open: boolean;
+  tone: HeaderTone;
   closedTransform: string;
   openTransform: string;
   fade?: boolean;
 }) {
   return (
     <span
-      className="absolute left-0 top-[calc(50%-1px)] block h-0.5 w-5 bg-white motion-reduce:!transition-none"
+      className={cn(
+        "absolute left-0 top-[calc(50%-1px)] block h-0.5 w-5 motion-reduce:!transition-none",
+        tone === "ink" ? "bg-black" : "bg-white",
+      )}
       style={{
         opacity: fade && open ? 0 : 1,
         transform: open ? openTransform : closedTransform,

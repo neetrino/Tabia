@@ -18,11 +18,17 @@ const names: Record<AppLocale, string> = {
   ru: "Русский",
 };
 
+type HeaderTone = "light" | "ink";
+
 type LocaleSwitcherProps = {
   variant?: "inline" | "dropdown";
+  tone?: HeaderTone;
 };
 
-export function LocaleSwitcher({ variant = "inline" }: LocaleSwitcherProps) {
+export function LocaleSwitcher({
+  variant = "inline",
+  tone = "light",
+}: LocaleSwitcherProps) {
   const locale = useLocale() as AppLocale;
   const pathname = usePathname();
   const router = useRouter();
@@ -35,7 +41,7 @@ export function LocaleSwitcher({ variant = "inline" }: LocaleSwitcherProps) {
   };
 
   if (variant === "dropdown") {
-    return <LocaleDropdown locale={locale} onSelect={selectLocale} />;
+    return <LocaleDropdown locale={locale} tone={tone} onSelect={selectLocale} />;
   }
 
   return (
@@ -62,9 +68,11 @@ export function LocaleSwitcher({ variant = "inline" }: LocaleSwitcherProps) {
 
 function LocaleDropdown({
   locale,
+  tone,
   onSelect,
 }: {
   locale: AppLocale;
+  tone: HeaderTone;
   onSelect: (next: AppLocale) => void;
 }) {
   const detailsRef = useRef<HTMLDetailsElement>(null);
@@ -81,7 +89,10 @@ function LocaleDropdown({
     <details ref={detailsRef} className="group relative">
       <summary
         aria-label={names[locale]}
-        className="flex h-[37px] cursor-pointer list-none items-center justify-center gap-1.5 rounded-[20px] bg-white px-3 text-sm leading-[16.5px] tracking-[1.2px] text-black [&::-webkit-details-marker]:hidden"
+        className={cn(
+          "flex h-[37px] cursor-pointer list-none items-center justify-center gap-1.5 rounded-[20px] px-3 text-sm leading-[16.5px] tracking-[1.2px] [&::-webkit-details-marker]:hidden",
+          tone === "ink" ? "bg-black text-white" : "bg-white text-black",
+        )}
       >
         {labels[locale]}
         <LocaleChevron />

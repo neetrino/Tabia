@@ -7,7 +7,7 @@ export async function ContactPageContent() {
 
   return (
     <section className="relative bg-white">
-      <div className="mx-auto max-w-[1400px] px-5 pb-20 pt-16 lg:px-16 lg:pb-32 lg:pt-24">
+      <div className="mx-auto max-w-[1400px] px-5 pb-20 pt-6 lg:px-16 lg:pb-32 lg:pt-24">
         <div className="grid gap-12 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.2fr)] lg:items-start lg:gap-12 xl:gap-16">
           <Reveal>
           <div>

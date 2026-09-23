@@ -41,7 +41,12 @@ export function SiteHeaderBar({
   return (
     <header className="sticky top-0 z-50 lg:top-4 lg:mt-4 lg:px-8">
       <Enter y={-14} className="lg:flex lg:justify-center">
-        <SiteHeaderMobile brand={brand} menuLabel={menuLabel} items={items} />
+        <SiteHeaderMobile
+          brand={brand}
+          menuLabel={menuLabel}
+          items={items}
+          tone={isInkMobileHeader(pathname) ? "ink" : "light"}
+        />
         <div className="hidden h-20 w-full max-w-[1400px] items-center justify-between overflow-hidden rounded-full bg-black px-6 lg:flex lg:px-16">
           <SiteBrand label={brand} />
           <DesktopNav items={items} pathname={pathname} />
@@ -161,6 +166,14 @@ function DesktopNav({
         );
       })}
     </nav>
+  );
+}
+
+const inkHeaderPrefixes = ["/services", "/team", "/news", "/insights", "/contact"] as const;
+
+function isInkMobileHeader(pathname: string): boolean {
+  return inkHeaderPrefixes.some(
+    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
   );
 }
 

@@ -44,7 +44,7 @@ export function InteriorPageShell({
 }: InteriorPageShellProps) {
   return (
     <section className={cn("relative bg-white", className)}>
-      <div className="mx-auto max-w-[1400px] px-5 pb-20 pt-16 lg:px-16 lg:pb-32 lg:pt-24">
+      <div className="mx-auto max-w-[1400px] px-5 pb-20 pt-6 lg:px-16 lg:pb-32 lg:pt-24">
         {children}
       </div>
     </section>
