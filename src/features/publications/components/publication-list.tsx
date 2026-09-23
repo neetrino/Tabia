@@ -40,8 +40,9 @@ export async function PublicationList({ locale, type }: PublicationListProps) {
             const href = getPublicationHref(item);
 
             return (
-              <article
+              <Link
                 key={item.slug}
+                href={href}
                 className="group flex flex-col overflow-hidden rounded-2xl border border-black/[0.06] bg-[var(--surface)] transition duration-300 hover:border-black/10 hover:shadow-[0_16px_40px_rgba(0,0,0,0.06)] lg:flex-row lg:gap-5 lg:p-5"
               >
                 <CoverMedia
@@ -72,14 +73,11 @@ export async function PublicationList({ locale, type }: PublicationListProps) {
                       {item.summary}
                     </p>
                   </div>
-                  <Link
-                    href={href}
-                    className="mt-4 text-[10px] font-semibold uppercase tracking-[1px] text-[var(--brand)] transition group-hover:translate-x-0.5"
-                  >
+                  <span className="mt-4 text-[10px] font-semibold uppercase tracking-[1px] text-[var(--brand)] transition group-hover:translate-x-0.5">
                     {readMore} →
-                  </Link>
+                  </span>
                 </div>
-              </article>
+              </Link>
             );
           })}
         </div>

@@ -15,51 +15,50 @@ export function TeamMemberCard({
   readMoreLabel,
   linkedInLabel,
 }: TeamMemberCardProps) {
+  const href = member.hasProfile ? `/team/${member.slug}` : "/team";
+
   return (
-    <article className="flex h-full flex-col">
+    <article className="group relative flex h-full flex-col">
       <Link
-        href={member.hasProfile ? `/team/${member.slug}` : "/team"}
-        className="group block"
-      >
-        <div className="relative h-64 overflow-hidden rounded-2xl bg-white lg:h-72 lg:rounded-3xl">
-          <CoverMedia
-            src={member.photoUrl}
-            alt={member.name}
-            className="h-full rounded-none bg-white"
-            imageClassName="object-cover object-top"
-            fallback={
-              <div className="grid h-full place-items-center bg-[var(--brand)] text-4xl tracking-[0.12em] text-white/80">
-                {getInitials(member.name)}
-              </div>
-            }
+        href={href}
+        className="absolute inset-0 z-0 rounded-3xl"
+        aria-label={member.name}
+      />
+      <div className="relative h-64 overflow-hidden rounded-2xl bg-white lg:h-72 lg:rounded-3xl">
+        <CoverMedia
+          src={member.photoUrl}
+          alt={member.name}
+          className="h-full rounded-none bg-white"
+          imageClassName="object-cover object-top transition duration-500 group-hover:scale-[1.03]"
+          fallback={
+            <div className="grid h-full place-items-center bg-[var(--brand)] text-4xl tracking-[0.12em] text-white/80">
+              {getInitials(member.name)}
+            </div>
+          }
+        />
+        {member.photoUrl ? (
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-white/20 mix-blend-saturation"
           />
-          {member.photoUrl ? (
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0 bg-white/20 mix-blend-saturation"
-            />
-          ) : null}
-        </div>
-        <p className="mt-3 inline-flex rounded-full border border-[#747878] px-3 py-1 text-[11px] font-normal leading-[16.5px] tracking-[0.26px] text-[#0a0a0a] lg:mt-4 lg:px-[17px] lg:py-[7px] lg:text-[13px] lg:font-semibold lg:leading-[13px]">
-          {member.name}
-        </p>
-        <p className="mt-2 pl-1 text-xs leading-[18px] text-[#444748] lg:text-sm lg:leading-[21px]">
-          {member.position}
-        </p>
-      </Link>
+        ) : null}
+      </div>
+      <p className="relative mt-3 inline-flex w-fit rounded-full border border-[#747878] px-3 py-1 text-[11px] font-normal leading-[16.5px] tracking-[0.26px] text-[#0a0a0a] lg:mt-4 lg:px-[17px] lg:py-[7px] lg:text-[13px] lg:font-semibold lg:leading-[13px]">
+        {member.name}
+      </p>
+      <p className="relative mt-2 pl-1 text-xs leading-[18px] text-[#444748] lg:text-sm lg:leading-[21px]">
+        {member.position}
+      </p>
       {member.bio ? (
-        <p className="mt-3 line-clamp-3 text-sm font-light leading-relaxed text-[#444748]">
+        <p className="relative mt-3 line-clamp-3 text-sm font-light leading-relaxed text-[#444748]">
           {member.bio}
         </p>
       ) : null}
       <TeamMemberContacts member={member} linkedInLabel={linkedInLabel} />
       {member.hasProfile ? (
-        <Link
-          href={`/team/${member.slug}`}
-          className="mt-4 text-[10px] font-semibold uppercase tracking-[1px] text-[var(--brand)] transition hover:gap-3"
-        >
+        <span className="relative mt-4 text-[10px] font-semibold uppercase tracking-[1px] text-[var(--brand)]">
           {readMoreLabel} →
-        </Link>
+        </span>
       ) : null}
     </article>
   );
@@ -78,7 +77,7 @@ function TeamMemberContacts({
   }
 
   return (
-    <ul className="mt-4 space-y-2 text-sm text-[#444748]">
+    <ul className="relative z-10 mt-4 space-y-2 text-sm text-[#444748]">
       {member.email ? (
         <li>
           <a

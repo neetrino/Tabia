@@ -104,12 +104,15 @@ function PublicationCard({
   const href = getPublicationHref(item);
 
   return (
-    <article className="flex w-[347px] shrink-0 flex-col overflow-hidden rounded-2xl border border-black/[0.06] bg-white lg:w-auto lg:flex-row lg:gap-5 lg:overflow-visible lg:border-white/5 lg:p-5">
+    <Link
+      href={href}
+      className="group flex w-[347px] shrink-0 flex-col overflow-hidden rounded-2xl border border-black/[0.06] bg-white transition duration-300 hover:border-black/10 lg:w-auto lg:flex-row lg:gap-5 lg:overflow-visible lg:border-white/5 lg:p-5"
+    >
       <CoverMedia
         src={item.coverUrl}
         alt={item.title}
         className="h-40 w-full shrink-0 rounded-b-2xl bg-[#1a1a1a] lg:size-40 lg:rounded-xl"
-        imageClassName="object-cover opacity-70"
+        imageClassName="object-cover opacity-70 transition duration-500 group-hover:scale-[1.03] group-hover:opacity-90"
       />
       <div className="flex min-w-0 flex-1 flex-col p-4 lg:justify-between lg:p-0 lg:py-1">
         <div>
@@ -133,13 +136,10 @@ function PublicationCard({
             {item.summary}
           </p>
         </div>
-        <Link
-          href={href}
-          className="pt-1.5 text-[9px] uppercase leading-[13.5px] tracking-[1px] text-[var(--brand)] lg:mt-3 lg:pt-0 lg:text-[10px] lg:font-semibold lg:leading-[15px]"
-        >
+        <span className="pt-1.5 text-[9px] uppercase leading-[13.5px] tracking-[1px] text-[var(--brand)] lg:mt-3 lg:pt-0 lg:text-[10px] lg:font-semibold lg:leading-[15px]">
           {readMore} →
-        </Link>
+        </span>
       </div>
-    </article>
+    </Link>
   );
 }
