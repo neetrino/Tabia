@@ -13,7 +13,7 @@ export async function AdminSidebar({ email }: AdminSidebarProps) {
   const common = await getTranslations("common");
 
   return (
-    <aside className="flex min-h-screen w-64 shrink-0 flex-col overflow-hidden rounded-tr-[20px] rounded-br-[20px] bg-black text-white">
+    <aside className="flex h-full w-64 shrink-0 flex-col overflow-hidden rounded-tr-[20px] rounded-br-[20px] bg-black text-white">
       <div className="border-b border-white/10 px-5 py-5">
         <SiteBrand label={common("brand")} />
         <p className="mt-3 truncate text-xs text-white/60">{email}</p>

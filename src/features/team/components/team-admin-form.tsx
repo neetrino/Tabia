@@ -93,7 +93,7 @@ export function TeamAdminForm({
       {errorKey ? (
         <p className="text-sm text-red-700">{form(`errors.${errorKey}`)}</p>
       ) : null}
-      <div className="flex gap-3">
+      <div className="flex justify-end gap-3">
         <button
           type="submit"
           disabled={pending}
