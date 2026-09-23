@@ -24,9 +24,7 @@ export async function HomePublications({
 
   return (
     <section className="relative bg-[#090909] lg:bg-black">
-      <div className="absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2">
-        <SectionLabel>{t("publications.label")}</SectionLabel>
-      </div>
+      <SectionLabel>{t("publications.label")}</SectionLabel>
       <div className="mx-auto max-w-[1440px] px-5 py-12 lg:px-[85px] lg:pb-32 lg:pt-[123px]">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between lg:gap-8">
           <h2 className="max-w-[362px] text-[36px] font-normal uppercase leading-[44px] text-[var(--cream)] lg:max-w-[914px] lg:text-[56px] lg:leading-[56px]">

@@ -27,9 +27,7 @@ export async function HomeAbout() {
 
   return (
     <section className="relative bg-gradient-to-b from-[#151515] to-[#7a3737] lg:bg-[linear-gradient(126.5deg,#151515_15.214%,#7a3737_81.251%)]">
-      <div className="absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2">
-        <SectionLabel>{t("about.label")}</SectionLabel>
-      </div>
+      <SectionLabel>{t("about.label")}</SectionLabel>
 
       <HomeAboutMobile label={t("about.label")} quote={mobileQuote} cta={cta} stats={stats} />
 

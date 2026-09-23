@@ -16,9 +16,7 @@ export async function HomeTeam({ items }: HomeTeamProps) {
 
   return (
     <section className="relative bg-white">
-      <div className="absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2">
-        <SectionLabel>{t("team.label")}</SectionLabel>
-      </div>
+      <SectionLabel>{t("team.label")}</SectionLabel>
       <div className="mx-auto max-w-[1281px] px-5 pb-[133px] pt-12 lg:px-8 lg:pb-24 lg:pr-16 lg:pt-[60px]">
         <h2 className="max-w-[363px] text-[32px] font-normal uppercase leading-[40px] tracking-[-2px] text-[#0a0a0a] lg:max-w-[672px] lg:whitespace-pre-line lg:text-[56px] lg:font-bold lg:leading-[64px] lg:tracking-[-3.28px]">
           {t.rich("team.title", {

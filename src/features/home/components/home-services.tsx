@@ -17,9 +17,7 @@ export async function HomeServices({ items }: HomeServicesProps) {
 
   return (
     <section className="relative bg-gradient-to-b from-[#090909] to-[#2a2a2a]">
-      <div className="absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2">
-        <SectionLabel>{t("services.label")}</SectionLabel>
-      </div>
+      <SectionLabel>{t("services.label")}</SectionLabel>
       <div className="mx-auto max-w-[1400px] px-5 pb-28 pt-12 lg:px-16 lg:pb-32 lg:pt-[105px]">
         <div className="flex flex-col gap-[7px] lg:flex-row lg:items-end lg:justify-between lg:gap-8">
           <h2 className="max-w-[363px] text-[36px] uppercase leading-[44px] text-[var(--cream)] lg:max-w-[979px] lg:text-[56px] lg:leading-[56px]">
