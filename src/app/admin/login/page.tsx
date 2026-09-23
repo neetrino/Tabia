@@ -12,7 +12,7 @@ export default async function AdminLoginPage() {
   const t = await getTranslations("admin");
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-4">
+    <div className="admin-app mx-auto flex min-h-screen max-w-md flex-col justify-center px-4">
       <div className="rounded-[15px] border border-[var(--border)] bg-white p-6 shadow-sm">
         <div className="flex items-start justify-between gap-3">
           <h1 className="text-2xl font-semibold">{t("login.title")}</h1>

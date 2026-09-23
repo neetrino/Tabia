@@ -172,6 +172,31 @@ body {
   }
 }
 
+/* Clickable controls in admin. */
+.admin-app
+  :where(
+    a[href],
+    button:not(:disabled),
+    [role="button"]:not([aria-disabled="true"]),
+    [role="switch"]:not(:disabled),
+    [role="tab"],
+    [role="option"],
+    [role="menuitem"],
+    label[for],
+    select:not(:disabled),
+    summary,
+    input[type="checkbox"]:not(:disabled),
+    input[type="radio"]:not(:disabled),
+    input[type="file"]:not(:disabled),
+    [data-clickable]
+  ):not(.cursor-grab):not(.cursor-grabbing) {
+  cursor: pointer;
+}
+
+.admin-app :where(button:disabled, [aria-disabled="true"], input:disabled) {
+  cursor: not-allowed;
+}
+
 .home-hero-stage {
   height: 874px;
   min-height: 874px;

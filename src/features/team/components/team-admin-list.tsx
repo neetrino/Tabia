@@ -61,6 +61,7 @@ function TeamSortableRow({
         isDragging && "relative z-10 cursor-grabbing bg-[var(--surface)] opacity-70 shadow-md",
         disabled && !isDragging && "opacity-70",
       )}
+      data-clickable
       onClick={() => {
         if (!disabled && !isDragging) {
           onEdit(member);

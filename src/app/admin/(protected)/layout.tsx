@@ -13,7 +13,7 @@ export default async function AdminProtectedLayout({
   }
 
   return (
-    <div className="flex h-dvh overflow-hidden bg-[var(--background)] text-[var(--foreground)]">
+    <div className="admin-app flex h-dvh overflow-hidden bg-[var(--background)] text-[var(--foreground)]">
       <AdminSidebar email={session.email} />
       <div className="min-h-0 min-w-0 flex-1 overflow-y-auto p-6 md:p-8">
         {children}

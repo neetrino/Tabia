@@ -110,6 +110,7 @@ export function PublicationAdminList({
               "hover:border-[var(--brand)]/30 hover:shadow-sm motion-reduce:transition-none",
               pending && "opacity-70",
             )}
+            data-clickable
             onClick={() => {
               if (!pending) {
                 onEdit(publication);
