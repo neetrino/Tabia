@@ -77,17 +77,17 @@ function ServiceCard({ item }: { item: ServicePreview }) {
   return (
     <Link
       href={`/services/${item.slug}`}
-      className="group relative block h-[220px] w-[calc(100vw-5.5rem)] max-w-[362px] shrink-0 snap-start overflow-hidden rounded-xl bg-[linear-gradient(-43deg,#fff_12%,#999_101%)] lg:h-[295px] lg:w-auto lg:max-w-none lg:snap-align-none lg:rounded-[10px] lg:bg-[linear-gradient(-57deg,#fff_6%,#d6d6d6_109%)]"
+      className="group relative block h-[260px] w-[calc(100vw-5.5rem)] max-w-[362px] shrink-0 snap-start overflow-hidden rounded-xl bg-[linear-gradient(-43deg,#fff_12%,#999_101%)] lg:h-[295px] lg:w-auto lg:max-w-none lg:snap-align-none lg:rounded-[10px] lg:bg-[linear-gradient(-57deg,#fff_6%,#d6d6d6_109%)]"
     >
       {item.imageUrl ? (
         <>
-          <div className="absolute left-[181px] top-[37px] size-[222px] overflow-hidden lg:hidden">
+          <div className="pointer-events-none absolute -bottom-4 right-2 size-[178px] [mask-image:linear-gradient(90deg,transparent,black_18%)] lg:hidden">
             <Image
               src={item.imageUrl}
               alt=""
               fill
-              className="object-cover transition duration-500 group-hover:scale-[1.03]"
-              sizes="222px"
+              className="object-contain object-center transition duration-500 group-hover:scale-[1.03]"
+              sizes="178px"
             />
           </div>
           <div className={cn("absolute hidden overflow-hidden lg:block", frameClass)}>
@@ -113,7 +113,7 @@ function ServiceCard({ item }: { item: ServicePreview }) {
       )}
 
       <div className="relative z-10 flex items-start justify-between gap-4 px-5 pt-5 lg:gap-6 lg:pt-[23px]">
-        <h3 className="w-[246px] text-sm font-semibold leading-normal text-black lg:w-[248px] lg:text-lg">
+        <h3 className="max-w-[55%] text-sm font-semibold leading-normal text-black lg:max-w-none lg:w-[248px] lg:text-lg">
           {item.title}
         </h3>
         <img
