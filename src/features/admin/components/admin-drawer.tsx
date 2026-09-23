@@ -26,7 +26,7 @@ type AdminDrawerProps = {
 const drawerWidthClassName: Record<AdminDrawerSize, string> = {
   lg: "w-[87%] max-w-lg sm:w-full",
   xl: "w-[87%] max-w-2xl sm:w-full",
-  wide: "w-[87%] max-w-3xl md:w-[65%] md:max-w-4xl",
+  wide: "w-[87%] max-w-3xl md:w-[55%] md:max-w-4xl",
 };
 
 const AdminDrawerHeaderActionsContext = createContext<
