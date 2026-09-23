@@ -14,7 +14,7 @@ const links = [
   { href: "/contact", key: "contact" as const },
 ];
 
-const footerSocialIds = ["instagram", "facebook", "telegram"] as const;
+const footerSocialIds = ["linkedin"] as const;
 
 export async function SiteFooter() {
   const t = await getTranslations("common");
@@ -203,17 +203,29 @@ function FooterIdentity({
         className="[&_img]:h-[30px] [&_img]:w-[104px] lg:[&_img]:h-[38px] lg:[&_img]:w-[131px]"
       />
       <ul className="flex h-[88px] items-center gap-4">
-        {social.map((item) => (
-          <li key={item.id}>
-            {item.href ? (
-              <a href={item.href} target="_blank" rel="noreferrer">
-                <SocialMark icon={item.icon} label={socialLabel(item.id)} />
-              </a>
-            ) : (
-              <SocialMark icon={item.icon} label={socialLabel(item.id)} />
-            )}
-          </li>
-        ))}
+        {social.map((item) => {
+          const label = socialLabel(item.id);
+          const content = (
+            <span className="inline-flex items-center gap-3 transition hover:opacity-80">
+              <SocialMark icon={item.icon} />
+              <span className="text-sm font-light leading-5 text-[var(--nav)]">
+                {label}
+              </span>
+            </span>
+          );
+
+          return (
+            <li key={item.id}>
+              {item.href ? (
+                <a href={item.href} target="_blank" rel="noreferrer">
+                  {content}
+                </a>
+              ) : (
+                content
+              )}
+            </li>
+          );
+        })}
       </ul>
       <address className="hidden space-y-4 text-sm not-italic lg:block">
         <FooterFact label={phoneLabel} value={phone} />
@@ -224,10 +236,10 @@ function FooterIdentity({
   );
 }
 
-function SocialMark({ icon, label }: { icon: string; label: string }) {
+function SocialMark({ icon }: { icon: string }) {
   return (
-    <span className="grid size-10 place-items-center rounded-full bg-white">
-      <img src={icon} alt={label} width={40} height={40} className="block size-10" />
+    <span className="grid size-10 shrink-0 place-items-center rounded-full bg-white">
+      <img src={icon} alt="" width={40} height={40} className="block size-10" aria-hidden />
     </span>
   );
 }

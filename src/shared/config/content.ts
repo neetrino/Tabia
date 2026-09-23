@@ -14,6 +14,7 @@ export const HOME_ASSETS = {
   socialInstagram: "/images/icons/social-instagram.svg",
   socialFacebook: "/images/icons/social-facebook.svg",
   socialTelegram: "/images/icons/social-telegram.svg",
+  socialLinkedIn: "/images/icons/social-linkedin.svg",
 } as const;
 
 /** Per-slug illustration frames from the services section design. */
@@ -45,8 +46,10 @@ export const SITE_SOCIAL = [
   },
   {
     id: "linkedin" as const,
-    href: process.env.NEXT_PUBLIC_SOCIAL_LINKEDIN ?? "",
-    icon: HOME_ASSETS.socialFacebook,
+    href:
+      process.env.NEXT_PUBLIC_SOCIAL_LINKEDIN ||
+      "https://www.linkedin.com/company/tabia-legal-solutions/",
+    icon: HOME_ASSETS.socialLinkedIn,
   },
 ] as const;
 

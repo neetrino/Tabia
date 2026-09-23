@@ -21,7 +21,7 @@ export function TeamMemberCard({
     <article className="group relative flex h-full flex-col">
       <Link
         href={href}
-        className="absolute inset-0 z-0 rounded-3xl"
+        className="absolute inset-0 z-[1] rounded-3xl"
         aria-label={member.name}
       />
       <div className="relative h-64 overflow-hidden rounded-2xl bg-white lg:h-72 lg:rounded-3xl">
