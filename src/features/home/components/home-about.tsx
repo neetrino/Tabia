@@ -3,6 +3,7 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { HOME_ASSETS } from "@/shared/config/content";
 import { cn } from "@/shared/lib/cn";
+import { Drift, Reveal } from "@/shared/motion/reveal";
 import { ButtonLink } from "@/shared/ui/button-link";
 import { SectionLabel } from "@/shared/ui/section-label";
 
@@ -33,20 +34,24 @@ export async function HomeAbout() {
 
       <div className="home-about-stage relative mx-auto hidden max-w-[1440px] lg:block">
         <div className="absolute left-[72px] top-[105px] w-[612px]">
-          <h2 className="max-w-[516px] pt-8 text-[52px] font-extrabold uppercase leading-[70px] tracking-[-1.8px] text-white">
-            {title}
-          </h2>
-          <AboutStats stats={stats} className="mt-14 max-w-[516px]" />
+          <Reveal>
+            <h2 className="max-w-[516px] pt-8 text-[52px] font-extrabold uppercase leading-[70px] tracking-[-1.8px] text-white">
+              {title}
+            </h2>
+            <AboutStats stats={stats} className="mt-14 max-w-[516px]" />
+          </Reveal>
         </div>
 
-        <AboutQuoteCard
-          className="absolute left-[755px] top-[119px] z-10"
-          quote={quote}
-          cta={cta}
-        />
+        <div className="absolute left-[755px] top-[119px] z-10 w-[320px]">
+          <Reveal delay={0.12}>
+            <AboutQuoteCard quote={quote} cta={cta} />
+          </Reveal>
+        </div>
 
         <div className="absolute left-[821px] top-[304px] h-[400px] w-[607px] -scale-x-100 overflow-hidden">
-          <AboutBooksImage />
+          <Reveal className="relative size-full" delay={0.2} y={28}>
+            <AboutBooksImage />
+          </Reveal>
         </div>
       </div>
     </section>
@@ -70,10 +75,13 @@ function HomeAboutMobile({
     <div className="relative h-[610px] overflow-x-clip lg:hidden">
       <div className="pointer-events-none absolute left-[-185px] top-[-59px] h-[456px] w-[416px]">
         <div className="absolute left-1/2 top-1/2 h-[251px] w-[381px] -translate-x-1/2 -translate-y-1/2 rotate-[57.61deg]">
-          <AboutBooksImage />
+          <Drift className="relative size-full" distance={8} duration={9}>
+            <AboutBooksImage />
+          </Drift>
         </div>
       </div>
       <div className="absolute left-[201px] top-[86px] z-10 w-[181px]">
+        <Reveal>
         <h2 className="w-[254px] text-[36px] font-semibold uppercase leading-[44px] text-[var(--cream)]">
           {firstWord}
           {rest.length > 0 ? <br /> : null}
@@ -88,12 +96,11 @@ function HomeAboutMobile({
         >
           {cta}
         </ButtonLink>
+        </Reveal>
       </div>
-      <AboutStats
-        stats={stats}
-        compact
-        className="absolute inset-x-[19px] top-[467px]"
-      />
+      <Reveal className="absolute inset-x-[19px] top-[467px]" delay={0.12} y={16}>
+        <AboutStats stats={stats} compact />
+      </Reveal>
     </div>
   );
 }

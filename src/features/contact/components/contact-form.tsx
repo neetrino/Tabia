@@ -77,10 +77,12 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={pending}
-        className="mx-auto mt-5 flex h-12 w-full items-center justify-center gap-3 rounded-full bg-[var(--brand)] px-8 text-base font-semibold tracking-[0.3px] text-[var(--cream)] transition-all hover:bg-[var(--brand-deep)] disabled:opacity-60 sm:w-auto sm:min-w-[200px]"
+        className="group mx-auto mt-5 flex h-12 w-full items-center justify-center gap-3 rounded-full bg-[var(--brand)] px-8 text-base font-semibold tracking-[0.3px] text-[var(--cream)] transition-all hover:bg-[var(--brand-deep)] disabled:opacity-60 sm:w-auto sm:min-w-[200px]"
       >
         {pending ? t("pending") : common("actions.submit")}
-        {pending ? null : <ButtonArrow />}
+        {pending ? null : (
+          <ButtonArrow className="transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transform-none" />
+        )}
       </button>
     </form>
   );

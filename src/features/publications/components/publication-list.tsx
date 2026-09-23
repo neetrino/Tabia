@@ -3,6 +3,8 @@ import type { PublicationType } from "@prisma/client";
 import { Link } from "@/i18n/navigation";
 import { formatPublishedDate } from "@/shared/lib/localized";
 import { cn } from "@/shared/lib/cn";
+import { Reveal } from "@/shared/motion/reveal";
+import { revealDelay } from "@/shared/motion/timing";
 import { CoverMedia } from "@/shared/ui/cover-media";
 import { EmptyState } from "@/shared/ui/empty-state";
 import {
@@ -37,14 +39,19 @@ export async function PublicationList({ locale, type }: PublicationListProps) {
         <EmptyState message={t("empty")} className="mt-12 lg:mt-16" />
       ) : (
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:mt-16 xl:grid-cols-3">
-          {items.map((item) => (
-            <PublicationCard
+          {items.map((item, index) => (
+            <Reveal
               key={`${item.type}-${item.slug}`}
-              item={item}
-              locale={locale}
-              typeLabel={typeLabel}
-              readMore={readMore}
-            />
+              className="h-full"
+              delay={revealDelay(index)}
+            >
+              <PublicationCard
+                item={item}
+                locale={locale}
+                typeLabel={typeLabel}
+                readMore={readMore}
+              />
+            </Reveal>
           ))}
         </div>
       )}
@@ -72,7 +79,7 @@ function PublicationCard({
     <Link
       href={href}
       className={cn(
-        "group flex flex-col overflow-hidden rounded-[24px] border border-black/[0.06]",
+        "group flex h-full flex-col overflow-hidden rounded-[24px] border border-black/[0.06]",
         "bg-[var(--surface)] transition duration-300",
         "hover:-translate-y-1 hover:border-black/10 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)]",
         "motion-reduce:transform-none",

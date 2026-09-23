@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { Reveal } from "@/shared/motion/reveal";
 import { ContactForm } from "./contact-form";
 
 export async function ContactPageContent() {
@@ -8,6 +9,7 @@ export async function ContactPageContent() {
     <section className="relative bg-white">
       <div className="mx-auto max-w-[1400px] px-5 pb-20 pt-16 lg:px-16 lg:pb-32 lg:pt-24">
         <div className="grid gap-12 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.2fr)] lg:items-start lg:gap-12 xl:gap-16">
+          <Reveal>
           <div>
             <h1 className="max-w-[420px] text-[36px] uppercase leading-[44px] text-[#0a0a0a] lg:max-w-[520px] lg:text-[56px] lg:leading-[56px]">
               <span className="block font-semibold lg:font-extrabold">
@@ -36,8 +38,11 @@ export async function ContactPageContent() {
               <ContactDetail label={t("hours")} value={t("hoursValue")} />
             </dl>
           </div>
+          </Reveal>
 
-          <ContactForm />
+          <Reveal delay={0.12}>
+            <ContactForm />
+          </Reveal>
         </div>
       </div>
     </section>

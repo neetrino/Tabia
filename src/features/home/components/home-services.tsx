@@ -4,6 +4,8 @@ import type { ServicePreview } from "@/features/services";
 import { Link } from "@/i18n/navigation";
 import { HOME_ASSETS, SERVICE_ILLUSTRATION_FRAME } from "@/shared/config/content";
 import { cn } from "@/shared/lib/cn";
+import { Reveal } from "@/shared/motion/reveal";
+import { revealDelay } from "@/shared/motion/timing";
 import { EmptyState } from "@/shared/ui/empty-state";
 import { SectionLabel } from "@/shared/ui/section-label";
 
@@ -19,6 +21,7 @@ export async function HomeServices({ items }: HomeServicesProps) {
     <section className="relative bg-gradient-to-b from-[#090909] to-[#2a2a2a]">
       <SectionLabel>{t("services.label")}</SectionLabel>
       <div className="mx-auto max-w-[1400px] px-5 pb-28 pt-12 lg:px-16 lg:pb-32 lg:pt-[105px]">
+        <Reveal>
         <div className="flex flex-col gap-[7px] lg:flex-row lg:items-end lg:justify-between lg:gap-8">
           <h2 className="max-w-[363px] text-[36px] uppercase leading-[44px] text-[var(--cream)] lg:max-w-[979px] lg:text-[56px] lg:leading-[56px]">
             <span className="block font-semibold lg:font-extrabold">
@@ -35,7 +38,9 @@ export async function HomeServices({ items }: HomeServicesProps) {
             {t("services.viewAll")} →
           </Link>
         </div>
+        </Reveal>
 
+        <Reveal delay={0.08}>
         <div className="mt-3 flex w-full max-w-[362px] items-end gap-4 lg:mt-14 lg:max-w-none">
           <p className="w-[179px] shrink-0 text-[11px] uppercase leading-[18px] tracking-[0.35px] text-white lg:w-auto lg:max-w-[805px] lg:whitespace-pre-line lg:text-sm lg:leading-[21px]">
             {t("services.description")}
@@ -47,6 +52,7 @@ export async function HomeServices({ items }: HomeServicesProps) {
             {t("services.viewAllShort")} →
           </Link>
         </div>
+        </Reveal>
 
         {items.length === 0 ? (
           <EmptyState
@@ -56,8 +62,15 @@ export async function HomeServices({ items }: HomeServicesProps) {
         ) : (
           <div className="mt-10 -mx-5 overflow-x-auto pt-6 [-ms-overflow-style:none] [scrollbar-width:none] lg:mx-0 lg:mt-20 lg:overflow-visible lg:pt-0 [&::-webkit-scrollbar]:hidden">
             <div className="flex w-max snap-x snap-mandatory gap-4 px-5 lg:grid lg:w-auto lg:snap-none lg:grid-cols-2 lg:gap-[23px] lg:px-0 xl:grid-cols-3">
-              {items.map((item) => (
-                <ServiceCard key={item.slug} item={item} />
+              {items.map((item, index) => (
+                <Reveal
+                  key={item.slug}
+                  className="shrink-0 lg:w-auto"
+                  delay={revealDelay(index)}
+                  y={16}
+                >
+                  <ServiceCard item={item} />
+                </Reveal>
               ))}
             </div>
           </div>
@@ -75,7 +88,7 @@ function ServiceCard({ item }: { item: ServicePreview }) {
   return (
     <Link
       href={`/services/${item.slug}`}
-      className="group relative block h-[260px] w-[calc(100vw-5.5rem)] max-w-[362px] shrink-0 snap-start overflow-hidden rounded-xl bg-[linear-gradient(-43deg,#fff_12%,#999_101%)] lg:h-[295px] lg:w-auto lg:max-w-none lg:snap-align-none lg:rounded-[10px] lg:bg-[linear-gradient(-57deg,#fff_6%,#d6d6d6_109%)]"
+      className="group relative block h-[260px] w-[calc(100vw-5.5rem)] max-w-[362px] shrink-0 snap-start overflow-hidden rounded-xl bg-[linear-gradient(-43deg,#fff_12%,#999_101%)] transition duration-500 hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:translate-y-0 lg:h-[295px] lg:w-auto lg:max-w-none lg:snap-align-none lg:rounded-[10px] lg:bg-[linear-gradient(-57deg,#fff_6%,#d6d6d6_109%)]"
     >
       {item.imageUrl ? (
         <>

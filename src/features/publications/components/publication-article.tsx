@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import type { PublicationType } from "@prisma/client";
 import { formatPublishedDate } from "@/shared/lib/localized";
+import { Enter, Reveal } from "@/shared/motion/reveal";
 import { ArticleBackLink } from "@/shared/ui/article-chrome";
 import { CoverMedia } from "@/shared/ui/cover-media";
 import { InteriorPageShell } from "@/shared/ui/interior-page-header";
@@ -36,8 +37,11 @@ export async function PublicationArticle({
   return (
     <InteriorPageShell>
       <article>
-        <ArticleBackLink href={backHref} label={t("title")} />
+        <Enter>
+          <ArticleBackLink href={backHref} label={t("title")} />
+        </Enter>
 
+        <Reveal>
         <div className="mt-8 overflow-hidden rounded-[28px] bg-[#111] lg:mt-10 lg:rounded-[36px]">
           <div className="relative">
             <CoverMedia
@@ -67,16 +71,21 @@ export async function PublicationArticle({
             </div>
           </div>
         </div>
+        </Reveal>
 
         {article.summary ? (
-          <p className="mx-auto mt-10 max-w-[720px] border-l-2 border-[var(--brand)] pl-5 text-base font-light leading-7 text-[#363636] lg:mt-12 lg:text-lg lg:leading-8">
-            {article.summary}
-          </p>
+          <Reveal delay={0.06}>
+            <p className="mx-auto mt-10 max-w-[720px] border-l-2 border-[var(--brand)] pl-5 text-base font-light leading-7 text-[#363636] lg:mt-12 lg:text-lg lg:leading-8">
+              {article.summary}
+            </p>
+          </Reveal>
         ) : null}
 
-        <div className="mx-auto mt-10 max-w-[720px] text-base font-light leading-[1.75] text-[#363636] lg:mt-12 lg:text-lg lg:leading-[1.8]">
-          <PublicationBody html={article.body} />
-        </div>
+        <Reveal delay={0.1}>
+          <div className="mx-auto mt-10 max-w-[720px] text-base font-light leading-[1.75] text-[#363636] lg:mt-12 lg:text-lg lg:leading-[1.8]">
+            <PublicationBody html={article.body} />
+          </div>
+        </Reveal>
       </article>
     </InteriorPageShell>
   );

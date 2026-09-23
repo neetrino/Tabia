@@ -18,7 +18,7 @@ export function TeamMemberCard({
   const href = `/team/${member.slug}` as const;
 
   return (
-    <article className="group relative flex h-full flex-col">
+    <article className="group relative flex h-full flex-col transition duration-500 hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:translate-y-0">
       <Link
         href={href}
         className="absolute inset-0 z-[1] rounded-3xl"

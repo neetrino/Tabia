@@ -47,13 +47,15 @@ export function ButtonLink({
     <Link
       href={href}
       className={cn(
-        "inline-flex items-center justify-center gap-3 transition-all",
+        "group inline-flex items-center justify-center gap-3 transition-all",
         variantClassName[variant],
         className,
       )}
     >
       {children}
-      {withArrow ? <ButtonArrow /> : null}
+      {withArrow ? (
+        <ButtonArrow className="transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transform-none" />
+      ) : null}
     </Link>
   );
 }

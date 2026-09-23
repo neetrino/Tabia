@@ -2,6 +2,7 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { HOME_ASSETS, SITE_SOCIAL } from "@/shared/config/content";
+import { Drift, Reveal } from "@/shared/motion/reveal";
 import { SiteBrand } from "@/shared/ui/site-brand";
 import { cn } from "@/shared/lib/cn";
 
@@ -28,16 +29,21 @@ export async function SiteFooter() {
   return (
     <footer className="relative overflow-hidden border-t border-white/[0.26] bg-[#090909] text-[var(--nav)] lg:overflow-visible">
       <div className="pointer-events-none absolute left-[-34px] top-[156px] size-[470px] lg:bottom-0 lg:left-[calc(50%-5px)] lg:top-auto lg:z-20 lg:h-[580px] lg:w-[580px] lg:-translate-x-1/2">
-        <Image
-          src={HOME_ASSETS.footerKnight}
-          alt=""
-          fill
-          className="object-contain lg:object-cover lg:object-center"
-          sizes="(min-width: 1024px) 580px, 470px"
-        />
+        <Reveal className="relative size-full" y={36}>
+          <Drift className="relative size-full" distance={12} duration={10}>
+            <Image
+              src={HOME_ASSETS.footerKnight}
+              alt=""
+              fill
+              className="object-contain lg:object-cover lg:object-center"
+              sizes="(min-width: 1024px) 580px, 470px"
+            />
+          </Drift>
+        </Reveal>
       </div>
       <div className="relative z-10 mx-auto max-w-[1400px] px-5 pb-[68px] pt-10 lg:px-16 lg:pb-10 lg:pt-12">
         <div className="lg:flex lg:min-h-[243px] lg:items-start lg:justify-between">
+          <Reveal className="w-full lg:max-w-[392px]">
           <FooterIdentity
             brand={t("brand")}
             social={social}
@@ -49,7 +55,9 @@ export async function SiteFooter() {
             addressLabel={t("footer.office")}
             address={contact("addressValue")}
           />
-          <div className="mt-6 grid grid-cols-2 gap-x-6 lg:mt-0 lg:block lg:w-full lg:max-w-[282px]">
+          </Reveal>
+          <Reveal delay={0.1} className="mt-6 lg:mt-0 lg:w-full lg:max-w-[282px]">
+          <div className="grid grid-cols-2 gap-x-6 lg:block">
             <FooterNav
               title={t("footer.navigation")}
               items={links.map((item) => ({
@@ -67,6 +75,7 @@ export async function SiteFooter() {
               className="self-center lg:hidden"
             />
           </div>
+          </Reveal>
         </div>
         <div className="mt-8 border-t border-white/5 pt-6 lg:mt-16 lg:pt-8">
           <p className="text-[10px] font-normal uppercase leading-[15px] text-white lg:w-fit lg:bg-[#090909] lg:text-xs lg:font-extralight lg:leading-[17px]">

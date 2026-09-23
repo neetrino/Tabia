@@ -5,6 +5,8 @@ import {
 } from "@/features/publications";
 import { Link } from "@/i18n/navigation";
 import { formatPublishedDate } from "@/shared/lib/localized";
+import { Reveal } from "@/shared/motion/reveal";
+import { revealDelay } from "@/shared/motion/timing";
 import { CoverMedia } from "@/shared/ui/cover-media";
 import { EmptyState } from "@/shared/ui/empty-state";
 import { SectionLabel } from "@/shared/ui/section-label";
@@ -26,6 +28,7 @@ export async function HomePublications({
     <section className="relative bg-[#090909] lg:bg-black">
       <SectionLabel>{t("publications.label")}</SectionLabel>
       <div className="mx-auto max-w-[1440px] px-5 py-12 lg:px-[85px] lg:pb-32 lg:pt-[123px]">
+        <Reveal>
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between lg:gap-8">
           <h2 className="max-w-[362px] text-[36px] font-normal uppercase leading-[44px] text-[var(--cream)] lg:max-w-[914px] lg:text-[56px] lg:leading-[56px]">
             <span className="block lg:font-extrabold">
@@ -42,7 +45,9 @@ export async function HomePublications({
             {t("publications.viewAll")} →
           </Link>
         </div>
+        </Reveal>
 
+        <Reveal delay={0.08}>
         <p className="mt-8 hidden max-w-[493px] text-sm uppercase leading-[21px] tracking-[0.35px] text-white lg:mt-[38px] lg:block">
           {t("publications.description")}
         </p>
@@ -57,6 +62,7 @@ export async function HomePublications({
             {t("publications.viewAllShort")} →
           </Link>
         </div>
+        </Reveal>
 
         {items.length === 0 ? (
           <EmptyState
@@ -66,18 +72,24 @@ export async function HomePublications({
         ) : (
           <div className="mt-3.5 -mx-5 overflow-x-auto pt-6 [-ms-overflow-style:none] [scrollbar-width:none] lg:mx-0 lg:mt-[65px] lg:overflow-visible lg:pt-0 [&::-webkit-scrollbar]:hidden">
             <div className="flex w-max gap-4 px-5 lg:grid lg:w-auto lg:grid-cols-2 lg:gap-6 lg:px-0">
-              {items.map((item) => (
-                <PublicationCard
+              {items.map((item, index) => (
+                <Reveal
                   key={`${item.type}-${item.slug}`}
-                  item={item}
-                  locale={locale}
-                  typeLabel={
-                    item.type === "NEWS"
-                      ? common("nav.news")
-                      : common("nav.insights")
-                  }
-                  readMore={readMore}
-                />
+                  className="shrink-0 lg:w-auto"
+                  delay={revealDelay(index)}
+                  y={16}
+                >
+                  <PublicationCard
+                    item={item}
+                    locale={locale}
+                    typeLabel={
+                      item.type === "NEWS"
+                        ? common("nav.news")
+                        : common("nav.insights")
+                    }
+                    readMore={readMore}
+                  />
+                </Reveal>
               ))}
             </div>
           </div>
@@ -106,7 +118,7 @@ function PublicationCard({
   return (
     <Link
       href={href}
-      className="group flex w-[347px] shrink-0 flex-col overflow-hidden rounded-2xl border border-black/[0.06] bg-white transition duration-300 hover:border-black/10 lg:w-auto lg:flex-row lg:gap-5 lg:overflow-visible lg:border-white/5 lg:p-5"
+      className="group flex w-[347px] shrink-0 flex-col overflow-hidden rounded-2xl border border-black/[0.06] bg-white transition duration-500 hover:-translate-y-1 hover:border-black/10 motion-reduce:transition-none motion-reduce:hover:translate-y-0 lg:w-auto lg:flex-row lg:gap-5 lg:overflow-visible lg:border-white/5 lg:p-5"
     >
       <CoverMedia
         src={item.coverUrl}

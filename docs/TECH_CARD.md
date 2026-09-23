@@ -40,7 +40,7 @@
 | 2.7 | i18n | next-intl · **hy** (default), en, ru | 🔄 | `locales/{hy,en,ru}/{page}.json` |
 | 2.8 | SEO | Metadata API | 🔄 | |
 | 2.9 | Մուգ թեմա | պետք չէ | ➖ | մինչև դիզայն |
-| 2.10 | Անիմացիաներ | CSS transitions | 🔄 | |
+| 2.10 | Անիմացիաներ | motion · scroll reveal + page enter | 🔄 | հանրային կայք; admin-ը մնում է CSS |
 | 2.11 | PWA | պետք չէ | ➖ | |
 
 ---

@@ -5,6 +5,7 @@ import { Link, usePathname } from "@/i18n/navigation";
 import { HOME_ASSETS } from "@/shared/config/content";
 import { SiteBrand } from "@/shared/ui/site-brand";
 import { cn } from "@/shared/lib/cn";
+import { Enter } from "@/shared/motion/reveal";
 import { LocaleSwitcher } from "./locale-switcher";
 import { SiteHeaderMobile } from "./site-header-mobile";
 
@@ -38,21 +39,23 @@ export function SiteHeaderBar({
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 lg:top-4 lg:mt-4 lg:flex lg:justify-center lg:px-8">
-      <SiteHeaderMobile brand={brand} menuLabel={menuLabel} items={items} />
-      <div className="hidden h-20 w-full max-w-[1400px] items-center justify-between overflow-hidden rounded-full bg-black px-6 lg:flex lg:px-16">
-        <SiteBrand label={brand} />
-        <DesktopNav items={items} pathname={pathname} />
-        <div className="flex items-center gap-6">
-          <LocaleSwitcher />
-          <Link
-            href="/contact"
-            className="inline-flex h-12 items-center justify-center rounded-full bg-white px-6 text-base font-semibold leading-4 tracking-[0.3px] text-[var(--brand-cta)]"
-          >
-            {contactLabel}
-          </Link>
+    <header className="sticky top-0 z-50 lg:top-4 lg:mt-4 lg:px-8">
+      <Enter y={-14} className="lg:flex lg:justify-center">
+        <SiteHeaderMobile brand={brand} menuLabel={menuLabel} items={items} />
+        <div className="hidden h-20 w-full max-w-[1400px] items-center justify-between overflow-hidden rounded-full bg-black px-6 lg:flex lg:px-16">
+          <SiteBrand label={brand} />
+          <DesktopNav items={items} pathname={pathname} />
+          <div className="flex items-center gap-6">
+            <LocaleSwitcher />
+            <Link
+              href="/contact"
+              className="inline-flex h-12 items-center justify-center rounded-full bg-white px-6 text-base font-semibold leading-4 tracking-[0.3px] text-[var(--brand-cta)] transition duration-300 hover:bg-[var(--cream)]"
+            >
+              {contactLabel}
+            </Link>
+          </div>
         </div>
-      </div>
+      </Enter>
     </header>
   );
 }

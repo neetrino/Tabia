@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { Mail, Phone, ExternalLink } from "lucide-react";
 import { getInitials } from "@/shared/lib/localized";
+import { Enter, Reveal } from "@/shared/motion/reveal";
 import { ArticleBackLink, ArticleTitle } from "@/shared/ui/article-chrome";
 import { CoverMedia } from "@/shared/ui/cover-media";
 import { InteriorPageShell } from "@/shared/ui/interior-page-header";
@@ -27,9 +28,12 @@ export async function TeamMemberProfile({
   return (
     <InteriorPageShell>
       <article>
-        <ArticleBackLink href="/team" label={t("back")} />
+        <Enter>
+          <ArticleBackLink href="/team" label={t("back")} />
+        </Enter>
 
         <div className="mt-8 grid gap-10 lg:mt-10 lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)] lg:gap-16">
+          <Reveal>
           <CoverMedia
             src={member.photoUrl}
             alt={member.name}
@@ -40,8 +44,10 @@ export async function TeamMemberProfile({
                 {getInitials(member.name)}
               </div>
             }
-          />
+            />
+          </Reveal>
 
+          <Reveal delay={0.1}>
           <div>
             <p className="text-[10px] font-semibold uppercase tracking-[1px] text-[var(--brand)]">
               {common("nav.team")}
@@ -96,12 +102,15 @@ export async function TeamMemberProfile({
               ) : null}
             </ul>
           </div>
+          </Reveal>
         </div>
 
         {member.details.trim().length > 0 ? (
-          <div className="mx-auto mt-12 max-w-[720px] space-y-4 whitespace-pre-line border-t border-black/10 pt-10 text-base font-light leading-[1.75] text-[#363636] lg:mt-16 lg:text-lg lg:leading-[1.8]">
-            {member.details}
-          </div>
+          <Reveal>
+            <div className="mx-auto mt-12 max-w-[720px] space-y-4 whitespace-pre-line border-t border-black/10 pt-10 text-base font-light leading-[1.75] text-[#363636] lg:mt-16 lg:text-lg lg:leading-[1.8]">
+              {member.details}
+            </div>
+          </Reveal>
         ) : null}
       </article>
     </InteriorPageShell>

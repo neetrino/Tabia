@@ -2,6 +2,8 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import type { TeamMemberPreview } from "@/features/team";
 import { getInitials } from "@/shared/lib/localized";
+import { Reveal } from "@/shared/motion/reveal";
+import { revealDelay } from "@/shared/motion/timing";
 import { CoverMedia } from "@/shared/ui/cover-media";
 import { EmptyState } from "@/shared/ui/empty-state";
 import { SectionLabel } from "@/shared/ui/section-label";
@@ -18,11 +20,14 @@ export async function HomeTeam({ items }: HomeTeamProps) {
     <section className="relative bg-white">
       <SectionLabel>{t("team.label")}</SectionLabel>
       <div className="mx-auto max-w-[1281px] px-5 pb-[133px] pt-12 lg:px-8 lg:pb-24 lg:pr-16 lg:pt-[60px]">
-        <h2 className="max-w-[363px] text-[32px] font-normal uppercase leading-[40px] tracking-[-2px] text-[#0a0a0a] lg:max-w-[672px] lg:whitespace-pre-line lg:text-[56px] lg:font-bold lg:leading-[64px] lg:tracking-[-3.28px]">
-          {t.rich("team.title", {
-            em: (chunks) => <span className="font-bold">{chunks}</span>,
-          })}
-        </h2>
+        <Reveal>
+          <h2 className="max-w-[363px] text-[32px] font-normal uppercase leading-[40px] tracking-[-2px] text-[#0a0a0a] lg:max-w-[672px] lg:whitespace-pre-line lg:text-[56px] lg:font-bold lg:leading-[64px] lg:tracking-[-3.28px]">
+            {t.rich("team.title", {
+              em: (chunks) => <span className="font-bold">{chunks}</span>,
+            })}
+          </h2>
+        </Reveal>
+        <Reveal delay={0.08}>
         <div className="flex h-[84px] w-[350px] max-w-full items-end gap-[59px] pt-3 lg:mt-[45px] lg:h-auto lg:w-auto lg:block lg:pt-0">
           <p className="w-[207px] self-start text-xs uppercase leading-[18px] tracking-[0.35px] text-[#0a0a0a] lg:w-auto lg:max-w-xl lg:text-sm lg:leading-[21px]">
             {t("team.description")}
@@ -34,13 +39,21 @@ export async function HomeTeam({ items }: HomeTeamProps) {
             {t("team.viewAll")} →
           </Link>
         </div>
+        </Reveal>
         {items.length === 0 ? (
           <EmptyState message={team("empty")} className="mt-12" />
         ) : (
           <div className="mt-[63px] -mx-5 overflow-x-auto pt-8 [-ms-overflow-style:none] [scrollbar-width:none] lg:mx-0 lg:mt-14 lg:overflow-visible lg:pt-4 [&::-webkit-scrollbar]:hidden">
             <div className="flex w-max gap-4 px-5 lg:grid lg:w-auto lg:grid-cols-2 lg:gap-x-6 lg:gap-y-12 lg:px-0 xl:grid-cols-4">
-              {items.map((member) => (
-                <MemberCard key={member.slug} member={member} />
+              {items.map((member, index) => (
+                <Reveal
+                  key={member.slug}
+                  className="shrink-0 lg:w-auto"
+                  delay={revealDelay(index)}
+                  y={16}
+                >
+                  <MemberCard member={member} />
+                </Reveal>
               ))}
             </div>
           </div>
@@ -52,7 +65,7 @@ export async function HomeTeam({ items }: HomeTeamProps) {
 
 function MemberCard({ member }: { member: TeamMemberPreview }) {
   return (
-    <article className="w-[173px] shrink-0 lg:w-auto">
+    <article className="w-[173px] shrink-0 transition duration-500 hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:translate-y-0 lg:w-auto">
       <Link href={`/team/${member.slug}`} className="group block">
         <div className="relative h-[220px] overflow-hidden rounded-2xl bg-white lg:mb-4 lg:h-72 lg:rounded-3xl">
           <CoverMedia

@@ -2,6 +2,8 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getPublishedServices, type ServicePreview } from "@/features/services";
 import { Link } from "@/i18n/navigation";
 import { HOME_ASSETS } from "@/shared/config/content";
+import { Reveal } from "@/shared/motion/reveal";
+import { revealDelay } from "@/shared/motion/timing";
 import { CoverMedia } from "@/shared/ui/cover-media";
 import { EmptyState } from "@/shared/ui/empty-state";
 import {
@@ -28,8 +30,10 @@ export default async function ServicesPage({ params }: PageProps) {
         <EmptyState message={t("empty")} className="mt-12 lg:mt-16" />
       ) : (
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:mt-16 lg:gap-6 xl:grid-cols-3">
-          {items.map((item) => (
-            <ServiceCard key={item.slug} item={item} />
+          {items.map((item, index) => (
+            <Reveal key={item.slug} className="h-full" delay={revealDelay(index)}>
+              <ServiceCard item={item} />
+            </Reveal>
           ))}
         </div>
       )}
@@ -41,7 +45,7 @@ function ServiceCard({ item }: { item: ServicePreview }) {
   return (
     <Link
       href={`/services/${item.slug}`}
-      className="group flex flex-col overflow-hidden rounded-2xl border border-black/[0.06] bg-[var(--surface)] transition duration-300 hover:border-black/10 hover:shadow-[0_16px_40px_rgba(0,0,0,0.06)]"
+      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-black/[0.06] bg-[var(--surface)] transition duration-500 hover:-translate-y-1 hover:border-black/10 hover:shadow-[0_16px_40px_rgba(0,0,0,0.06)] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
     >
       <CoverMedia
         src={item.imageUrl}
