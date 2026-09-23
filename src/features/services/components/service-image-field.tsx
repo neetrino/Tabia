@@ -29,7 +29,7 @@ export function ServiceImageField({
         <CoverMedia
           src={imageUrl}
           alt={title || t("image")}
-          className="aspect-[16/9] w-full rounded-xl"
+          className="aspect-[16/9] w-full rounded-[15px]"
           fallback={
             <div className="grid h-full place-items-center bg-[var(--brand)] text-lg text-white/80">
               {getInitials(title || "SV")}

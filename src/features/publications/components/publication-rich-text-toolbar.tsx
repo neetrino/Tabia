@@ -137,7 +137,7 @@ function ToolbarButton({
       title={label}
       disabled={disabled}
       className={cn(
-        "rounded-md p-1.5 text-[var(--muted)] hover:bg-white hover:text-[var(--foreground)]",
+        "rounded-[15px] p-1.5 text-[var(--muted)] hover:bg-white hover:text-[var(--foreground)]",
         active && "bg-white text-[var(--brand)]",
         disabled && "opacity-50",
       )}

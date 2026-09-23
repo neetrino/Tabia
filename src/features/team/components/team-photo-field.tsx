@@ -29,7 +29,7 @@ export function TeamPhotoField({
         <CoverMedia
           src={photoUrl}
           alt={name || t("photo")}
-          className="aspect-[3/4] w-full rounded-xl"
+          className="aspect-[3/4] w-full rounded-[15px]"
           fallback={
             <div className="grid h-full place-items-center bg-[var(--brand)] text-lg text-white/80">
               {getInitials(name || "TM")}

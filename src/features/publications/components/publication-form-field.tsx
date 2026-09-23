@@ -8,7 +8,7 @@ type PublicationFormFieldProps = {
 };
 
 export const publicationInputClassName =
-  "w-full rounded-md border border-[var(--border)] px-3 py-2 text-sm";
+  "w-full rounded-[15px] border border-[var(--border)] px-3 py-2 text-sm";
 
 export function PublicationFormField({
   id,

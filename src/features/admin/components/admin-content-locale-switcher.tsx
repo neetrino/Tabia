@@ -23,13 +23,13 @@ export function AdminContentLocaleSwitcher({
   return (
     <div className="space-y-2">
       <p className="text-sm font-medium">{label}</p>
-      <div className="inline-flex rounded-md border border-[var(--border)] p-1">
+      <div className="inline-flex rounded-[15px] border border-[var(--border)] p-1">
         {locales.map((item) => (
           <button
             key={item}
             type="button"
             className={cn(
-              "rounded px-3 py-1 text-sm font-semibold",
+              "rounded-[15px] px-3 py-1 text-sm font-semibold transition-transform duration-200 ease-out hover:scale-105 motion-reduce:transition-none motion-reduce:hover:scale-100",
               item === value
                 ? "bg-[var(--brand)] text-white"
                 : "text-[var(--muted)] hover:text-[var(--foreground)]",

@@ -40,7 +40,7 @@ export function PublicationAdminRow({
       <CoverMedia
         src={publication.coverUrl}
         alt={publication.displayTitle}
-        className="size-12 shrink-0 rounded-md"
+        className="size-12 shrink-0 rounded-[15px]"
         fallback={
           <div className="grid h-full place-items-center bg-[var(--brand)] text-xs text-white/80">
             {getInitials(publication.displayTitle)}
@@ -55,7 +55,7 @@ export function PublicationAdminRow({
       </div>
       <span
         className={cn(
-          "hidden rounded-full px-2 py-0.5 text-xs font-medium sm:inline",
+          "hidden rounded-[15px] px-2 py-0.5 text-xs font-medium sm:inline",
           STATUS_CLASSNAME[publication.status],
         )}
       >
@@ -75,7 +75,7 @@ export function PublicationAdminRow({
       <button
         type="button"
         aria-label={t("actions.edit")}
-        className="rounded-md p-1 text-[var(--brand)] hover:bg-[var(--surface)]"
+        className="flex size-8 items-center justify-center rounded-[15px] text-[var(--brand)] transition-transform duration-200 ease-out hover:scale-105 hover:bg-[var(--surface)] motion-reduce:transition-none motion-reduce:hover:scale-100"
         onClick={() => onEdit(publication)}
       >
         <Pencil className="size-4" />
@@ -83,7 +83,7 @@ export function PublicationAdminRow({
       <button
         type="button"
         aria-label={t("actions.delete")}
-        className="rounded-md p-1 text-red-700 hover:bg-[var(--surface)]"
+        className="flex size-8 items-center justify-center rounded-[15px] text-red-700 transition-transform duration-200 ease-out hover:scale-105 hover:bg-[var(--surface)] motion-reduce:transition-none motion-reduce:hover:scale-100"
         onClick={() => onDelete(publication)}
       >
         <Trash2 className="size-4" />

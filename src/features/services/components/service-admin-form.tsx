@@ -96,13 +96,13 @@ export function ServiceAdminForm({
         <button
           type="submit"
           disabled={pending}
-          className="rounded-md bg-[var(--brand)] px-4 py-2 text-sm font-medium text-white disabled:opacity-60"
+          className="rounded-[15px] bg-[var(--brand)] px-5 py-2.5 text-sm font-medium text-white transition-transform duration-200 ease-out hover:scale-105 disabled:opacity-60 motion-reduce:transition-none motion-reduce:hover:scale-100"
         >
           {pending ? form("saving") : t("actions.save")}
         </button>
         <button
           type="button"
-          className="rounded-md border border-[var(--border)] px-4 py-2 text-sm"
+          className="rounded-[15px] border border-[var(--border)] px-5 py-2.5 text-sm transition-transform duration-200 ease-out hover:scale-105 hover:bg-[var(--surface)] motion-reduce:transition-none motion-reduce:hover:scale-100"
           onClick={onCancel}
         >
           {t("actions.cancel")}

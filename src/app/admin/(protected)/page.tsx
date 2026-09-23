@@ -25,7 +25,7 @@ export default async function AdminDashboardPage() {
             key={card.href}
             href={card.href}
             prefetch
-            className="rounded-md border border-[var(--border)] bg-white p-5 transition hover:border-[var(--brand)]"
+            className="rounded-[15px] border border-[var(--border)] bg-white p-5 shadow-sm transition-[border-color,transform,box-shadow] duration-200 ease-out hover:scale-[1.02] hover:border-[var(--brand)] hover:shadow-md motion-reduce:transition-none motion-reduce:hover:scale-100"
           >
             <h2 className="text-xl">{t(`dashboard.cards.${card.key}.title`)}</h2>
             <p className="mt-2 text-sm text-[var(--muted)]">

@@ -32,7 +32,7 @@ export function PublicationCoverField({
         <CoverMedia
           src={coverUrl}
           alt={title || t("cover")}
-          className="aspect-[16/9] w-full rounded-xl"
+          className="aspect-[16/9] w-full rounded-[15px]"
           fallback={
             <div className="grid h-full place-items-center bg-[var(--brand)] text-lg text-white/80">
               {getInitials(title || "TB")}

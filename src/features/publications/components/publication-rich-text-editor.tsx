@@ -58,7 +58,7 @@ export function PublicationRichTextEditor({
   });
 
   return (
-    <div className="overflow-hidden rounded-md border border-[var(--border)]">
+    <div className="overflow-hidden rounded-[15px] border border-[var(--border)]">
       <PublicationRichTextToolbar
         editor={editor}
         onInsertImage={() => fileInputRef.current?.click()}

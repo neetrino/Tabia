@@ -8,7 +8,7 @@ type ServiceFormFieldProps = {
 };
 
 export const serviceInputClassName =
-  "w-full rounded-md border border-[var(--border)] px-3 py-2 text-sm";
+  "w-full rounded-[15px] border border-[var(--border)] px-3 py-2 text-sm";
 
 export function ServiceFormField({
   id,

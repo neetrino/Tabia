@@ -98,14 +98,14 @@ export function PublicationAdminForm({
         <button
           type="submit"
           disabled={pending}
-          className="rounded-md border border-[var(--border)] px-4 py-2 text-sm disabled:opacity-60"
+          className="rounded-[15px] border border-[var(--border)] px-5 py-2.5 text-sm transition-transform duration-200 ease-out hover:scale-105 hover:bg-[var(--surface)] motion-reduce:transition-none motion-reduce:hover:scale-100 disabled:opacity-60"
         >
           {pending ? form("saving") : form("saveDraft")}
         </button>
         <button
           type="button"
           disabled={pending}
-          className="rounded-md bg-[var(--brand)] px-4 py-2 text-sm font-medium text-white disabled:opacity-60"
+          className="rounded-[15px] bg-[var(--brand)] px-5 py-2.5 text-sm font-medium text-white transition-transform duration-200 ease-out hover:scale-105 disabled:opacity-60 motion-reduce:transition-none motion-reduce:hover:scale-100"
           onClick={() => submit("PUBLISHED")}
         >
           {pending ? form("saving") : form("publish")}
@@ -114,7 +114,7 @@ export function PublicationAdminForm({
           <button
             type="button"
             disabled={pending}
-            className="rounded-md px-4 py-2 text-sm text-red-700 disabled:opacity-60"
+            className="rounded-[15px] px-4 py-2.5 text-sm text-red-700 transition-transform duration-200 ease-out hover:scale-105 hover:bg-[var(--surface)] disabled:opacity-60 motion-reduce:transition-none motion-reduce:hover:scale-100"
             onClick={() => submit("ARCHIVED")}
           >
             {form("deactivate")}
@@ -122,7 +122,7 @@ export function PublicationAdminForm({
         ) : null}
         <button
           type="button"
-          className="rounded-md border border-[var(--border)] px-4 py-2 text-sm"
+          className="rounded-[15px] border border-[var(--border)] px-5 py-2.5 text-sm transition-transform duration-200 ease-out hover:scale-105 hover:bg-[var(--surface)] motion-reduce:transition-none motion-reduce:hover:scale-100"
           onClick={onCancel}
         >
           {t("actions.cancel")}
