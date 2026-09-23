@@ -80,7 +80,7 @@ function PublicationCard({
       href={href}
       className={cn(
         "group flex h-full flex-col overflow-hidden rounded-[24px] border border-black/[0.06]",
-        "bg-[var(--surface)] transition duration-300",
+        "bg-[var(--surface)] p-3 transition duration-300",
         "hover:-translate-y-1 hover:border-black/10 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)]",
         "motion-reduce:transform-none",
       )}
@@ -88,10 +88,10 @@ function PublicationCard({
       <CoverMedia
         src={item.coverUrl}
         alt={item.title}
-        className="aspect-[16/11] w-full bg-[#1a1a1a]"
+        className="aspect-[16/10] w-full rounded-2xl bg-[#1a1a1a]"
         imageClassName="object-cover opacity-90 transition duration-500 group-hover:scale-[1.04]"
       />
-      <div className="flex flex-1 flex-col p-5 lg:p-6">
+      <div className="flex flex-1 flex-col pt-4">
         <div className="flex flex-wrap items-center gap-3">
           <p className="text-[10px] font-semibold uppercase tracking-[1px] text-[var(--brand)]">
             {typeLabel}
@@ -105,14 +105,12 @@ function PublicationCard({
             </time>
           ) : null}
         </div>
-        <h2 className="mt-3 text-lg font-semibold leading-snug tracking-[-0.2px] text-[#0a0a0a]">
+        <h2 className="mt-3 line-clamp-2 min-h-[3.25rem] text-lg font-semibold leading-snug tracking-[-0.2px] text-[#0a0a0a]">
           {item.title}
         </h2>
-        {item.summary ? (
-          <p className="mt-2 line-clamp-3 flex-1 text-sm font-light leading-relaxed text-[var(--muted)]">
-            {item.summary}
-          </p>
-        ) : null}
+        <p className="mt-2 line-clamp-3 min-h-[4.5rem] flex-1 text-sm font-light leading-relaxed text-[var(--muted)]">
+          {item.summary || "\u00a0"}
+        </p>
         <span className="mt-5 text-[10px] font-semibold uppercase tracking-[1px] text-[var(--brand)] transition duration-300 group-hover:translate-x-0.5">
           {readMore} →
         </span>

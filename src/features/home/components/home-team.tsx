@@ -43,14 +43,14 @@ export async function HomeTeam({ items }: HomeTeamProps) {
         {items.length === 0 ? (
           <EmptyState message={team("empty")} className="mt-12" />
         ) : (
-          <div className="mt-[63px] -mx-5 overflow-x-auto pt-8 [-ms-overflow-style:none] [scrollbar-width:none] lg:mx-0 lg:mt-14 lg:overflow-visible lg:pt-4 [&::-webkit-scrollbar]:hidden">
+          <div className="mt-[63px] -mx-5 overflow-x-auto overflow-y-hidden overscroll-x-contain touch-pan-x pt-8 [-ms-overflow-style:none] [scrollbar-width:none] lg:mx-0 lg:mt-14 lg:overflow-visible lg:pt-4 lg:touch-auto [&::-webkit-scrollbar]:hidden">
             <div className="flex w-max gap-4 px-5 lg:grid lg:w-auto lg:grid-cols-2 lg:gap-x-6 lg:gap-y-12 lg:px-0 xl:grid-cols-4">
               {items.map((member, index) => (
                 <Reveal
                   key={member.slug}
-                  className="shrink-0 lg:w-auto"
+                  className="h-full shrink-0 lg:w-auto"
                   delay={revealDelay(index)}
-                  y={16}
+                  y={0}
                 >
                   <MemberCard member={member} />
                 </Reveal>
@@ -65,9 +65,9 @@ export async function HomeTeam({ items }: HomeTeamProps) {
 
 function MemberCard({ member }: { member: TeamMemberPreview }) {
   return (
-    <article className="w-[173px] shrink-0 transition duration-500 hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:translate-y-0 lg:w-auto">
-      <Link href={`/team/${member.slug}`} className="group block">
-        <div className="relative h-[220px] overflow-hidden rounded-2xl bg-white lg:mb-4 lg:h-72 lg:rounded-3xl">
+    <article className="flex h-full w-[173px] shrink-0 flex-col transition duration-500 lg:w-auto lg:hover:-translate-y-1 motion-reduce:transition-none motion-reduce:lg:hover:translate-y-0">
+      <Link href={`/team/${member.slug}`} className="group flex h-full flex-col">
+        <div className="relative h-[220px] shrink-0 overflow-hidden rounded-2xl bg-white lg:mb-4 lg:h-72 lg:rounded-3xl">
           <CoverMedia
             src={member.photoUrl}
             alt={member.name}
@@ -86,10 +86,10 @@ function MemberCard({ member }: { member: TeamMemberPreview }) {
             />
           ) : null}
         </div>
-        <p className="mt-2 inline-flex rounded-full border border-[#747878] px-3 py-1 text-[11px] font-normal leading-[16.5px] tracking-[0.26px] text-[#0a0a0a] lg:mt-0 lg:px-[17px] lg:py-[7px] lg:text-[13px] lg:font-semibold lg:leading-[13px]">
+        <p className="mt-2 inline-flex max-w-full truncate rounded-full border border-[#747878] px-3 py-1 text-[11px] font-normal leading-[16.5px] tracking-[0.26px] text-[#0a0a0a] lg:mt-0 lg:px-[17px] lg:py-[7px] lg:text-[13px] lg:font-semibold lg:leading-[13px]">
           {member.name}
         </p>
-        <p className="pl-2 text-xs leading-[18px] text-[#444748] lg:mt-2 lg:text-sm lg:leading-[21px]">
+        <p className="line-clamp-2 min-h-[36px] pl-2 text-xs leading-[18px] text-[#444748] lg:mt-2 lg:min-h-[42px] lg:text-sm lg:leading-[21px]">
           {member.position}
         </p>
       </Link>

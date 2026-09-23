@@ -60,14 +60,14 @@ export async function HomeServices({ items }: HomeServicesProps) {
             className="mt-16 border-white/20 bg-white/5 text-white/70 lg:mt-20"
           />
         ) : (
-          <div className="mt-10 -mx-5 overflow-x-auto pt-6 [-ms-overflow-style:none] [scrollbar-width:none] lg:mx-0 lg:mt-20 lg:overflow-visible lg:pt-0 [&::-webkit-scrollbar]:hidden">
+          <div className="mt-10 -mx-5 overflow-x-auto overflow-y-hidden overscroll-x-contain touch-pan-x pt-6 [-ms-overflow-style:none] [scrollbar-width:none] lg:mx-0 lg:mt-20 lg:overflow-visible lg:pt-0 lg:touch-auto [&::-webkit-scrollbar]:hidden">
             <div className="flex w-max snap-x snap-mandatory gap-4 px-5 lg:grid lg:w-auto lg:snap-none lg:grid-cols-2 lg:gap-[23px] lg:px-0 xl:grid-cols-3">
               {items.map((item, index) => (
                 <Reveal
                   key={item.slug}
-                  className="shrink-0 lg:w-auto"
+                  className="h-full shrink-0 lg:w-auto"
                   delay={revealDelay(index)}
-                  y={16}
+                  y={0}
                 >
                   <ServiceCard item={item} />
                 </Reveal>
@@ -88,7 +88,7 @@ function ServiceCard({ item }: { item: ServicePreview }) {
   return (
     <Link
       href={`/services/${item.slug}`}
-      className="group relative block h-[260px] w-[calc(100vw-5.5rem)] max-w-[362px] shrink-0 snap-start overflow-hidden rounded-xl bg-[linear-gradient(-43deg,#fff_12%,#999_101%)] transition duration-500 hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:translate-y-0 lg:h-[295px] lg:w-auto lg:max-w-none lg:snap-align-none lg:rounded-[10px] lg:bg-[linear-gradient(-57deg,#fff_6%,#d6d6d6_109%)]"
+      className="group relative block h-[260px] w-[calc(100vw-5.5rem)] max-w-[362px] shrink-0 snap-start overflow-hidden rounded-xl bg-[linear-gradient(-43deg,#fff_12%,#999_101%)] transition duration-500 lg:h-[295px] lg:w-auto lg:max-w-none lg:snap-align-none lg:rounded-[10px] lg:bg-[linear-gradient(-57deg,#fff_6%,#d6d6d6_109%)] lg:hover:-translate-y-1 motion-reduce:transition-none motion-reduce:lg:hover:translate-y-0"
     >
       {item.imageUrl ? (
         <>
@@ -124,7 +124,7 @@ function ServiceCard({ item }: { item: ServicePreview }) {
       )}
 
       <div className="relative z-10 flex items-start justify-between gap-4 px-5 pt-5 lg:gap-6 lg:pt-[23px]">
-        <h3 className="max-w-[55%] text-sm font-semibold leading-normal text-black lg:max-w-none lg:w-[248px] lg:text-lg">
+        <h3 className="line-clamp-3 max-w-[55%] text-sm font-semibold leading-normal text-black lg:max-w-none lg:w-[248px] lg:text-lg">
           {item.title}
         </h3>
         <img

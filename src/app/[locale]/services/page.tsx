@@ -45,15 +45,15 @@ function ServiceCard({ item }: { item: ServicePreview }) {
   return (
     <Link
       href={`/services/${item.slug}`}
-      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-black/[0.06] bg-[var(--surface)] transition duration-500 hover:-translate-y-1 hover:border-black/10 hover:shadow-[0_16px_40px_rgba(0,0,0,0.06)] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-black/[0.06] bg-[var(--surface)] p-3 transition duration-500 hover:-translate-y-1 hover:border-black/10 hover:shadow-[0_16px_40px_rgba(0,0,0,0.06)] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
     >
       <CoverMedia
         src={item.imageUrl}
         alt={item.title}
-        className="aspect-[16/10] w-full bg-[#e8e8e8]"
+        className="aspect-[16/10] w-full shrink-0 rounded-2xl bg-[#e8e8e8]"
         imageClassName="object-cover object-center opacity-95 transition duration-500 group-hover:scale-[1.03]"
         fallback={
-          <div className="relative h-full w-full bg-[linear-gradient(-57deg,#fff_6%,#d6d6d6_109%)]">
+          <div className="relative h-full w-full rounded-2xl bg-[linear-gradient(-57deg,#fff_6%,#d6d6d6_109%)]">
             <img
               src={HOME_ASSETS.serviceScales}
               alt=""
@@ -62,16 +62,14 @@ function ServiceCard({ item }: { item: ServicePreview }) {
           </div>
         }
       />
-      <div className="flex items-start justify-between gap-4 p-5">
-        <div className="min-w-0">
-          <h2 className="text-base font-semibold leading-snug text-[#0a0a0a] lg:text-lg">
+      <div className="flex min-h-[7.5rem] flex-1 items-start justify-between gap-4 pt-4">
+        <div className="min-w-0 flex-1">
+          <h2 className="line-clamp-2 min-h-[2.75rem] text-base font-semibold leading-snug text-[#0a0a0a] lg:min-h-[3.25rem] lg:text-lg">
             {item.title}
           </h2>
-          {item.summary ? (
-            <p className="mt-2 line-clamp-2 text-sm font-light leading-relaxed text-[var(--muted)]">
-              {item.summary}
-            </p>
-          ) : null}
+          <p className="mt-2 line-clamp-2 min-h-[2.75rem] text-sm font-light leading-relaxed text-[var(--muted)]">
+            {item.summary || "\u00a0"}
+          </p>
         </div>
         <img
           src={HOME_ASSETS.serviceArrow}

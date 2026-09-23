@@ -46,16 +46,16 @@ export function TeamMemberCard({
       <p className="relative mt-3 inline-flex w-fit rounded-full border border-[#747878] px-3 py-1 text-[11px] font-normal leading-[16.5px] tracking-[0.26px] text-[#0a0a0a] lg:mt-4 lg:px-[17px] lg:py-[7px] lg:text-[13px] lg:font-semibold lg:leading-[13px]">
         {member.name}
       </p>
-      <p className="relative mt-2 pl-1 text-xs leading-[18px] text-[#444748] lg:text-sm lg:leading-[21px]">
+      <p className="relative mt-2 line-clamp-2 min-h-[36px] pl-1 text-xs leading-[18px] text-[#444748] lg:min-h-[42px] lg:text-sm lg:leading-[21px]">
         {member.position}
       </p>
-      {member.bio ? (
-        <p className="relative mt-3 line-clamp-3 text-sm font-light leading-relaxed text-[#444748]">
-          {member.bio}
-        </p>
-      ) : null}
-      <TeamMemberContacts member={member} linkedInLabel={linkedInLabel} />
-      <span className="relative mt-4 text-[10px] font-semibold uppercase tracking-[1px] text-[var(--brand)] transition group-hover:translate-x-0.5">
+      <p className="relative mt-3 line-clamp-3 min-h-[4.5rem] text-sm font-light leading-relaxed text-[#444748]">
+        {member.bio || "\u00a0"}
+      </p>
+      <div className="relative z-10 mt-4 min-h-[4.75rem]">
+        <TeamMemberContacts member={member} linkedInLabel={linkedInLabel} />
+      </div>
+      <span className="relative mt-auto pt-4 text-[10px] font-semibold uppercase tracking-[1px] text-[var(--brand)] transition group-hover:translate-x-0.5">
         {readMoreLabel} →
       </span>
     </article>

@@ -70,14 +70,14 @@ export async function HomePublications({
             className="mt-16 border-white/20 bg-white/5 text-white/70 lg:mt-[65px]"
           />
         ) : (
-          <div className="mt-3.5 -mx-5 overflow-x-auto pt-6 [-ms-overflow-style:none] [scrollbar-width:none] lg:mx-0 lg:mt-[65px] lg:overflow-visible lg:pt-0 [&::-webkit-scrollbar]:hidden">
+          <div className="mt-3.5 -mx-5 overflow-x-auto overflow-y-hidden overscroll-x-contain touch-pan-x pt-6 [-ms-overflow-style:none] [scrollbar-width:none] lg:mx-0 lg:mt-[65px] lg:overflow-visible lg:pt-0 lg:touch-auto [&::-webkit-scrollbar]:hidden">
             <div className="flex w-max gap-4 px-5 lg:grid lg:w-auto lg:grid-cols-2 lg:gap-6 lg:px-0">
               {items.map((item, index) => (
                 <Reveal
                   key={`${item.type}-${item.slug}`}
-                  className="shrink-0 lg:w-auto"
+                  className="h-full shrink-0 lg:w-auto"
                   delay={revealDelay(index)}
-                  y={16}
+                  y={0}
                 >
                   <PublicationCard
                     item={item}
@@ -118,16 +118,16 @@ function PublicationCard({
   return (
     <Link
       href={href}
-      className="group flex w-[347px] shrink-0 flex-col overflow-hidden rounded-2xl border border-black/[0.06] bg-white transition duration-500 hover:-translate-y-1 hover:border-black/10 motion-reduce:transition-none motion-reduce:hover:translate-y-0 lg:w-auto lg:flex-row lg:gap-5 lg:overflow-visible lg:border-white/5 lg:p-5"
+      className="group flex h-[320px] w-[347px] shrink-0 flex-col overflow-hidden rounded-2xl border border-black/[0.06] bg-white p-3 transition duration-500 hover:border-black/10 lg:h-auto lg:min-h-[180px] lg:w-auto lg:flex-row lg:gap-5 lg:overflow-visible lg:border-white/5 lg:p-5 lg:hover:-translate-y-1 motion-reduce:transition-none motion-reduce:lg:hover:translate-y-0"
     >
       <CoverMedia
         src={item.coverUrl}
         alt={item.title}
-        className="h-40 w-full shrink-0 rounded-b-2xl bg-[#1a1a1a] lg:size-40 lg:rounded-xl"
+        className="h-40 w-full shrink-0 rounded-2xl bg-[#1a1a1a] lg:size-40 lg:rounded-xl"
         imageClassName="object-cover opacity-70 transition duration-500 group-hover:scale-[1.03] group-hover:opacity-90"
       />
-      <div className="flex min-w-0 flex-1 flex-col p-4 lg:justify-between lg:p-0 lg:py-1">
-        <div>
+      <div className="flex min-h-0 min-w-0 flex-1 flex-col pt-3 lg:justify-between lg:p-0 lg:py-1 lg:pt-0">
+        <div className="min-h-0">
           <div className="flex flex-wrap items-center gap-3">
             <p className="text-[9px] uppercase leading-[13.5px] tracking-[1px] text-[var(--brand)] lg:text-[10px] lg:font-semibold lg:leading-[15px]">
               {typeLabel}
@@ -141,14 +141,14 @@ function PublicationCard({
               </time>
             ) : null}
           </div>
-          <h3 className="mt-2 text-[13px] font-normal leading-[18px] text-[#212121] lg:text-sm lg:font-bold lg:leading-[19.25px]">
+          <h3 className="mt-2 line-clamp-2 min-h-[36px] text-[13px] font-normal leading-[18px] text-[#212121] lg:text-sm lg:font-bold lg:leading-[19.25px]">
             {item.title}
           </h3>
-          <p className="mt-1.5 line-clamp-3 pb-2.5 text-[11px] leading-[17px] text-[var(--muted)] lg:mt-2 lg:line-clamp-2 lg:pb-0 lg:text-xs lg:font-light lg:leading-[19.5px]">
-            {item.summary}
+          <p className="mt-1.5 line-clamp-3 min-h-[51px] pb-2.5 text-[11px] leading-[17px] text-[var(--muted)] lg:mt-2 lg:line-clamp-2 lg:min-h-[39px] lg:pb-0 lg:text-xs lg:font-light lg:leading-[19.5px]">
+            {item.summary || "\u00a0"}
           </p>
         </div>
-        <span className="pt-1.5 text-[9px] uppercase leading-[13.5px] tracking-[1px] text-[var(--brand)] lg:mt-3 lg:pt-0 lg:text-[10px] lg:font-semibold lg:leading-[15px]">
+        <span className="mt-auto pt-1.5 text-[9px] uppercase leading-[13.5px] tracking-[1px] text-[var(--brand)] lg:mt-3 lg:pt-0 lg:text-[10px] lg:font-semibold lg:leading-[15px]">
           {readMore} →
         </span>
       </div>
