@@ -81,7 +81,7 @@ export function PublicationAdminForm({
             title={isActive ? form("deactivate") : form("publish")}
             disabled={pending}
             className={cn(
-              "relative h-9 w-[3.25rem] shrink-0 rounded-[15px] transition-colors duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
+              "relative h-7 w-12 shrink-0 rounded-full transition-colors duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
               "motion-reduce:transition-none disabled:opacity-60",
               isActive ? "bg-emerald-500" : "bg-red-500",
             )}
@@ -91,49 +91,43 @@ export function PublicationAdminForm({
           >
             <span
               className={cn(
-                "absolute top-1 size-7 rounded-[12px] bg-white shadow-sm",
+                "absolute top-0.5 size-6 rounded-full bg-white",
                 "transition-[left] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
                 "motion-reduce:transition-none",
-                isActive ? "left-[1.35rem]" : "left-1",
+                isActive ? "left-[1.375rem]" : "left-0.5",
               )}
             />
           </button>
         </AdminDrawerHeaderActions>
       ) : null}
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <AdminContentLocaleSwitcher
-          value={contentLocale}
-          onChange={setContentLocale}
-          label={form("contentLocale")}
+      <AdminContentLocaleSwitcher
+        value={contentLocale}
+        onChange={setContentLocale}
+        label={form("contentLocale")}
+      />
+      <div className="grid gap-6 md:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] md:items-stretch">
+        <PublicationCoverField
+          coverUrl={values.coverUrl}
+          title={values.titleEn || values.titleHy}
+          onChange={(url) => setValues({ ...values, coverUrl: url })}
+          onError={setErrorKey}
+          stretch
         />
-        <p className="max-w-xl text-xs text-[var(--muted)]">
-          {form("contentLocaleHint")}
-        </p>
-      </div>
-      <div className="grid gap-6">
-        <div className="max-w-md">
-          <PublicationCoverField
-            coverUrl={values.coverUrl}
-            title={values.titleEn || values.titleHy}
-            onChange={(url) => setValues({ ...values, coverUrl: url })}
-            onError={setErrorKey}
-          />
-        </div>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div className="flex flex-col justify-between gap-4">
           <PublicationLocalizedTitleField
             locale={contentLocale}
             values={values}
             onChange={setValues}
           />
           <PublicationSharedFields values={values} onChange={setValues} />
-          <div className="space-y-4 md:col-span-2">
-            <PublicationLocalizedCopyFields
-              locale={contentLocale}
-              values={values}
-              onChange={setValues}
-              onError={setErrorKey}
-            />
-          </div>
+        </div>
+        <div className="space-y-4 md:col-span-2">
+          <PublicationLocalizedCopyFields
+            locale={contentLocale}
+            values={values}
+            onChange={setValues}
+            onError={setErrorKey}
+          />
         </div>
       </div>
       {errorKey ? (

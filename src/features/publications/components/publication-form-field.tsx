@@ -4,6 +4,7 @@ type PublicationFormFieldProps = {
   id: string;
   label: string;
   hint?: string;
+  className?: string;
   children: React.ReactNode;
 };
 
@@ -14,10 +15,11 @@ export function PublicationFormField({
   id,
   label,
   hint,
+  className,
   children,
 }: PublicationFormFieldProps) {
   return (
-    <div className="space-y-1">
+    <div className={cn("space-y-1", className)}>
       <label htmlFor={id} className="text-sm font-medium">
         {label}
       </label>

@@ -54,16 +54,11 @@ export function TeamAdminForm({
         submit();
       }}
     >
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <AdminContentLocaleSwitcher
-          value={contentLocale}
-          onChange={setContentLocale}
-          label={form("contentLocale")}
-        />
-        <p className="max-w-xl text-xs text-[var(--muted)]">
-          {form("contentLocaleHint")}
-        </p>
-      </div>
+      <AdminContentLocaleSwitcher
+        value={contentLocale}
+        onChange={setContentLocale}
+        label={form("contentLocale")}
+      />
       <div className="grid gap-6">
         <div className="max-w-44">
           <TeamPhotoField
