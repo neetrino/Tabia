@@ -83,7 +83,7 @@ export function PublicationAdminForm({
       className="space-y-6"
       onSubmit={(event) => {
         event.preventDefault();
-        submit("DRAFT");
+        submit(values.status || "DRAFT");
       }}
     >
       {values.id ? (
@@ -150,9 +150,9 @@ export function PublicationAdminForm({
         <button
           type="submit"
           disabled={pending}
-          className="rounded-[15px] border border-[var(--border)] px-5 py-2.5 text-sm transition-transform duration-200 ease-out hover:scale-105 hover:bg-[var(--surface)] motion-reduce:transition-none motion-reduce:hover:scale-100 disabled:opacity-60"
+          className="rounded-[15px] bg-[var(--brand)] px-5 py-2.5 text-sm font-medium text-white transition-transform duration-200 ease-out hover:scale-105 disabled:opacity-60 motion-reduce:transition-none motion-reduce:hover:scale-100"
         >
-          {pending ? form("saving") : form("saveDraft")}
+          {pending ? form("saving") : t("actions.save")}
         </button>
         <button
           type="button"

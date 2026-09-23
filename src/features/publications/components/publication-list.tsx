@@ -2,12 +2,14 @@ import { getTranslations } from "next-intl/server";
 import type { PublicationType } from "@prisma/client";
 import { Link } from "@/i18n/navigation";
 import { formatPublishedDate } from "@/shared/lib/localized";
+import { cn } from "@/shared/lib/cn";
 import { CoverMedia } from "@/shared/ui/cover-media";
 import { EmptyState } from "@/shared/ui/empty-state";
 import {
   InteriorPageHeader,
   InteriorPageShell,
 } from "@/shared/ui/interior-page-header";
+import type { PublicationPreview } from "../types";
 import { getPublicationHref, getPublishedPublications } from "../queries";
 
 type PublicationListProps = {
@@ -34,54 +36,80 @@ export async function PublicationList({ locale, type }: PublicationListProps) {
       {items.length === 0 ? (
         <EmptyState message={t("empty")} className="mt-12 lg:mt-16" />
       ) : (
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:mt-16 lg:gap-6">
-          {items.map((item) => {
-            const date = formatPublishedDate(locale, item.publishedAt);
-            const href = getPublicationHref(item);
-
-            return (
-              <Link
-                key={item.slug}
-                href={href}
-                className="group flex flex-col overflow-hidden rounded-2xl border border-black/[0.06] bg-[var(--surface)] transition duration-300 hover:border-black/10 hover:shadow-[0_16px_40px_rgba(0,0,0,0.06)] lg:flex-row lg:gap-5 lg:p-5"
-              >
-                <CoverMedia
-                  src={item.coverUrl}
-                  alt={item.title}
-                  className="aspect-[16/10] w-full shrink-0 rounded-none bg-[#1a1a1a] lg:aspect-auto lg:size-40 lg:rounded-xl"
-                  imageClassName="object-cover opacity-80 transition duration-500 group-hover:scale-[1.03] group-hover:opacity-90"
-                />
-                <div className="flex min-w-0 flex-1 flex-col p-5 lg:justify-between lg:p-0 lg:py-1">
-                  <div>
-                    <div className="flex flex-wrap items-center gap-3">
-                      <p className="text-[10px] font-semibold uppercase leading-[15px] tracking-[1px] text-[var(--brand)]">
-                        {typeLabel}
-                      </p>
-                      {date ? (
-                        <time
-                          dateTime={item.publishedAt?.toISOString()}
-                          className="text-[10px] leading-[15px] text-[var(--muted)]"
-                        >
-                          {date}
-                        </time>
-                      ) : null}
-                    </div>
-                    <h2 className="mt-2 text-base font-semibold leading-snug text-[#212121] lg:text-lg">
-                      {item.title}
-                    </h2>
-                    <p className="mt-2 line-clamp-3 text-sm font-light leading-relaxed text-[var(--muted)]">
-                      {item.summary}
-                    </p>
-                  </div>
-                  <span className="mt-4 text-[10px] font-semibold uppercase tracking-[1px] text-[var(--brand)] transition group-hover:translate-x-0.5">
-                    {readMore} →
-                  </span>
-                </div>
-              </Link>
-            );
-          })}
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:mt-16 xl:grid-cols-3">
+          {items.map((item) => (
+            <PublicationCard
+              key={`${item.type}-${item.slug}`}
+              item={item}
+              locale={locale}
+              typeLabel={typeLabel}
+              readMore={readMore}
+            />
+          ))}
         </div>
       )}
     </InteriorPageShell>
+  );
+}
+
+type PublicationCardProps = {
+  item: PublicationPreview;
+  locale: string;
+  typeLabel: string;
+  readMore: string;
+};
+
+function PublicationCard({
+  item,
+  locale,
+  typeLabel,
+  readMore,
+}: PublicationCardProps) {
+  const date = formatPublishedDate(locale, item.publishedAt);
+  const href = getPublicationHref(item);
+
+  return (
+    <Link
+      href={href}
+      className={cn(
+        "group flex flex-col overflow-hidden rounded-[24px] border border-black/[0.06]",
+        "bg-[var(--surface)] transition duration-300",
+        "hover:-translate-y-1 hover:border-black/10 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)]",
+        "motion-reduce:transform-none",
+      )}
+    >
+      <CoverMedia
+        src={item.coverUrl}
+        alt={item.title}
+        className="aspect-[16/11] w-full bg-[#1a1a1a]"
+        imageClassName="object-cover opacity-90 transition duration-500 group-hover:scale-[1.04]"
+      />
+      <div className="flex flex-1 flex-col p-5 lg:p-6">
+        <div className="flex flex-wrap items-center gap-3">
+          <p className="text-[10px] font-semibold uppercase tracking-[1px] text-[var(--brand)]">
+            {typeLabel}
+          </p>
+          {date ? (
+            <time
+              dateTime={item.publishedAt?.toISOString()}
+              className="text-[10px] uppercase tracking-[1px] text-[var(--muted)]"
+            >
+              {date}
+            </time>
+          ) : null}
+        </div>
+        <h2 className="mt-3 text-lg font-semibold leading-snug tracking-[-0.2px] text-[#0a0a0a]">
+          {item.title}
+        </h2>
+        {item.summary ? (
+          <p className="mt-2 line-clamp-3 flex-1 text-sm font-light leading-relaxed text-[var(--muted)]">
+            {item.summary}
+          </p>
+        ) : null}
+        <span className="mt-5 text-[10px] font-semibold uppercase tracking-[1px] text-[var(--brand)] transition duration-300 group-hover:translate-x-0.5">
+          {readMore} →
+        </span>
+      </div>
+    </Link>
   );
 }

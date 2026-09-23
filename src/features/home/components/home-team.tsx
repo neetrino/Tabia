@@ -53,16 +53,13 @@ export async function HomeTeam({ items }: HomeTeamProps) {
 function MemberCard({ member }: { member: TeamMemberPreview }) {
   return (
     <article className="w-[173px] shrink-0 lg:w-auto">
-      <Link
-        href={member.hasProfile ? `/team/${member.slug}` : "/team"}
-        className="group block"
-      >
+      <Link href={`/team/${member.slug}`} className="group block">
         <div className="relative h-[220px] overflow-hidden rounded-2xl bg-white lg:mb-4 lg:h-72 lg:rounded-3xl">
           <CoverMedia
             src={member.photoUrl}
             alt={member.name}
             className="h-full rounded-none bg-white"
-            imageClassName="object-cover object-top"
+            imageClassName="object-cover object-top transition duration-500 group-hover:scale-[1.03]"
             fallback={
               <div className="grid h-full place-items-center bg-[var(--brand)] text-4xl tracking-[0.12em] text-white/80">
                 {getInitials(member.name)}

@@ -15,7 +15,7 @@ export function TeamMemberCard({
   readMoreLabel,
   linkedInLabel,
 }: TeamMemberCardProps) {
-  const href = member.hasProfile ? `/team/${member.slug}` : "/team";
+  const href = `/team/${member.slug}` as const;
 
   return (
     <article className="group relative flex h-full flex-col">
@@ -55,11 +55,9 @@ export function TeamMemberCard({
         </p>
       ) : null}
       <TeamMemberContacts member={member} linkedInLabel={linkedInLabel} />
-      {member.hasProfile ? (
-        <span className="relative mt-4 text-[10px] font-semibold uppercase tracking-[1px] text-[var(--brand)]">
-          {readMoreLabel} →
-        </span>
-      ) : null}
+      <span className="relative mt-4 text-[10px] font-semibold uppercase tracking-[1px] text-[var(--brand)] transition group-hover:translate-x-0.5">
+        {readMoreLabel} →
+      </span>
     </article>
   );
 }
