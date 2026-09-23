@@ -1,5 +1,7 @@
 {
   "title": "Կապ",
+  "titleLead": "Կապվեք",
+  "titleTail": "մեզ հետ",
   "subtitle": "Կապվեք մեզ հետ համագործակցության կամ խորհրդատվության համար։",
   "phone": "Հեռախոս",
   "email": "Էլ. փոստ",
@@ -10,6 +12,8 @@
   "addressValue": "Armenia Marriott Hotel Yerevan, Suite 2-38\n1 Amiryan Street, Yerevan 0010, Armenia",
   "hoursValue": "Երկ–Ուրբ 10:00–18:00",
   "form": {
+    "eyebrow": "Հայտ",
+    "title": "Ուղարկել հաղորդագրություն",
     "fullName": "Անուն Ազգանուն",
     "email": "Էլ. փոստ",
     "phone": "Հեռախոսահամար",
