@@ -8,7 +8,6 @@ const pageNamespaces = [
   "about",
   "team",
   "services",
-  "industries",
   "news",
   "insights",
   "contact",

@@ -53,10 +53,3 @@ export const SITE_SOCIAL = [
 export function getConfiguredSocialLinks() {
   return SITE_SOCIAL.filter((item) => item.href.length > 0);
 }
-
-export const INDUSTRY_ART: Record<string, string> = {
-  corporate: "/images/industries/corporate.svg",
-  employment: "/images/industries/employment.svg",
-  tax: "/images/industries/tax.svg",
-  disputes: "/images/industries/disputes.svg",
-};

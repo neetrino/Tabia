@@ -9,8 +9,8 @@ import { LocaleSwitcher } from "./locale-switcher";
 import { SiteHeaderMobile } from "./site-header-mobile";
 
 export type HeaderNavItem = {
-  href: "/" | "/about" | "/services" | "/industries" | "/team" | "/news" | "/insights" | "/contact";
-  key: "home" | "about" | "services" | "industries" | "team" | "news" | "insights" | "contact";
+  href: "/" | "/about" | "/services" | "/team" | "/news" | "/insights" | "/contact";
+  key: "home" | "about" | "services" | "team" | "news" | "insights" | "contact";
 };
 
 type LabeledNavItem = HeaderNavItem & { label: string };

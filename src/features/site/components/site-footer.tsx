@@ -8,7 +8,6 @@ import { cn } from "@/shared/lib/cn";
 const links = [
   { href: "/about", key: "about" as const },
   { href: "/services", key: "services" as const },
-  { href: "/industries", key: "industries" as const },
   { href: "/team", key: "team" as const },
   { href: "/news", key: "news" as const },
   { href: "/insights", key: "insights" as const },
