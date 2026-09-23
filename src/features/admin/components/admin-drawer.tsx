@@ -135,7 +135,7 @@ export function AdminDrawer({
       />
       <div
         className={cn(
-          "relative z-10 flex h-dvh max-h-dvh flex-col overflow-hidden bg-white shadow-2xl",
+          "relative z-10 flex h-dvh max-h-dvh flex-col bg-white shadow-2xl",
           "rounded-tl-[15px] rounded-bl-[15px]",
           "transition-[translate] duration-300 ease-out",
           "starting:translate-x-full motion-reduce:transition-none motion-reduce:starting:translate-x-0",
@@ -155,7 +155,7 @@ export function AdminDrawer({
           }
         }}
       >
-        <div className="flex items-center justify-between gap-3 border-b border-[var(--border)] px-6 pt-6 pb-4">
+        <div className="relative z-[1] flex shrink-0 items-center justify-between gap-3 border-b border-[var(--border)] px-6 pt-6 pb-4">
           <h2 id={titleId} className="min-w-0 flex-1 truncate text-lg font-semibold">
             {title}
           </h2>
@@ -176,7 +176,9 @@ export function AdminDrawer({
           </div>
         </div>
         <AdminDrawerHeaderActionsContext.Provider value={setHeaderActions}>
-          <div className="flex-1 overflow-y-auto p-6">{children}</div>
+          <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-6">
+            {children}
+          </div>
         </AdminDrawerHeaderActionsContext.Provider>
       </div>
     </div>

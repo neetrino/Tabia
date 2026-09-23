@@ -100,7 +100,7 @@ export function AdminSelect<T extends string>({
         role="listbox"
         aria-hidden={!open}
         className={cn(
-          "absolute z-30 mt-2 max-h-60 w-full origin-top overflow-y-auto rounded-[15px] border border-[var(--border)] bg-white p-1 shadow-xl",
+          "absolute z-[210] mt-2 max-h-60 w-full origin-top overflow-y-auto rounded-[15px] border border-[var(--border)] bg-white p-1 shadow-xl",
           "transition-[opacity,transform,visibility] duration-300",
           PANEL_EASE,
           "motion-reduce:transition-none",
