@@ -29,6 +29,7 @@ export function TeamAdminForm({
   const [values, setValues] = useState(initialValues);
   const [contentLocale, setContentLocale] = useState<AppLocale>(defaultLocale);
   const [errorKey, setErrorKey] = useState<string | null>(null);
+  const [invalidFields, setInvalidFields] = useState<string[]>([]);
   const [pending, startTransition] = useTransition();
 
   function submit(): void {
@@ -40,6 +41,7 @@ export function TeamAdminForm({
       });
       if (result.errorKey) {
         setErrorKey(result.errorKey);
+        setInvalidFields(result.invalidFields ?? []);
         return;
       }
       onSaved();
@@ -64,7 +66,9 @@ export function TeamAdminForm({
           <TeamPhotoField
             photoUrl={values.photoUrl}
             name={values.nameEn || values.nameHy}
-            onChange={(url) => setValues({ ...values, photoUrl: url })}
+            onChange={(url) =>
+              setValues((current) => ({ ...current, photoUrl: url }))
+            }
             onError={setErrorKey}
           />
         </div>
@@ -86,7 +90,10 @@ export function TeamAdminForm({
         </div>
       </div>
       {errorKey ? (
-        <p className="text-sm text-red-700">{form(`errors.${errorKey}`)}</p>
+        <p className="text-sm text-red-700">
+          {form(`errors.${errorKey}`)}
+          {invalidFields.length > 0 ? ` (${invalidFields.join(", ")})` : null}
+        </p>
       ) : null}
       <div className="flex justify-end gap-3">
         <button

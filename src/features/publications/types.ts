@@ -48,4 +48,5 @@ export type PublicationErrorKey =
 export type PublicationActionResult = {
   ok?: true;
   errorKey?: PublicationErrorKey;
+  invalidFields?: string[];
 };

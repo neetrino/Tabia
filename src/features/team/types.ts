@@ -59,4 +59,5 @@ export type TeamErrorKey =
 export type TeamActionResult = {
   ok?: true;
   errorKey?: TeamErrorKey;
+  invalidFields?: string[];
 };

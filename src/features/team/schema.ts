@@ -47,10 +47,20 @@ export const teamMemberInputSchema = z.object({
     { message: "invalid" },
   ),
   phone: optionalText(40),
-  linkedInUrl: optionalText(400).refine(
-    (value) => value.length === 0 || /^https?:\/\//i.test(value),
-    { message: "invalid" },
-  ),
+  linkedInUrl: optionalText(400)
+    .transform((value) => {
+      if (!value) {
+        return "";
+      }
+      if (/^https?:\/\//i.test(value)) {
+        return value;
+      }
+      return `https://${value}`;
+    })
+    .refine(
+      (value) => value.length === 0 || /^https?:\/\//i.test(value),
+      { message: "invalid" },
+    ),
   sortOrder: z.number().int().min(0).max(9999),
   visibility: z.enum(["PUBLISHED", "HIDDEN"]),
   featured: z.boolean(),

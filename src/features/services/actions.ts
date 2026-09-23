@@ -5,6 +5,7 @@ import { getAdminSession } from "@/features/auth";
 import { prisma } from "@/shared/lib/prisma";
 import { deleteR2Object } from "@/shared/lib/r2";
 import { r2KeyFromPublicUrl } from "@/shared/lib/r2-key";
+import { zodInvalidFields } from "@/shared/lib/zod-invalid-fields";
 import { invalidateServicesCache } from "./cache";
 import { revalidateServicePaths } from "./revalidate";
 import { serviceFlagsSchema, serviceInputSchema } from "./schema";
@@ -59,7 +60,10 @@ export async function saveServiceAction(
     const slugIssue = parsed.error.issues.find(
       (issue) => issue.message === "slugInvalid",
     );
-    return { errorKey: slugIssue ? "slugInvalid" : "invalid" };
+    return {
+      errorKey: slugIssue ? "slugInvalid" : "invalid",
+      invalidFields: zodInvalidFields(parsed.error),
+    };
   }
 
   const { id, ...values } = parsed.data;

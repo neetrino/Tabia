@@ -36,6 +36,7 @@ export function PublicationAdminForm({
   const [values, setValues] = useState(initialValues);
   const [contentLocale, setContentLocale] = useState<AppLocale>(defaultLocale);
   const [errorKey, setErrorKey] = useState<string | null>(null);
+  const [invalidFields, setInvalidFields] = useState<string[]>([]);
   const [pending, startTransition] = useTransition();
   const [confirmDeactivate, setConfirmDeactivate] = useState(false);
 
@@ -59,6 +60,7 @@ export function PublicationAdminForm({
       });
       if (result.errorKey) {
         setErrorKey(result.errorKey);
+        setInvalidFields(result.invalidFields ?? []);
         return;
       }
       setValues((current) => ({ ...current, status }));
@@ -122,7 +124,9 @@ export function PublicationAdminForm({
         <PublicationCoverField
           coverUrl={values.coverUrl}
           title={values.titleEn || values.titleHy}
-          onChange={(url) => setValues({ ...values, coverUrl: url })}
+          onChange={(url) =>
+            setValues((current) => ({ ...current, coverUrl: url }))
+          }
           onError={setErrorKey}
           stretch
         />
@@ -144,7 +148,17 @@ export function PublicationAdminForm({
         </div>
       </div>
       {errorKey ? (
-        <p className="text-sm text-red-700">{form(`errors.${errorKey}`)}</p>
+        <p className="text-sm text-red-700">
+          {form(`errors.${errorKey}`)}
+          {invalidFields.length > 0
+            ? ` (${invalidFields
+                .map((field) => {
+                  const key = `errors.invalidFields.${field}` as const;
+                  return form.has(key) ? form(key) : field;
+                })
+                .join(", ")})`
+            : null}
+        </p>
       ) : null}
       <div className="flex flex-wrap justify-end gap-3">
         <button

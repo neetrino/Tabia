@@ -5,9 +5,13 @@ import { AdminSelect } from "@/features/admin/client";
 import type { ContentVisibilityValue, TeamMemberRecord } from "../types";
 import { TeamFormField, teamInputClassName } from "./team-form-field";
 
+type TeamValuesChange = (
+  update: TeamMemberRecord | ((current: TeamMemberRecord) => TeamMemberRecord),
+) => void;
+
 type TeamSharedFieldsProps = {
   values: TeamMemberRecord;
-  onChange: (values: TeamMemberRecord) => void;
+  onChange: TeamValuesChange;
 };
 
 export function TeamSharedFields({
@@ -20,7 +24,7 @@ export function TeamSharedFields({
     key: K,
     value: TeamMemberRecord[K],
   ): void {
-    onChange({ ...values, [key]: value });
+    onChange((current) => ({ ...current, [key]: value }));
   }
 
   return (

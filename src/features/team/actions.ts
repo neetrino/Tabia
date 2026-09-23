@@ -10,6 +10,7 @@ import { optionalDbText } from "./map-team-member";
 import { revalidateTeamPaths } from "./revalidate";
 import { teamMemberFlagsSchema, teamMemberInputSchema } from "./schema";
 import type { TeamActionResult, TeamMemberRecord } from "./types";
+import { zodInvalidFields } from "@/shared/lib/zod-invalid-fields";
 
 async function deleteStoredPhoto(url: string | null): Promise<void> {
   if (!url) {
@@ -66,7 +67,10 @@ export async function saveTeamMemberAction(
     const slugIssue = parsed.error.issues.find(
       (issue) => issue.message === "slugInvalid",
     );
-    return { errorKey: slugIssue ? "slugInvalid" : "invalid" };
+    return {
+      errorKey: slugIssue ? "slugInvalid" : "invalid",
+      invalidFields: zodInvalidFields(parsed.error),
+    };
   }
 
   const { id, ...values } = parsed.data;

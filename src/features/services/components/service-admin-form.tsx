@@ -36,6 +36,7 @@ export function ServiceAdminForm({
   const [values, setValues] = useState(initialValues);
   const [contentLocale, setContentLocale] = useState<AppLocale>(defaultLocale);
   const [errorKey, setErrorKey] = useState<string | null>(null);
+  const [invalidFields, setInvalidFields] = useState<string[]>([]);
   const [pending, startTransition] = useTransition();
   const [confirmHide, setConfirmHide] = useState(false);
 
@@ -61,6 +62,7 @@ export function ServiceAdminForm({
       });
       if (result.errorKey) {
         setErrorKey(result.errorKey);
+        setInvalidFields(result.invalidFields ?? []);
         return;
       }
       setValues((current) => ({ ...current, visibility }));
@@ -122,7 +124,9 @@ export function ServiceAdminForm({
         <ServiceImageField
           imageUrl={values.imageUrl}
           title={values.titleEn || values.titleHy}
-          onChange={(url) => setValues({ ...values, imageUrl: url })}
+          onChange={(url) =>
+            setValues((current) => ({ ...current, imageUrl: url }))
+          }
           onError={setErrorKey}
           stretch
         />
@@ -143,7 +147,10 @@ export function ServiceAdminForm({
         </div>
       </div>
       {errorKey ? (
-        <p className="text-sm text-red-700">{form(`errors.${errorKey}`)}</p>
+        <p className="text-sm text-red-700">
+          {form(`errors.${errorKey}`)}
+          {invalidFields.length > 0 ? ` (${invalidFields.join(", ")})` : null}
+        </p>
       ) : null}
       <div className="flex flex-wrap justify-end gap-3">
         <button

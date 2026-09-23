@@ -4,9 +4,13 @@ import { useTranslations } from "next-intl";
 import type { ServiceRecord } from "../types";
 import { ServiceFormField, serviceInputClassName } from "./service-form-field";
 
+type ServiceValuesChange = (
+  update: ServiceRecord | ((current: ServiceRecord) => ServiceRecord),
+) => void;
+
 type ServiceSharedFieldsProps = {
   values: ServiceRecord;
-  onChange: (values: ServiceRecord) => void;
+  onChange: ServiceValuesChange;
 };
 
 export function ServiceSharedFields({
@@ -19,7 +23,7 @@ export function ServiceSharedFields({
     key: K,
     value: ServiceRecord[K],
   ): void {
-    onChange({ ...values, [key]: value });
+    onChange((current) => ({ ...current, [key]: value }));
   }
 
   return (
