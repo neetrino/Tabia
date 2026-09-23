@@ -35,6 +35,7 @@ export async function SiteFooter() {
               src={HOME_ASSETS.footerKnight}
               alt=""
               fill
+              loading="lazy"
               className="object-contain lg:object-cover lg:object-center"
               sizes="(min-width: 1024px) 580px, 470px"
             />

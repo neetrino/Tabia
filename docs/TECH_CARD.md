@@ -41,7 +41,8 @@
 | 2.8 | SEO | Metadata API | 🔄 | |
 | 2.9 | Մուգ թեմա | պետք չէ | ➖ | մինչև դիզայն |
 | 2.10 | Անիմացիաներ | motion · scroll reveal + page enter | 🔄 | հանրային կայք; admin-ը մնում է CSS |
-| 2.11 | PWA | պետք չէ | ➖ | |
+| 2.11 | Lazy loading | next/image lazy + content-visibility | 🔄 | hero-ն priority է; մնացածը lazy |
+| 2.12 | PWA | պետք չէ | ➖ | |
 
 ---
 

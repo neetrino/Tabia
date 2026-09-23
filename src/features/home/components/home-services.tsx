@@ -97,6 +97,7 @@ function ServiceCard({ item }: { item: ServicePreview }) {
               src={item.imageUrl}
               alt=""
               fill
+              loading="lazy"
               className="object-contain object-center transition duration-500 group-hover:scale-[1.03]"
               sizes="178px"
             />
@@ -106,6 +107,7 @@ function ServiceCard({ item }: { item: ServicePreview }) {
               src={item.imageUrl}
               alt=""
               fill
+              loading="lazy"
               className="object-cover transition duration-500 group-hover:scale-[1.03]"
               sizes="410px"
             />
@@ -117,6 +119,7 @@ function ServiceCard({ item }: { item: ServicePreview }) {
             src={HOME_ASSETS.serviceScales}
             alt=""
             fill
+            loading="lazy"
             className="object-cover"
             sizes="349px"
           />

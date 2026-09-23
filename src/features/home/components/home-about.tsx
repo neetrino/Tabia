@@ -192,6 +192,7 @@ function AboutBooksImage() {
         alt=""
         width={1024}
         height={1024}
+        loading="lazy"
         className="absolute left-0 top-[-24.38%] h-[148.75%] w-[98.02%] max-w-none"
         sizes="607px"
       />
