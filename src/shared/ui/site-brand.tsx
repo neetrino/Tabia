@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Link, usePathname } from "@/i18n/navigation";
 import { HOME_ASSETS } from "@/shared/config/content";
 import { cn } from "@/shared/lib/cn";
@@ -26,11 +27,12 @@ export function SiteBrand({
   const markAsset = marks[mark];
 
   const logo = (
-    <img
+    <Image
       src={markAsset.src}
       alt={label}
       width={markAsset.width}
       height={markAsset.height}
+      unoptimized
       className="block"
     />
   );

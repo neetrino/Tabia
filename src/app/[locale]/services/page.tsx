@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getPublishedServices, type ServicePreview } from "@/features/services";
 import { Link } from "@/i18n/navigation";
@@ -54,10 +55,13 @@ function ServiceCard({ item }: { item: ServicePreview }) {
         imageClassName="object-cover object-center opacity-95 transition duration-500 group-hover:scale-[1.03]"
         fallback={
           <div className="relative h-full w-full rounded-2xl bg-[linear-gradient(-57deg,#fff_6%,#d6d6d6_109%)]">
-            <img
+            <Image
               src={HOME_ASSETS.serviceScales}
               alt=""
-              className="absolute inset-0 size-full object-cover opacity-40"
+              fill
+              loading="lazy"
+              className="object-cover opacity-40"
+              sizes="(min-width: 1280px) 33vw, (min-width: 640px) 50vw, 100vw"
             />
           </div>
         }
@@ -71,11 +75,12 @@ function ServiceCard({ item }: { item: ServicePreview }) {
             {item.summary || "\u00a0"}
           </p>
         </div>
-        <img
+        <Image
           src={HOME_ASSETS.serviceArrow}
           alt=""
           width={29}
           height={16}
+          unoptimized
           className="mt-1 block shrink-0 transition duration-300 group-hover:translate-x-1"
         />
       </div>

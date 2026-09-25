@@ -249,7 +249,15 @@ function FooterIdentity({
 function SocialMark({ icon }: { icon: string }) {
   return (
     <span className="grid size-10 shrink-0 place-items-center rounded-full bg-white">
-      <img src={icon} alt="" width={40} height={40} className="block size-10" aria-hidden />
+      <Image
+        src={icon}
+        alt=""
+        width={40}
+        height={40}
+        unoptimized
+        className="block size-10"
+        aria-hidden
+      />
     </span>
   );
 }

@@ -130,11 +130,12 @@ function ServiceCard({ item }: { item: ServicePreview }) {
         <h3 className="line-clamp-3 max-w-[55%] text-sm font-semibold leading-normal text-black lg:max-w-none lg:w-[248px] lg:text-lg">
           {item.title}
         </h3>
-        <img
+        <Image
           src={HOME_ASSETS.serviceArrow}
           alt=""
           width={29}
           height={16}
+          unoptimized
           className="mt-1 block shrink-0"
         />
       </div>

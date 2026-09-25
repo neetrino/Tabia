@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useLayoutEffect, useRef, useState } from "react";
 import { Link, usePathname } from "@/i18n/navigation";
 import { HOME_ASSETS } from "@/shared/config/content";
@@ -153,11 +154,12 @@ function DesktopNav({
             )}
           >
             {item.key === "home" && active ? (
-              <img
+              <Image
                 src={HOME_ASSETS.navHome}
                 alt=""
                 width={14}
                 height={14}
+                unoptimized
                 className="block size-[14px] shrink-0"
               />
             ) : null}
