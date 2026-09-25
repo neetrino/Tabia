@@ -34,12 +34,12 @@ export function AdminResourceShell({
         <button
           type="button"
           onClick={() => setOpen(true)}
-          className="rounded-md bg-[var(--brand)] px-4 py-2 text-sm font-medium text-white"
+          className="rounded-[15px] bg-[var(--brand)] px-5 py-2.5 text-sm font-medium text-white transition-transform duration-200 ease-out hover:scale-105 motion-reduce:transition-none motion-reduce:hover:scale-100"
         >
-          {addLabel}
+          + {addLabel}
         </button>
       </div>
-      <div className="rounded-md border border-[var(--border)] bg-white p-4">
+      <div className="rounded-[15px] border border-[var(--border)] bg-white p-4 shadow-sm">
         {children ?? (
           <p className="text-sm text-[var(--muted)]">
             {t("empty", { addLabel })}

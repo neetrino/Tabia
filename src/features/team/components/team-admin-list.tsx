@@ -1,8 +1,14 @@
 "use client";
 
-import { useOptimistic, useRef, useState, useTransition } from "react";
+import { useOptimistic, useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
-import { GripVertical } from "lucide-react";
+import {
+  AdminConfirmDialog,
+  AdminSortableGrip,
+  AdminSortableRoot,
+  moveItemById,
+  useAdminSortableItem,
+} from "@/features/admin/client";
 import { cn } from "@/shared/lib/cn";
 import {
   deleteTeamMemberAction,
@@ -18,6 +24,68 @@ type TeamAdminListProps = {
   onChanged: () => void;
 };
 
+type PendingConfirm =
+  | { kind: "delete"; item: TeamMemberAdminItem }
+  | { kind: "hide"; item: TeamMemberAdminItem }
+  | null;
+
+type TeamSortableRowProps = {
+  member: TeamMemberAdminItem;
+  disabled: boolean;
+  onEdit: (member: TeamMemberAdminItem) => void;
+  onDelete: (member: TeamMemberAdminItem) => void;
+  onTogglePublished: (member: TeamMemberAdminItem, published: boolean) => void;
+  onToggleFeatured: (member: TeamMemberAdminItem, featured: boolean) => void;
+};
+
+function TeamSortableRow({
+  member,
+  disabled,
+  onEdit,
+  onDelete,
+  onTogglePublished,
+  onToggleFeatured,
+}: TeamSortableRowProps) {
+  const t = useTranslations("admin");
+  const { setNodeRef, style, isDragging, attributes, listeners } =
+    useAdminSortableItem(member.id, disabled);
+
+  return (
+    <li
+      ref={setNodeRef}
+      style={style}
+      className={cn(
+        "flex cursor-pointer items-center gap-3 rounded-[15px] border border-[var(--border)] bg-white p-3",
+        "transition-[border-color,box-shadow] duration-200 ease-out",
+        "hover:border-[var(--brand)]/30 hover:shadow-sm motion-reduce:transition-none",
+        isDragging && "relative z-10 cursor-grabbing bg-[var(--surface)] opacity-70 shadow-md",
+        disabled && !isDragging && "opacity-70",
+      )}
+      data-clickable
+      onClick={() => {
+        if (!disabled && !isDragging) {
+          onEdit(member);
+        }
+      }}
+    >
+      <AdminSortableGrip
+        label={t("reorderItemAria", { name: member.displayName })}
+        disabled={disabled}
+        attributes={attributes}
+        listeners={listeners}
+      />
+      <TeamAdminMemberRow
+        member={member}
+        disabled={disabled}
+        onEdit={onEdit}
+        onDelete={onDelete}
+        onTogglePublished={onTogglePublished}
+        onToggleFeatured={onToggleFeatured}
+      />
+    </li>
+  );
+}
+
 export function TeamAdminList({
   members,
   onEdit,
@@ -26,9 +94,9 @@ export function TeamAdminList({
   const t = useTranslations("admin");
   const form = useTranslations("admin.teamForm");
   const [items, setOptimisticItems] = useOptimistic(members);
-  const dragIndex = useRef<number | null>(null);
   const [pending, startTransition] = useTransition();
   const [errorKey, setErrorKey] = useState<string | null>(null);
+  const [confirm, setConfirm] = useState<PendingConfirm>(null);
 
   function patchMember(
     id: string,
@@ -47,17 +115,17 @@ export function TeamAdminList({
     });
   }
 
-  function move(from: number, to: number): void {
-    if (from === to) {
+  function reorder(activeId: string, overId: string): void {
+    if (pending) {
       return;
     }
-
-    const next = [...items];
-    const [moved] = next.splice(from, 1);
-    if (!moved) {
+    const next = moveItemById(items, activeId, overId);
+    if (
+      next.length === items.length &&
+      next.every((item, index) => item.id === items[index]?.id)
+    ) {
       return;
     }
-    next.splice(to, 0, moved);
     const ordered = next.map((item, index) => ({
       ...item,
       sortOrder: index + 1,
@@ -75,13 +143,20 @@ export function TeamAdminList({
     });
   }
 
-  function remove(member: TeamMemberAdminItem): void {
-    if (!window.confirm(form("confirmDelete", { name: member.displayName }))) {
+  function runConfirmedAction(): void {
+    if (!confirm) {
+      return;
+    }
+    const current = confirm;
+    setConfirm(null);
+
+    if (current.kind === "hide") {
+      patchMember(current.item.id, { visibility: "HIDDEN" });
       return;
     }
 
     startTransition(async () => {
-      const result = await deleteTeamMemberAction(member.id);
+      const result = await deleteTeamMemberAction(current.item.id);
       if (result.errorKey) {
         setErrorKey(result.errorKey);
         return;
@@ -104,48 +179,50 @@ export function TeamAdminList({
       {errorKey ? (
         <p className="text-sm text-red-700">{form(`errors.${errorKey}`)}</p>
       ) : null}
-      <ul className="space-y-2">
-        {items.map((member, index) => (
-          <li
-            key={member.id}
-            draggable
-            onDragStart={() => {
-              dragIndex.current = index;
-            }}
-            onDragOver={(event) => event.preventDefault()}
-            onDrop={() => {
-              const from = dragIndex.current;
-              dragIndex.current = null;
-              if (from === null) {
-                return;
-              }
-              move(from, index);
-            }}
-            className={cn(
-              "flex items-center gap-3 rounded-md border border-[var(--border)] bg-white p-3",
-              pending && "opacity-70",
-            )}
-          >
-            <span className="cursor-grab text-[var(--muted)]" aria-hidden>
-              <GripVertical className="size-4" />
-            </span>
-            <TeamAdminMemberRow
+      <AdminSortableRoot
+        items={items.map((item) => item.id)}
+        disabled={pending}
+        onReorder={reorder}
+      >
+        <ul className="space-y-2">
+          {items.map((member) => (
+            <TeamSortableRow
+              key={member.id}
               member={member}
               disabled={pending}
               onEdit={onEdit}
-              onDelete={remove}
-              onTogglePublished={(item, published) =>
-                patchMember(item.id, {
-                  visibility: published ? "PUBLISHED" : "HIDDEN",
-                })
-              }
+              onDelete={(item) => setConfirm({ kind: "delete", item })}
+              onTogglePublished={(item, published) => {
+                if (!published) {
+                  setConfirm({ kind: "hide", item });
+                  return;
+                }
+                patchMember(item.id, { visibility: "PUBLISHED" });
+              }}
               onToggleFeatured={(item, featured) =>
                 patchMember(item.id, { featured })
               }
             />
-          </li>
-        ))}
-      </ul>
+          ))}
+        </ul>
+      </AdminSortableRoot>
+      <AdminConfirmDialog
+        open={confirm !== null}
+        message={
+          confirm
+            ? form(
+                confirm.kind === "delete" ? "confirmDelete" : "confirmHide",
+                { name: confirm.item.displayName },
+              )
+            : ""
+        }
+        confirmLabel={
+          confirm?.kind === "delete" ? t("confirm.delete") : t("confirm.hide")
+        }
+        pending={pending}
+        onCancel={() => setConfirm(null)}
+        onConfirm={runConfirmedAction}
+      />
     </div>
   );
 }

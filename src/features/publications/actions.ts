@@ -3,6 +3,7 @@
 import { Prisma } from "@prisma/client";
 import { getAdminSession } from "@/features/auth";
 import { prisma } from "@/shared/lib/prisma";
+import { zodInvalidFields } from "@/shared/lib/zod-invalid-fields";
 import { invalidatePublicationsCache } from "./cache";
 import { revalidatePublicationPaths } from "./revalidate";
 import { publicationInputSchema, publicationStatusSchema } from "./schema";
@@ -59,7 +60,10 @@ export async function savePublicationAction(
     const slugIssue = parsed.error.issues.find(
       (issue) => issue.message === "slugInvalid",
     );
-    return { errorKey: slugIssue ? "slugInvalid" : "invalid" };
+    return {
+      errorKey: slugIssue ? "slugInvalid" : "invalid",
+      invalidFields: zodInvalidFields(parsed.error),
+    };
   }
 
   const { id, ...values } = parsed.data;

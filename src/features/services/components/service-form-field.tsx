@@ -4,20 +4,22 @@ type ServiceFormFieldProps = {
   id: string;
   label: string;
   hint?: string;
+  className?: string;
   children: React.ReactNode;
 };
 
 export const serviceInputClassName =
-  "w-full rounded-md border border-[var(--border)] px-3 py-2 text-sm";
+  "w-full rounded-[15px] border border-[var(--border)] px-3 py-2 text-sm";
 
 export function ServiceFormField({
   id,
   label,
   hint,
+  className,
   children,
 }: ServiceFormFieldProps) {
   return (
-    <div className="space-y-1">
+    <div className={cn("space-y-1", className)}>
       <label htmlFor={id} className="text-sm font-medium">
         {label}
       </label>

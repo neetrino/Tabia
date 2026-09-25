@@ -11,29 +11,34 @@ import {
   serviceTextAreaClassName,
 } from "./service-form-field";
 
+type ServiceValuesChange = (
+  update: ServiceRecord | ((current: ServiceRecord) => ServiceRecord),
+) => void;
+
 type ServiceLocalizedFieldsProps = {
   locale: AppLocale;
   values: ServiceRecord;
-  onChange: (values: ServiceRecord) => void;
+  onChange: ServiceValuesChange;
 };
 
-function createLocalizedFieldUpdate(
-  values: ServiceRecord,
-  onChange: (values: ServiceRecord) => void,
-) {
-  return function updateField(key: keyof ServiceRecord, value: string): void {
-    const next = { ...values, [key]: value };
+function updateLocalizedField(
+  onChange: ServiceValuesChange,
+  key: keyof ServiceRecord,
+  value: string,
+): void {
+  onChange((current) => {
+    const next = { ...current, [key]: value };
     if (
       key === "titleEn" &&
-      (!values.slug || values.slug === slugifyLatin(values.titleEn))
+      (!current.slug || current.slug === slugifyLatin(current.titleEn))
     ) {
       const generated = slugifyLatin(value);
       if (generated) {
         next.slug = generated;
       }
     }
-    onChange(next);
-  };
+    return next;
+  });
 }
 
 export function ServiceLocalizedTitleField({
@@ -43,7 +48,6 @@ export function ServiceLocalizedTitleField({
 }: ServiceLocalizedFieldsProps) {
   const t = useTranslations("admin.serviceForm");
   const titleKey = serviceLocaleField("title", locale);
-  const updateField = createLocalizedFieldUpdate(values, onChange);
 
   return (
     <ServiceFormField id={titleKey} label={t("title")}>
@@ -51,7 +55,9 @@ export function ServiceLocalizedTitleField({
         id={titleKey}
         value={String(values[titleKey])}
         className={serviceInputClassName}
-        onChange={(event) => updateField(titleKey, event.target.value)}
+        onChange={(event) =>
+          updateLocalizedField(onChange, titleKey, event.target.value)
+        }
       />
     </ServiceFormField>
   );
@@ -65,7 +71,6 @@ export function ServiceLocalizedCopyFields({
   const t = useTranslations("admin.serviceForm");
   const summaryKey = serviceLocaleField("summary", locale);
   const bodyKey = serviceLocaleField("body", locale);
-  const updateField = createLocalizedFieldUpdate(values, onChange);
 
   return (
     <>
@@ -78,7 +83,9 @@ export function ServiceLocalizedCopyFields({
           id={summaryKey}
           value={String(values[summaryKey])}
           className={serviceTextAreaClassName("min-h-24")}
-          onChange={(event) => updateField(summaryKey, event.target.value)}
+          onChange={(event) =>
+            updateLocalizedField(onChange, summaryKey, event.target.value)
+          }
         />
       </ServiceFormField>
       <ServiceFormField id={bodyKey} label={t("body")} hint={t("bodyHint")}>
@@ -86,7 +93,9 @@ export function ServiceLocalizedCopyFields({
           id={bodyKey}
           value={String(values[bodyKey])}
           className={serviceTextAreaClassName("min-h-40")}
-          onChange={(event) => updateField(bodyKey, event.target.value)}
+          onChange={(event) =>
+            updateLocalizedField(onChange, bodyKey, event.target.value)
+          }
         />
       </ServiceFormField>
     </>

@@ -5,7 +5,6 @@
     "about": "О нас",
     "team": "Наша команда",
     "services": "Услуги",
-    "industries": "Отрасли",
     "news": "Новости",
     "insights": "Аналитика",
     "contact": "Контакты"
@@ -22,8 +21,7 @@
     "quickLinks": "Быстрые ссылки",
     "navigation": "Навигация",
     "office": "Офис",
-    "createdBy": "Neetrino IT Company",
-    "copyright": "Copyright © {year} | Все права защищены | Создано {company}",
+    "copyright": "© {year} | All rights reserved |<br></br>Created by <a>Neetrino</a>",
     "contact": "Контакты",
     "social": "Социальные сети",
     "socialEmpty": "Ссылки будут добавлены после подтверждения.",

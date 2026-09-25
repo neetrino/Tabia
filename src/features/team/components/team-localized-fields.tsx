@@ -11,26 +11,34 @@ import {
   teamTextAreaClassName,
 } from "./team-form-field";
 
+type TeamValuesChange = (
+  update: TeamMemberRecord | ((current: TeamMemberRecord) => TeamMemberRecord),
+) => void;
+
 type TeamLocalizedFieldsProps = {
   locale: AppLocale;
   values: TeamMemberRecord;
-  onChange: (values: TeamMemberRecord) => void;
+  onChange: TeamValuesChange;
 };
 
-function createLocalizedFieldUpdate(
-  values: TeamMemberRecord,
-  onChange: (values: TeamMemberRecord) => void,
-) {
-  return function updateField(key: keyof TeamMemberRecord, value: string): void {
-    const next = { ...values, [key]: value };
-    if (key === "nameEn" && (!values.slug || values.slug === slugifyLatin(values.nameEn))) {
+function updateLocalizedField(
+  onChange: TeamValuesChange,
+  key: keyof TeamMemberRecord,
+  value: string,
+): void {
+  onChange((current) => {
+    const next = { ...current, [key]: value };
+    if (
+      key === "nameEn" &&
+      (!current.slug || current.slug === slugifyLatin(current.nameEn))
+    ) {
       const generated = slugifyLatin(value);
       if (generated) {
         next.slug = generated;
       }
     }
-    onChange(next);
-  };
+    return next;
+  });
 }
 
 export function TeamLocalizedIdentityFields({
@@ -41,7 +49,6 @@ export function TeamLocalizedIdentityFields({
   const t = useTranslations("admin.teamForm");
   const nameKey = teamLocaleField("name", locale);
   const positionKey = teamLocaleField("position", locale);
-  const updateField = createLocalizedFieldUpdate(values, onChange);
 
   return (
     <>
@@ -50,7 +57,9 @@ export function TeamLocalizedIdentityFields({
           id={nameKey}
           value={String(values[nameKey])}
           className={teamInputClassName}
-          onChange={(event) => updateField(nameKey, event.target.value)}
+          onChange={(event) =>
+            updateLocalizedField(onChange, nameKey, event.target.value)
+          }
         />
       </TeamFormField>
       <TeamFormField id={positionKey} label={t("position")}>
@@ -58,7 +67,9 @@ export function TeamLocalizedIdentityFields({
           id={positionKey}
           value={String(values[positionKey])}
           className={teamInputClassName}
-          onChange={(event) => updateField(positionKey, event.target.value)}
+          onChange={(event) =>
+            updateLocalizedField(onChange, positionKey, event.target.value)
+          }
         />
       </TeamFormField>
     </>
@@ -73,7 +84,6 @@ export function TeamLocalizedBioFields({
   const t = useTranslations("admin.teamForm");
   const bioKey = teamLocaleField("bio", locale);
   const detailsKey = teamLocaleField("details", locale);
-  const updateField = createLocalizedFieldUpdate(values, onChange);
 
   return (
     <>
@@ -82,7 +92,9 @@ export function TeamLocalizedBioFields({
           id={bioKey}
           value={String(values[bioKey])}
           className={teamTextAreaClassName("min-h-32")}
-          onChange={(event) => updateField(bioKey, event.target.value)}
+          onChange={(event) =>
+            updateLocalizedField(onChange, bioKey, event.target.value)
+          }
         />
       </TeamFormField>
       <TeamFormField
@@ -94,7 +106,9 @@ export function TeamLocalizedBioFields({
           id={detailsKey}
           value={String(values[detailsKey])}
           className={teamTextAreaClassName("min-h-32")}
-          onChange={(event) => updateField(detailsKey, event.target.value)}
+          onChange={(event) =>
+            updateLocalizedField(onChange, detailsKey, event.target.value)
+          }
         />
       </TeamFormField>
     </>

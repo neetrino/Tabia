@@ -5,7 +5,6 @@ const navItems: HeaderNavItem[] = [
   { href: "/", key: "home" },
   { href: "/about", key: "about" },
   { href: "/services", key: "services" },
-  { href: "/industries", key: "industries" },
   { href: "/team", key: "team" },
   { href: "/news", key: "news" },
   { href: "/insights", key: "insights" },

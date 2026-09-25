@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import Image from "@tiptap/extension-image";
 import { EditorContent, useEditor, type Editor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
@@ -38,6 +38,17 @@ export function PublicationRichTextEditor({
   onError,
 }: PublicationRichTextEditorProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const onChangeRef = useRef(onChange);
+  const onErrorRef = useRef(onError);
+
+  useEffect(() => {
+    onChangeRef.current = onChange;
+  }, [onChange]);
+
+  useEffect(() => {
+    onErrorRef.current = onError;
+  }, [onError]);
+
   const editor = useEditor({
     immediatelyRender: false,
     shouldRerenderOnTransaction: true,
@@ -53,12 +64,12 @@ export function PublicationRichTextEditor({
       },
     },
     onUpdate: ({ editor: current }) => {
-      onChange(current.getHTML());
+      onChangeRef.current(current.getHTML());
     },
   });
 
   return (
-    <div className="overflow-hidden rounded-md border border-[var(--border)]">
+    <div className="overflow-hidden rounded-[15px] border border-[var(--border)]">
       <PublicationRichTextToolbar
         editor={editor}
         onInsertImage={() => fileInputRef.current?.click()}
@@ -75,7 +86,7 @@ export function PublicationRichTextEditor({
           if (!file) {
             return;
           }
-          void insertEditorImage(file, editor, onError);
+          void insertEditorImage(file, editor, (key) => onErrorRef.current(key));
         }}
       />
     </div>

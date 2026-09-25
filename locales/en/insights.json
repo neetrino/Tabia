@@ -1,5 +1,7 @@
 {
   "title": "Insights",
+  "titleLead": "Legal",
+  "titleTail": "insights",
   "subtitle": "Professional articles and legal analysis.",
   "empty": "No insights yet.",
   "publishedAt": "Date"

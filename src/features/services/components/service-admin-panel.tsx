@@ -66,12 +66,12 @@ export function ServiceAdminPanel({
             setEditing(createEmptyService(nextSortOrder));
             setOpen(true);
           }}
-          className="rounded-md bg-[var(--brand)] px-4 py-2 text-sm font-medium text-white"
+          className="rounded-[15px] bg-[var(--brand)] px-5 py-2.5 text-sm font-medium text-white transition-transform duration-200 ease-out hover:scale-105 motion-reduce:transition-none motion-reduce:hover:scale-100"
         >
-          {t("resources.services.add")}
+          + {t("resources.services.add")}
         </button>
       </div>
-      <div className="rounded-md border border-[var(--border)] bg-white p-4">
+      <div className="rounded-[15px] border border-[var(--border)] bg-white p-4 shadow-sm">
         <ServiceAdminList
           services={services}
           onEdit={(service) => {
@@ -99,6 +99,7 @@ export function ServiceAdminPanel({
             key={editing.id || `new-${formKey}`}
             values={editing}
             onSaved={refresh}
+            onChanged={() => router.refresh()}
             onCancel={() => {
               setOpen(false);
               setEditing(null);

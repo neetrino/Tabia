@@ -1,12 +1,16 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import type { ContentVisibilityValue, ServiceRecord } from "../types";
+import type { ServiceRecord } from "../types";
 import { ServiceFormField, serviceInputClassName } from "./service-form-field";
+
+type ServiceValuesChange = (
+  update: ServiceRecord | ((current: ServiceRecord) => ServiceRecord),
+) => void;
 
 type ServiceSharedFieldsProps = {
   values: ServiceRecord;
-  onChange: (values: ServiceRecord) => void;
+  onChange: ServiceValuesChange;
 };
 
 export function ServiceSharedFields({
@@ -19,7 +23,7 @@ export function ServiceSharedFields({
     key: K,
     value: ServiceRecord[K],
   ): void {
-    onChange({ ...values, [key]: value });
+    onChange((current) => ({ ...current, [key]: value }));
   }
 
   return (
@@ -51,19 +55,6 @@ export function ServiceSharedFields({
             update("sortOrder", Number(event.target.value) || 0)
           }
         />
-      </ServiceFormField>
-      <ServiceFormField id="visibility" label={t("visibility")}>
-        <select
-          id="visibility"
-          value={values.visibility}
-          className={serviceInputClassName}
-          onChange={(event) =>
-            update("visibility", event.target.value as ContentVisibilityValue)
-          }
-        >
-          <option value="PUBLISHED">{t("published")}</option>
-          <option value="HIDDEN">{t("hidden")}</option>
-        </select>
       </ServiceFormField>
     </>
   );

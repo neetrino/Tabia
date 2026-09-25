@@ -1,16 +1,8 @@
-import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { logoutAction } from "@/features/auth/client";
 import { SiteBrand } from "@/shared/ui/site-brand";
 import { AdminLocaleSwitcher } from "./admin-locale-switcher";
-
-const links = [
-  { href: "/admin", key: "dashboard" as const },
-  { href: "/admin/news", key: "news" as const },
-  { href: "/admin/insights", key: "insights" as const },
-  { href: "/admin/services", key: "services" as const },
-  { href: "/admin/team", key: "team" as const },
-];
+import { AdminNavLinks } from "./admin-nav-links";
 
 type AdminSidebarProps = {
   email: string;
@@ -21,29 +13,20 @@ export async function AdminSidebar({ email }: AdminSidebarProps) {
   const common = await getTranslations("common");
 
   return (
-    <aside className="flex w-64 shrink-0 flex-col border-r border-[var(--border)] bg-[var(--surface)]">
-      <div className="border-b border-[var(--border)] bg-[var(--ink)] px-5 py-5">
+    <aside className="flex h-full w-64 shrink-0 flex-col overflow-hidden rounded-tr-[20px] rounded-br-[20px] bg-black text-white">
+      <div className="border-b border-white/10 px-5 py-5">
         <SiteBrand label={common("brand")} />
         <p className="mt-3 truncate text-xs text-white/60">{email}</p>
       </div>
-      <nav className="flex flex-1 flex-col gap-1 p-3">
-        {links.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            prefetch
-            className="rounded-md px-3 py-2 text-sm text-[var(--muted)] hover:bg-white hover:text-[var(--foreground)]"
-          >
-            {t(`nav.${link.key}`)}
-          </Link>
-        ))}
-      </nav>
-      <div className="space-y-3 border-t border-[var(--border)] p-3">
-        <AdminLocaleSwitcher />
-        <form action={logoutAction}>
+      <AdminNavLinks />
+      <div className="flex items-center gap-2 border-t border-white/10 p-3">
+        <div className="min-w-0 flex-1">
+          <AdminLocaleSwitcher tone="dark" />
+        </div>
+        <form action={logoutAction} className="shrink-0">
           <button
             type="submit"
-            className="w-full rounded-md border border-[var(--border)] bg-white px-3 py-2 text-sm"
+            className="flex h-10 items-center justify-center rounded-[15px] border border-white/15 bg-white/5 px-3 text-sm whitespace-nowrap text-white transition-[transform,background-color] duration-200 ease-out hover:scale-[1.02] hover:bg-white/10 motion-reduce:transition-none motion-reduce:hover:scale-100"
           >
             {t("logout")}
           </button>

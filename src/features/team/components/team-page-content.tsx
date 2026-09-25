@@ -1,5 +1,11 @@
 import { getTranslations } from "next-intl/server";
+import { Reveal } from "@/shared/motion/reveal";
+import { revealDelay } from "@/shared/motion/timing";
 import { EmptyState } from "@/shared/ui/empty-state";
+import {
+  InteriorPageHeader,
+  InteriorPageShell,
+} from "@/shared/ui/interior-page-header";
 import { getPublishedTeamMembers } from "../queries";
 import { TeamMemberCard } from "./team-member-card";
 
@@ -12,25 +18,27 @@ export async function TeamPageContent({ locale }: TeamPageContentProps) {
   const items = await getPublishedTeamMembers(locale);
 
   return (
-    <div className="mx-auto max-w-6xl space-y-10 px-4 py-16 md:px-6">
-      <header className="space-y-4">
-        <h1 className="text-4xl tracking-tight md:text-5xl">{t("title")}</h1>
-        <p className="max-w-2xl text-lg text-[var(--muted)]">{t("subtitle")}</p>
-      </header>
+    <InteriorPageShell>
+      <InteriorPageHeader
+        titleLead={t("titleLead")}
+        titleTail={t("titleTail")}
+        subtitle={t("subtitle")}
+      />
       {items.length === 0 ? (
-        <EmptyState message={t("empty")} />
+        <EmptyState message={t("empty")} className="mt-12 lg:mt-16" />
       ) : (
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map((member) => (
-            <TeamMemberCard
-              key={member.slug}
-              member={member}
-              readMoreLabel={t("readMore")}
-              linkedInLabel={t("linkedIn")}
-            />
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:mt-16 lg:gap-6 xl:grid-cols-4">
+          {items.map((member, index) => (
+            <Reveal key={member.slug} className="h-full" delay={revealDelay(index)}>
+              <TeamMemberCard
+                member={member}
+                readMoreLabel={t("readMore")}
+                linkedInLabel={t("linkedIn")}
+              />
+            </Reveal>
           ))}
         </div>
       )}
-    </div>
+    </InteriorPageShell>
   );
 }

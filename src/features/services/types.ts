@@ -48,4 +48,5 @@ export type ServiceErrorKey =
 export type ServiceActionResult = {
   ok?: true;
   errorKey?: ServiceErrorKey;
+  invalidFields?: string[];
 };

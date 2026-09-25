@@ -42,12 +42,6 @@ export function toTeamMemberPreview(
   row: TeamMember,
   locale: string,
 ): TeamMemberPreview {
-  const details = localizedText(locale, {
-    hy: row.detailsHy ?? "",
-    en: row.detailsEn ?? "",
-    ru: row.detailsRu ?? "",
-  }).trim();
-
   return {
     slug: row.slug,
     name: localizedText(locale, {
@@ -69,7 +63,7 @@ export function toTeamMemberPreview(
     email: emptyToNull(row.email ?? ""),
     phone: emptyToNull(row.phone ?? ""),
     linkedInUrl: emptyToNull(row.linkedInUrl ?? ""),
-    hasProfile: details.length > 0,
+    hasProfile: true,
   };
 }
 

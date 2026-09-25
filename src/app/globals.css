@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Big Fat Boii";
+  src: url("/fonts/BigFatBoii.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --background: #fefefe;
   --foreground: #0a0a0a;
@@ -9,6 +17,7 @@
   --muted-strong: #363636;
   --border: #e5e1db;
   --brand: #5a0b12;
+  --brand-cta: #8e000d;
   --brand-deep: #3d070c;
   --brand-soft: #f3e6e7;
   --accent: #5a0b12;
@@ -20,6 +29,8 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-montserrat), var(--font-noto-sans-armenian);
+  --font-hero: "Big Fat Boii", var(--font-montserrat),
+    var(--font-noto-sans-armenian), system-ui, sans-serif;
 }
 
 body {
@@ -42,13 +53,174 @@ body {
   outline-offset: 2px;
 }
 
-.home-hero-stage {
-  min-height: 36rem;
+/*
+ * iPad Mini (744), Air (820 / 1024) and Pro (834 / 1032) share the 1440px
+ * desktop canvas, scaled to the viewport. Phones stay on the mobile layout.
+ */
+@custom-variant md {
+  @media (width >= 768px) {
+    @slot;
+  }
+
+  @media (width >= 744px) and (width < 768px) and (height >= 520px) {
+    :where(.desktop-canvas) & {
+      @slot;
+    }
+  }
 }
 
-@media (min-width: 1024px) {
+@custom-variant lg {
+  @media (width >= 1024px) {
+    @slot;
+  }
+
+  @media (width >= 744px) and (width < 1024px) and (height >= 520px) {
+    :where(.desktop-canvas) & {
+      @slot;
+    }
+  }
+}
+
+@custom-variant xl {
+  @media (width >= 1280px) {
+    @slot;
+  }
+
+  @media (width >= 744px) and (width < 1280px) and (height >= 520px) {
+    :where(.desktop-canvas) & {
+      @slot;
+    }
+  }
+}
+
+@media (width >= 744px) and (width < 1440px) and (height >= 520px) {
+  html {
+    overflow-x: clip;
+  }
+
+  .desktop-canvas {
+    --desktop-canvas-width: 1440px;
+    width: var(--desktop-canvas-width);
+    min-height: calc(100vh * var(--desktop-canvas-width) / 100vw);
+    zoom: calc(100vw / var(--desktop-canvas-width));
+  }
+}
+
+/* Grill-style centered modal enter/exit (admin confirm dialogs). */
+@keyframes admin-modal-backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes admin-modal-backdrop-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes admin-modal-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes admin-modal-panel-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+}
+
+.animate-admin-modal-backdrop-in {
+  animation: admin-modal-backdrop-in 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-admin-modal-backdrop-out {
+  animation: admin-modal-backdrop-out 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-admin-modal-panel-in {
+  animation: admin-modal-panel-in 0.32s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-admin-modal-panel-out {
+  animation: admin-modal-panel-out 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-admin-modal-backdrop-in,
+  .animate-admin-modal-backdrop-out,
+  .animate-admin-modal-panel-in,
+  .animate-admin-modal-panel-out {
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* Clickable controls in admin. */
+.admin-app
+  :where(
+    a[href],
+    button:not(:disabled),
+    [role="button"]:not([aria-disabled="true"]),
+    [role="switch"]:not(:disabled),
+    [role="tab"],
+    [role="option"],
+    [role="menuitem"],
+    label[for],
+    select:not(:disabled),
+    summary,
+    input[type="checkbox"]:not(:disabled),
+    input[type="radio"]:not(:disabled),
+    input[type="file"]:not(:disabled),
+    [data-clickable]
+  ):not(.cursor-grab):not(.cursor-grabbing) {
+  cursor: pointer;
+}
+
+.admin-app :where(button:disabled, [aria-disabled="true"], input:disabled) {
+  cursor: not-allowed;
+}
+
+.home-hero-stage {
+  height: 874px;
+  min-height: 874px;
+}
+
+@media (min-width: 1024px),
+  (min-width: 744px) and (max-width: 1439px) and (min-height: 520px) {
   .home-hero-stage {
     height: 921px;
     min-height: 921px;
   }
+
+  .home-about-stage {
+    height: 704px;
+    min-height: 704px;
+  }
 }
+
+@media (prefers-reduced-motion: reduce), (scripting: none) {
+  .motion-reveal,
+  .motion-drift {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}
+

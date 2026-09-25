@@ -21,15 +21,18 @@ export function ServiceAdminSwitch({
       aria-label={label}
       disabled={disabled}
       className={cn(
-        "relative h-5 w-9 shrink-0 rounded-full transition-colors",
+        "relative h-5 w-9 shrink-0 rounded-[15px] transition-colors",
         checked ? "bg-[var(--brand)]" : "bg-[var(--border)]",
         disabled && "opacity-60",
       )}
-      onClick={() => onChange(!checked)}
+      onClick={(event) => {
+        event.stopPropagation();
+        onChange(!checked);
+      }}
     >
       <span
         className={cn(
-          "absolute top-0.5 size-4 rounded-full bg-white transition-[left]",
+          "absolute top-0.5 size-4 rounded-[15px] bg-white transition-[left]",
           checked ? "left-[1.125rem]" : "left-0.5",
         )}
       />

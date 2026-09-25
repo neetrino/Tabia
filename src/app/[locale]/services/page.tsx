@@ -1,9 +1,16 @@
+import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { ArrowUpRight } from "lucide-react";
-import { getPublishedServices } from "@/features/services";
-import { ButtonLink } from "@/shared/ui/button-link";
+import { getPublishedServices, type ServicePreview } from "@/features/services";
+import { Link } from "@/i18n/navigation";
+import { HOME_ASSETS } from "@/shared/config/content";
+import { Reveal } from "@/shared/motion/reveal";
+import { revealDelay } from "@/shared/motion/timing";
 import { CoverMedia } from "@/shared/ui/cover-media";
 import { EmptyState } from "@/shared/ui/empty-state";
+import {
+  InteriorPageHeader,
+  InteriorPageShell,
+} from "@/shared/ui/interior-page-header";
 
 type PageProps = { params: Promise<{ locale: string }> };
 
@@ -14,37 +21,69 @@ export default async function ServicesPage({ params }: PageProps) {
   const items = await getPublishedServices(locale);
 
   return (
-    <div className="mx-auto max-w-6xl space-y-10 px-4 py-16 md:px-6">
-      <header className="space-y-4">
-        <h1 className="text-4xl tracking-tight md:text-5xl">{t("title")}</h1>
-        <p className="max-w-2xl text-lg text-[var(--muted)]">{t("subtitle")}</p>
-      </header>
+    <InteriorPageShell>
+      <InteriorPageHeader
+        titleLead={t("titleLead")}
+        titleTail={t("titleTail")}
+        subtitle={t("subtitle")}
+      />
       {items.length === 0 ? (
-        <EmptyState message={t("empty")} />
+        <EmptyState message={t("empty")} className="mt-12 lg:mt-16" />
       ) : (
-        <div className="grid gap-6 md:grid-cols-2">
-          {items.map((item) => (
-            <article
-              key={item.slug}
-              className="group border border-[var(--border)] bg-[var(--surface)]"
-            >
-              <CoverMedia
-                src={item.imageUrl}
-                alt={item.title}
-                className="aspect-[16/9]"
-              />
-              <div className="space-y-3 p-6">
-                <h2 className="text-2xl tracking-tight">{item.title}</h2>
-                <p className="text-[var(--muted)]">{item.summary}</p>
-                <ButtonLink href={`/services/${item.slug}`} variant="ghost">
-                  {t("details")}
-                  <ArrowUpRight className="size-4" />
-                </ButtonLink>
-              </div>
-            </article>
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:mt-16 lg:gap-6 xl:grid-cols-3">
+          {items.map((item, index) => (
+            <Reveal key={item.slug} className="h-full" delay={revealDelay(index)}>
+              <ServiceCard item={item} />
+            </Reveal>
           ))}
         </div>
       )}
-    </div>
+    </InteriorPageShell>
+  );
+}
+
+function ServiceCard({ item }: { item: ServicePreview }) {
+  return (
+    <Link
+      href={`/services/${item.slug}`}
+      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-black/[0.06] bg-[var(--surface)] p-3 transition duration-500 hover:-translate-y-1 hover:border-black/10 hover:shadow-[0_16px_40px_rgba(0,0,0,0.06)] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+    >
+      <CoverMedia
+        src={item.imageUrl}
+        alt={item.title}
+        className="aspect-[16/10] w-full shrink-0 rounded-2xl bg-[#e8e8e8]"
+        imageClassName="object-cover object-center opacity-95 transition duration-500 group-hover:scale-[1.03]"
+        fallback={
+          <div className="relative h-full w-full rounded-2xl bg-[linear-gradient(-57deg,#fff_6%,#d6d6d6_109%)]">
+            <Image
+              src={HOME_ASSETS.serviceScales}
+              alt=""
+              fill
+              loading="lazy"
+              className="object-cover opacity-40"
+              sizes="(min-width: 1280px) 33vw, (min-width: 640px) 50vw, 100vw"
+            />
+          </div>
+        }
+      />
+      <div className="flex min-h-[7.5rem] flex-1 items-start justify-between gap-4 pt-4">
+        <div className="min-w-0 flex-1">
+          <h2 className="line-clamp-2 min-h-[2.75rem] text-base font-semibold leading-snug text-[#0a0a0a] lg:min-h-[3.25rem] lg:text-lg">
+            {item.title}
+          </h2>
+          <p className="mt-2 line-clamp-2 min-h-[2.75rem] text-sm font-light leading-relaxed text-[var(--muted)]">
+            {item.summary || "\u00a0"}
+          </p>
+        </div>
+        <Image
+          src={HOME_ASSETS.serviceArrow}
+          alt=""
+          width={29}
+          height={16}
+          unoptimized
+          className="mt-1 block shrink-0 transition duration-300 group-hover:translate-x-1"
+        />
+      </div>
+    </Link>
   );
 }

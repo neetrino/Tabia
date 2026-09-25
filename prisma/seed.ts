@@ -15,69 +15,124 @@ const prisma = new PrismaClient({ adapter: new PrismaPg(pool) });
 const services = [
   {
     slug: "corporate-advisory",
-    imageUrl: "/images/industries/corporate.svg",
+    imageUrl: "/images/services/corporate.png",
     sortOrder: 1,
     featured: true,
-    titleHy: "Կորպորատիվ խորհրդատվություն",
-    titleEn: "Corporate advisory",
-    titleRu: "Корпоративное консультирование",
-    summaryHy: "Ընկերության կառուցվածք, կառավարում և գործարքների իրավական աջակցություն։",
-    summaryEn: "Company structure, governance, and legal support for transactions.",
+    titleHy:
+      "Կորպորատիվ, առևտրային և մասնավոր հաճախորդների խորհրդատվություն",
+    titleEn: "Corporate, commercial and private client advisory",
+    titleRu: "Корпоративное, коммерческое и частное консультирование",
+    summaryHy:
+      "Ընկերության կառուցվածք, կառավարում և գործարքների իրավական աջակցություն։",
+    summaryEn:
+      "Company structure, governance, and legal support for transactions.",
     summaryRu: "Структура компании, управление и правовая поддержка сделок.",
-    bodyHy: "Աջակցում ենք կորպորատիվ որոշումներին՝ սկսած հիմնադրումից մինչև վերակազմակերպում։",
+    bodyHy:
+      "Աջակցում ենք կորպորատիվ որոշումներին՝ սկսած հիմնադրումից մինչև վերակազմակերպում։",
     bodyEn: "We support corporate decisions from formation through reorganization.",
     bodyRu: "Поддерживаем корпоративные решения от создания до реорганизации.",
   },
   {
-    slug: "employment-advisory",
-    imageUrl: "/images/industries/employment.svg",
+    slug: "natural-resources",
+    imageUrl: "/images/services/resources.png",
     sortOrder: 2,
     featured: true,
-    titleHy: "Աշխատանքային իրավունք",
-    titleEn: "Employment law",
-    titleRu: "Трудовое право",
-    summaryHy: "Աշխատանքային հարաբերություններ, ներքին կանոնակարգեր և ռիսկերի կառավարում։",
-    summaryEn: "Employment relations, internal policies, and risk management.",
-    summaryRu: "Трудовые отношения, внутренние политики и управление рисками.",
-    bodyHy: "Օգնում ենք կառուցել համապատասխան և թափանցիկ աշխատանքային գործընթացներ։",
-    bodyEn: "We help build compliant and transparent employment processes.",
-    bodyRu: "Помогаем выстроить прозрачные и соответствующие трудовые процессы.",
+    titleHy:
+      "Բնական ռեսուրսներ, ենթակառուցվածքներ և ՊՊԳ (Պետություն-մասնավոր գործընկերություն)",
+    titleEn: "Natural resources, infrastructure and PPP",
+    titleRu: "Природные ресурсы, инфраструктура и ГЧП",
+    summaryHy:
+      "Բնական ռեսուրսների, ենթակառուցվածքների և պետություն-մասնավոր գործընկերության նախագծերի իրավական աջակցություն։",
+    summaryEn:
+      "Legal support for natural resources, infrastructure, and PPP projects.",
+    summaryRu:
+      "Правовая поддержка проектов в сфере природных ресурсов, инфраструктуры и ГЧП.",
+    bodyHy:
+      "Ուղեկցում ենք խոշոր ենթակառուցվածքային և ռեսուրսային գործարքները՝ ռիսկերի կառավարմամբ։",
+    bodyEn:
+      "We guide major infrastructure and resource transactions with risk control.",
+    bodyRu:
+      "Сопровождаем крупные инфраструктурные и ресурсные сделки с управлением рисками.",
   },
   {
-    slug: "tax-advisory",
-    imageUrl: "/images/industries/tax.svg",
+    slug: "tax-digital-strategy",
+    imageUrl: "/images/services/tax-digital.png",
     sortOrder: 3,
     featured: true,
-    titleHy: "Հարկային խորհրդատվություն",
-    titleEn: "Tax advisory",
-    titleRu: "Налоговое консультирование",
-    summaryHy: "Հարկային պլանավորում և համապատասխանություն գործարար որոշումներում։",
-    summaryEn: "Tax planning and compliance in business decisions.",
-    summaryRu: "Налоговое планирование и соответствие в бизнес-решениях.",
-    bodyHy: "Վերլուծում ենք հարկային հետևանքները և առաջարկում գործնական լուծումներ։",
-    bodyEn: "We analyze tax implications and propose practical solutions.",
-    bodyRu: "Анализируем налоговые последствия и предлагаем практические решения.",
+    titleHy: "Հարկային և թվային ռազմավարության խորհրդատվություն",
+    titleEn: "Tax and digital strategy advisory",
+    titleRu: "Налоговое и цифровое стратегическое консультирование",
+    summaryHy:
+      "Հարկային պլանավորում և թվային ռազմավարության իրավական համապատասխանություն։",
+    summaryEn: "Tax planning and legal alignment for digital strategy.",
+    summaryRu:
+      "Налоговое планирование и правовое сопровождение цифровой стратегии.",
+    bodyHy:
+      "Վերլուծում ենք հարկային և թվային հետևանքները և առաջարկում գործնական լուծումներ։",
+    bodyEn:
+      "We analyze tax and digital implications and propose practical solutions.",
+    bodyRu:
+      "Анализируем налоговые и цифровые последствия и предлагаем практические решения.",
   },
   {
-    slug: "dispute-resolution",
-    imageUrl: "/images/industries/disputes.svg",
+    slug: "banking-finance",
+    imageUrl: "/images/services/banking.png",
     sortOrder: 4,
     featured: true,
-    titleHy: "Վեճերի լուծում",
-    titleEn: "Dispute resolution",
-    titleRu: "Разрешение споров",
-    summaryHy: "Ներկայացուցչություն և բանակցային լուծումներ բիզնես վեճերում։",
-    summaryEn: "Representation and negotiated outcomes in business disputes.",
-    summaryRu: "Представительство и переговорные решения в бизнес-спорах.",
-    bodyHy: "Աշխատում ենք նախ բանակցային լուծման, ապա՝ պաշտպանության ուղղությամբ։",
-    bodyEn: "We start with negotiated resolution, then representation if needed.",
-    bodyRu: "Сначала ищем переговорное решение, затем — представительство.",
+    titleHy: "Բանկային գործ, ֆինանսներ և կապիտալի շուկաներ",
+    titleEn: "Banking, finance and capital markets",
+    titleRu: "Банковское дело, финансы и рынки капитала",
+    summaryHy:
+      "Բանկային, ֆինանսական և կապիտալի շուկաների գործարքների իրավական աջակցություն։",
+    summaryEn: "Legal support for banking, finance, and capital markets deals.",
+    summaryRu:
+      "Правовая поддержка банковских, финансовых сделок и рынков капитала.",
+    bodyHy:
+      "Աջակցում ենք ֆինանսավորման կառուցվածքներին և կապիտալի շուկայի գործարքներին։",
+    bodyEn: "We support financing structures and capital markets transactions.",
+    bodyRu: "Поддерживаем структуры финансирования и сделки на рынках капитала.",
+  },
+  {
+    slug: "aml-compliance",
+    imageUrl: "/images/services/compliance.png",
+    sortOrder: 5,
+    featured: true,
+    titleHy:
+      "ՓԼ/ԱՖ դեմ պայքար և կարգավորող համապատասխանության (քոմփլայենս) խորհրդատվություն",
+    titleEn: "AML/CFT and regulatory compliance advisory",
+    titleRu: "ПОД/ФТ и регуляторный комплаенс",
+    summaryHy:
+      "ՓԼ/ԱՖ դեմ պայքարի և կարգավորող համապատասխանության խորհրդատվություն։",
+    summaryEn: "Advisory on AML/CFT and regulatory compliance programs.",
+    summaryRu: "Консультирование по ПОД/ФТ и регуляторному комплаенсу.",
+    bodyHy:
+      "Կառուցում ենք համապատասխանության քաղաքականություններ և գործընթացներ։",
+    bodyEn: "We build compliance policies and operational processes.",
+    bodyRu: "Выстраиваем политики и процессы комплаенса.",
+  },
+  {
+    slug: "criminal-advisory",
+    imageUrl: "/images/services/criminal.png",
+    sortOrder: 6,
+    featured: true,
+    titleHy: "Ռազմավարական քրեաիրավական խորհրդատվություն",
+    titleEn: "Strategic criminal law advisory",
+    titleRu: "Стратегическое уголовно-правовое консультирование",
+    summaryHy: "Ռազմավարական քրեաիրավական խորհրդատվություն և պաշտպանություն։",
+    summaryEn: "Strategic criminal law advisory and defense.",
+    summaryRu: "Стратегическое уголовно-правовое консультирование и защита.",
+    bodyHy:
+      "Ապահովում ենք ռազմավարական աջակցություն քրեաիրավական ռիսկերի կառավարման համար։",
+    bodyEn: "We provide strategic support for managing criminal law risks.",
+    bodyRu:
+      "Обеспечиваем стратегическую поддержку в управлении уголовно-правовыми рисками.",
   },
 ];
 
 const team = [
   {
     slug: "ani-sargsyan",
+    photoUrl: "/images/team/member-1.jpg",
     sortOrder: 1,
     featured: true,
     email: "ani.sargsyan@tabia.am",
@@ -101,6 +156,7 @@ const team = [
   },
   {
     slug: "armen-hakobyan",
+    photoUrl: "/images/team/member-2.jpg",
     sortOrder: 2,
     featured: true,
     email: "armen.hakobyan@tabia.am",
@@ -123,6 +179,7 @@ const team = [
   },
   {
     slug: "lilit-petrosyan",
+    photoUrl: "/images/team/member-3.jpg",
     sortOrder: 3,
     featured: true,
     email: "lilit.petrosyan@tabia.am",
@@ -135,10 +192,18 @@ const team = [
     bioHy: "Հարկային պլանավորում և համապատասխանության վերլուծություն։",
     bioEn: "Tax planning and compliance analysis.",
     bioRu: "Налоговое планирование и анализ соответствия.",
+    detailsHy:
+      "Լիլիթը վերլուծում է հարկային ռիսկերը և կառուցում գործնական համապատասխանության լուծումներ։",
+    detailsEn:
+      "Lilit analyzes tax risks and builds practical compliance solutions.",
+    detailsRu:
+      "Лилит анализирует налоговые риски и выстраивает практические решения по комплаенсу.",
   },
   {
     slug: "narek-avetyan",
+    photoUrl: "/images/team/member-4.jpg",
     sortOrder: 4,
+    featured: true,
     phone: "+374 10 000 004",
     nameHy: "Նարեկ Ավետյան",
     nameEn: "Narek Avetyan",
@@ -149,57 +214,168 @@ const team = [
     bioHy: "Վեճերի լուծում և բանակցային ներկայացուցչություն։",
     bioEn: "Dispute resolution and negotiated representation.",
     bioRu: "Разрешение споров и переговорное представительство.",
+    detailsHy:
+      "Նարեկը ներկայացնում է հաճախորդներին վեճերում և բանակցություններում։",
+    detailsEn: "Narek represents clients in disputes and negotiations.",
+    detailsRu: "Нарек представляет клиентов в спорах и переговорах.",
+  },
+  {
+    slug: "mariam-grigoryan",
+    photoUrl: "/images/team/member-5.jpg",
+    sortOrder: 5,
+    featured: true,
+    nameHy: "Մարիամ Գրիգորյան",
+    nameEn: "Mariam Grigoryan",
+    nameRu: "Мариам Григорян",
+    positionHy: "Խորհրդատու",
+    positionEn: "Advisor",
+    positionRu: "Консультант",
+    bioHy: "Կորպորատիվ և կարգավորող համապատասխանության խորհրդատվություն։",
+    bioEn: "Corporate and regulatory compliance advisory.",
+    bioRu: "Корпоративное и регуляторное комплаенс-консультирование.",
+    detailsHy:
+      "Մարիամը աջակցում է կորպորատիվ գործընթացներին և կարգավորող պահանջներին։",
+    detailsEn:
+      "Mariam supports corporate processes and regulatory requirements.",
+    detailsRu:
+      "Мариам поддерживает корпоративные процессы и регуляторные требования.",
+  },
+  {
+    slug: "david-mkrtchyan",
+    photoUrl: "/images/team/member-6.jpg",
+    sortOrder: 6,
+    featured: true,
+    nameHy: "Դավիթ Մկրտչյան",
+    nameEn: "David Mkrtchyan",
+    nameRu: "Давид Мкртчян",
+    positionHy: "Ավագ իրավաբան",
+    positionEn: "Senior counsel",
+    positionRu: "Старший юрист",
+    bioHy: "Ֆինանսական և բանկային իրավունքի մասնագետ։",
+    bioEn: "Specialist in finance and banking law.",
+    bioRu: "Специалист по финансовому и банковскому праву.",
+    detailsHy:
+      "Դավիթը ուղեկցում է ֆինանսավորման և բանկային գործարքները։",
+    detailsEn: "David advises on financing and banking transactions.",
+    detailsRu: "Давид сопровождает сделки по финансированию и банковскому праву.",
+  },
+  {
+    slug: "siranush-karapetyan",
+    photoUrl: "/images/team/member-7.jpg",
+    sortOrder: 7,
+    featured: true,
+    nameHy: "Սիրանուշ Կարապետյան",
+    nameEn: "Siranush Karapetyan",
+    nameRu: "Сирануш Карапетян",
+    positionHy: "Իրավաբան",
+    positionEn: "Counsel",
+    positionRu: "Юрист",
+    bioHy: "Քրեաիրավական և համապատասխանության խորհրդատվություն։",
+    bioEn: "Criminal law and compliance advisory.",
+    bioRu: "Уголовно-правовое и комплаенс-консультирование.",
+    detailsHy:
+      "Սիրանուշը աջակցում է քրեաիրավական ռիսկերի կառավարմանը և համապատասխանությանը։",
+    detailsEn:
+      "Siranush supports criminal-law risk management and compliance.",
+    detailsRu:
+      "Сирануш поддерживает управление уголовно-правовыми рисками и комплаенс.",
   },
 ];
 
 const publications = [
   {
-    slug: "office-opening",
+    slug: "strategic-ma-outlook",
     type: "NEWS" as const,
     status: "PUBLISHED" as const,
-    coverUrl: "/images/industries/corporate.svg",
-    publishedAt: new Date("2026-09-01"),
-    titleHy: "TABIA-ն մեկնարկում է նոր փուլ",
-    titleEn: "TABIA begins a new chapter",
-    titleRu: "TABIA начинает новый этап",
-    summaryHy: "Կազմակերպությունը ներկայացնում է թարմացված ծառայություններ և թիմ։",
-    summaryEn: "The firm presents an updated service offering and team.",
-    summaryRu: "Компания представляет обновленные услуги и команду.",
-    bodyHy: "<p>Մենք շարունակում ենք զարգացնել մասնագիտական աջակցությունը բիզնես հաճախորդների համար։</p>",
-    bodyEn: "<p>We continue to grow professional support for business clients.</p>",
-    bodyRu: "<p>Мы продолжаем развивать профессиональную поддержку бизнес-клиентов.</p>",
+    coverUrl: "/images/news/ma-skyline.jpg",
+    publishedAt: new Date("2026-07-28"),
+    titleHy: "Ռազմավարական M&A անկայուն շուկայում. իրավական հեռանկար",
+    titleEn: "Strategic M&A in a volatile market: a legal outlook",
+    titleRu: "Стратегические M&A на нестабильном рынке: правовой взгляд",
+    summaryHy:
+      "TABIA-ի գործընկերները քննարկում են պատշաճ ստուգման առաջնահերթությունները բարդ ձեռքբերման սցենարների համար։",
+    summaryEn:
+      "TABIA partners discuss due-diligence priorities for complex acquisition scenarios.",
+    summaryRu:
+      "Партнеры TABIA обсуждают приоритеты due diligence для сложных сценариев поглощений.",
+    bodyHy:
+      "<p>Անկայուն շուկայում M&A գործարքները պահանջում են առավել խիստ իրավական վերլուծություն և ռիսկերի կառավարում։</p>",
+    bodyEn:
+      "<p>In a volatile market, M&A deals require stricter legal analysis and risk management.</p>",
+    bodyRu:
+      "<p>На нестабильном рынке сделки M&A требуют более строгого правового анализа и управления рисками.</p>",
   },
   {
-    slug: "employment-updates",
+    slug: "arbitration-vs-litigation",
     type: "INSIGHT" as const,
     status: "PUBLISHED" as const,
-    coverUrl: "/images/industries/employment.svg",
-    publishedAt: new Date("2026-08-20"),
-    titleHy: "Աշխատանքային իրավունքի գործնական նշումներ",
-    titleEn: "Practical notes on employment law",
-    titleRu: "Практические заметки по трудовому праву",
-    summaryHy: "Ինչպես կառուցել ներքին կանոնակարգեր՝ առանց ավելորդ ռիսկի։",
-    summaryEn: "How to build internal policies without unnecessary risk.",
-    summaryRu: "Как выстроить внутренние политики без лишнего риска.",
-    bodyHy: "<p>Հստակ փաստաթղթավորումը նվազեցնում է վեճերի հավանականությունը և պաշտպանում երկու կողմերին։</p>",
-    bodyEn: "<p>Clear documentation reduces disputes and protects both sides.</p>",
-    bodyRu: "<p>Четкая документация снижает риск споров и защищает обе стороны.</p>",
+    coverUrl: "/images/news/arbitration-skyline.jpg",
+    publishedAt: new Date("2026-07-09"),
+    titleHy:
+      "Արբիտրաժ ընդդեմ դատավարության. ճիշտ ուղու ընտրությունը առևտրային վեճերում",
+    titleEn:
+      "Arbitration vs litigation: choosing the right path in commercial disputes",
+    titleRu:
+      "Арбитраж против суда: выбор правильного пути в коммерческих спорах",
+    summaryHy:
+      "Ընթացակարգային փոխհատուցումների, ծախսերի ներկայացուցիչ և կատարման ուժ ունեցող նկատառումների վերլուծություն։",
+    summaryEn:
+      "An analysis of procedural trade-offs, costs, representation and enforceability.",
+    summaryRu:
+      "Анализ процедурных компромиссов, издержек, представительства и исполнимости.",
+    bodyHy:
+      "<p>Առևտրային վեճերում ուղու ընտրությունը ազդում է ժամկետների, ծախսերի և կատարման հնարավորությունների վրա։</p>",
+    bodyEn:
+      "<p>In commercial disputes, the choice of forum affects timelines, costs and enforcement options.</p>",
+    bodyRu:
+      "<p>В коммерческих спорах выбор форума влияет на сроки, расходы и возможности исполнения.</p>",
   },
   {
-    slug: "tax-planning-note",
+    slug: "strategic-ma-priorities",
+    type: "NEWS" as const,
+    status: "PUBLISHED" as const,
+    coverUrl: "/images/news/ma-skyline.jpg",
+    publishedAt: new Date("2026-07-28"),
+    titleHy: "Ռազմավարական M&A անկայուն շուկայում. իրավական հեռանկար",
+    titleEn: "Strategic M&A in a volatile market: a legal outlook",
+    titleRu: "Стратегические M&A на нестабильном рынке: правовой взгляд",
+    summaryHy:
+      "TABIA-ի գործընկերները քննարկում են պատշաճ ստուգման առաջնահերթությունները բարդ ձեռքբերման սցենարների համար։",
+    summaryEn:
+      "TABIA partners discuss due-diligence priorities for complex acquisition scenarios.",
+    summaryRu:
+      "Партнеры TABIA обсуждают приоритеты due diligence для сложных сценариев поглощений.",
+    bodyHy:
+      "<p>Անկայուն շուկայում M&A գործարքները պահանջում են առավել խիստ իրավական վերլուծություն և ռիսկերի կառավարում։</p>",
+    bodyEn:
+      "<p>In a volatile market, M&A deals require stricter legal analysis and risk management.</p>",
+    bodyRu:
+      "<p>На нестабильном рынке сделки M&A требуют более строгого правового анализа и управления рисками.</p>",
+  },
+  {
+    slug: "commercial-dispute-pathways",
     type: "INSIGHT" as const,
     status: "PUBLISHED" as const,
-    coverUrl: "/images/industries/tax.svg",
-    publishedAt: new Date("2026-08-05"),
-    titleHy: "Հարկային պլանավորումը գործարքից առաջ",
-    titleEn: "Tax planning before the transaction",
-    titleRu: "Налоговое планирование до сделки",
-    summaryHy: "Գործարքի կառուցվածքը պետք է գնահատվի նաև հարկային տեսանկյունից։",
-    summaryEn: "Deal structure should also be assessed from a tax perspective.",
-    summaryRu: "Структуру сделки нужно оценивать и с налоговой точки зрения.",
-    bodyHy: "<p>Վաղ վերլուծությունը օգնում է խուսափել թանկ հետևանքներից։</p>",
-    bodyEn: "<p>Early analysis helps avoid costly consequences.</p>",
-    bodyRu: "<p>Ранний анализ помогает избежать дорогостоящих последствий.</p>",
+    coverUrl: "/images/news/arbitration-skyline.jpg",
+    publishedAt: new Date("2026-07-09"),
+    titleHy:
+      "Արբիտրաժ ընդդեմ դատավարության. ճիշտ ուղու ընտրությունը առևտրային վեճերում",
+    titleEn:
+      "Arbitration vs litigation: choosing the right path in commercial disputes",
+    titleRu:
+      "Арбитраж против суда: выбор правильного пути в коммерческих спорах",
+    summaryHy:
+      "Ընթացակարգային փոխհատուցումների, ծախսերի ներկայացուցիչ և կատարման ուժ ունեցող նկատառումների վերլուծություն։",
+    summaryEn:
+      "An analysis of procedural trade-offs, costs, representation and enforceability.",
+    summaryRu:
+      "Анализ процедурных компромиссов, издержек, представительства и исполнимости.",
+    bodyHy:
+      "<p>Առևտրային վեճերում ուղու ընտրությունը ազդում է ժամկետների, ծախսերի և կատարման հնարավորությունների վրա։</p>",
+    bodyEn:
+      "<p>In commercial disputes, the choice of forum affects timelines, costs and enforcement options.</p>",
+    bodyRu:
+      "<p>В коммерческих спорах выбор форума влияет на сроки, расходы и возможности исполнения.</p>",
   },
 ];
 
@@ -223,6 +399,8 @@ async function seedAdmin(): Promise<void> {
 }
 
 async function seedContent(): Promise<void> {
+  const serviceSlugs = services.map((service) => service.slug);
+
   for (const service of services) {
     await prisma.service.upsert({
       where: { slug: service.slug },
@@ -231,13 +409,24 @@ async function seedContent(): Promise<void> {
     });
   }
 
+  await prisma.service.updateMany({
+    where: { slug: { notIn: serviceSlugs } },
+    data: { featured: false, visibility: "HIDDEN" },
+  });
+
   for (const member of team) {
     await prisma.teamMember.upsert({
       where: { slug: member.slug },
-      update: member,
-      create: member,
+      update: { ...member, visibility: "PUBLISHED" },
+      create: { ...member, visibility: "PUBLISHED" },
     });
   }
+
+  const teamSlugs = team.map((member) => member.slug);
+  await prisma.teamMember.updateMany({
+    where: { slug: { notIn: teamSlugs } },
+    data: { featured: false, visibility: "HIDDEN" },
+  });
 
   for (const publication of publications) {
     await prisma.publication.upsert({
@@ -248,6 +437,18 @@ async function seedContent(): Promise<void> {
       create: publication,
     });
   }
+
+  await prisma.publication.updateMany({
+    where: {
+      NOT: {
+        OR: publications.map((publication) => ({
+          type: publication.type,
+          slug: publication.slug,
+        })),
+      },
+    },
+    data: { status: "ARCHIVED" },
+  });
 
   console.info("Seeded demo services, team, and publications");
 }

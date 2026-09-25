@@ -19,6 +19,7 @@
   "logout": "Sign out",
   "close": "Close",
   "closeOverlay": "Close drawer overlay",
+  "reorderItemAria": "Drag to reorder “{name}”",
   "empty": "No items yet. Use “{addLabel}” to create the first record.",
   "nav": {
     "dashboard": "Dashboard",
@@ -87,6 +88,13 @@
     "cancel": "Cancel",
     "delete": "Delete"
   },
+  "confirm": {
+    "title": "Please confirm",
+    "confirm": "Confirm",
+    "delete": "Delete",
+    "deactivate": "Deactivate",
+    "hide": "Hide"
+  },
   "teamForm": {
     "contentLocale": "Content language",
     "contentLocaleHint": "The slug is shared and Latin-only. Fill name, role, and descriptions in the HY / EN / RU tabs.",
@@ -112,10 +120,11 @@
     "orderValue": "#{value}",
     "dragHint": "Drag rows to change display order.",
     "confirmDelete": "Delete team member “{name}”?",
+    "confirmHide": "Hide team member “{name}” from the public site?",
     "saving": "Saving…",
     "errors": {
       "unauthorized": "You need to sign in.",
-      "invalid": "Check the required fields in all three languages.",
+      "invalid": "Fill the required text in HY, EN, and RU. The slug is shared for all languages.",
       "slugInvalid": "The slug must use lowercase Latin letters, numbers, and hyphens.",
       "slugTaken": "This slug is already in use.",
       "notFound": "Team member not found.",
@@ -146,10 +155,11 @@
     "orderValue": "#{value}",
     "dragHint": "Drag rows to change display order.",
     "confirmDelete": "Delete service “{name}”?",
+    "confirmHide": "Hide service “{name}” from the public site?",
     "saving": "Saving…",
     "errors": {
       "unauthorized": "You need to sign in.",
-      "invalid": "Check the required fields in all three languages.",
+      "invalid": "Fill the required text in HY, EN, and RU. The slug is shared for all languages.",
       "slugInvalid": "The slug must use lowercase Latin letters, numbers, and hyphens.",
       "slugTaken": "This slug is already in use.",
       "notFound": "Service not found.",
@@ -168,7 +178,8 @@
     "removeCover": "Remove cover image",
     "title": "Title",
     "summary": "Short description",
-    "summaryHint": "Shown on the card and listing pages.",
+    "summaryHint": "Required in every language. Shown on the card and listing pages (max 500 characters).",
+    "summaryCount": "{count}/500",
     "body": "Full text",
     "bodyHint": "Use headings, links, images, and text formatting in the editor.",
     "publishedAt": "Publication date",
@@ -178,6 +189,7 @@
     "deactivate": "Deactivate",
     "saving": "Saving…",
     "confirmDelete": "Delete “{name}”?",
+    "confirmDeactivate": "Deactivate “{name}”? It will no longer appear on the public site.",
     "status": {
       "DRAFT": "Draft",
       "PUBLISHED": "Published",
@@ -196,7 +208,18 @@
     },
     "errors": {
       "unauthorized": "You need to sign in.",
-      "invalid": "Check the required fields in all three languages.",
+      "invalid": "Fill the Short description in every language tab (HY, EN, RU). Title and full text alone are not enough.",
+      "invalidFields": {
+        "summaryHy": "Short description (HY)",
+        "summaryEn": "Short description (EN)",
+        "summaryRu": "Short description (RU)",
+        "titleHy": "Title (HY)",
+        "titleEn": "Title (EN)",
+        "titleRu": "Title (RU)",
+        "bodyHy": "Full text (HY)",
+        "bodyEn": "Full text (EN)",
+        "bodyRu": "Full text (RU)"
+      },
       "slugInvalid": "The slug must use lowercase Latin letters, numbers, and hyphens.",
       "slugTaken": "This slug is already in use.",
       "notFound": "Publication not found.",

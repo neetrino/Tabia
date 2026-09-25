@@ -21,7 +21,7 @@ export function AdminLoginForm() {
           name="email"
           type="email"
           required
-          className="w-full rounded-md border border-[var(--border)] px-3 py-2"
+          className="w-full rounded-[15px] border border-[var(--border)] px-3 py-2"
         />
       </div>
       <div className="space-y-1">
@@ -34,7 +34,7 @@ export function AdminLoginForm() {
           type="password"
           required
           minLength={8}
-          className="w-full rounded-md border border-[var(--border)] px-3 py-2"
+          className="w-full rounded-[15px] border border-[var(--border)] px-3 py-2"
         />
       </div>
       {state.errorKey ? (
@@ -43,7 +43,7 @@ export function AdminLoginForm() {
       <button
         type="submit"
         disabled={pending}
-        className="w-full rounded-md bg-[var(--brand)] px-4 py-2 text-sm font-medium text-white disabled:opacity-60"
+        className="w-full rounded-[15px] bg-[var(--brand)] px-4 py-2.5 text-sm font-medium text-white transition-transform duration-200 ease-out hover:scale-[1.02] disabled:opacity-60 motion-reduce:transition-none motion-reduce:hover:scale-100"
       >
         {pending ? t("login.pending") : t("login.submit")}
       </button>

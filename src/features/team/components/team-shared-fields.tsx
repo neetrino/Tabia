@@ -1,12 +1,17 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { AdminSelect } from "@/features/admin/client";
 import type { ContentVisibilityValue, TeamMemberRecord } from "../types";
 import { TeamFormField, teamInputClassName } from "./team-form-field";
 
+type TeamValuesChange = (
+  update: TeamMemberRecord | ((current: TeamMemberRecord) => TeamMemberRecord),
+) => void;
+
 type TeamSharedFieldsProps = {
   values: TeamMemberRecord;
-  onChange: (values: TeamMemberRecord) => void;
+  onChange: TeamValuesChange;
 };
 
 export function TeamSharedFields({
@@ -19,7 +24,7 @@ export function TeamSharedFields({
     key: K,
     value: TeamMemberRecord[K],
   ): void {
-    onChange({ ...values, [key]: value });
+    onChange((current) => ({ ...current, [key]: value }));
   }
 
   return (
@@ -76,17 +81,17 @@ export function TeamSharedFields({
         />
       </TeamFormField>
       <TeamFormField id="visibility" label={t("visibility")}>
-        <select
+        <AdminSelect
           id="visibility"
           value={values.visibility}
-          className={teamInputClassName}
-          onChange={(event) =>
-            update("visibility", event.target.value as ContentVisibilityValue)
+          options={[
+            { value: "PUBLISHED", label: t("published") },
+            { value: "HIDDEN", label: t("hidden") },
+          ]}
+          onChange={(visibility: ContentVisibilityValue) =>
+            update("visibility", visibility)
           }
-        >
-          <option value="PUBLISHED">{t("published")}</option>
-          <option value="HIDDEN">{t("hidden")}</option>
-        </select>
+        />
       </TeamFormField>
     </>
   );

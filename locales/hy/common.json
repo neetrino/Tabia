@@ -5,7 +5,6 @@
     "about": "Մեր մասին",
     "team": "Մեր թիմը",
     "services": "Ծառայություններ",
-    "industries": "Ոլորտներ",
     "news": "Նորություններ",
     "insights": "Վերլուծություններ",
     "contact": "Կապ"
@@ -22,8 +21,7 @@
     "quickLinks": "Արագ հղումներ",
     "navigation": "Նավիգացիա",
     "office": "Գրասենյակ",
-    "createdBy": "Neetrino IT Company",
-    "copyright": "Copyright © {year} | Բոլոր իրավունքները պաշտպանված են | Ստեղծվել է {company} կողմից",
+    "copyright": "© {year} | All rights reserved |<br></br>Created by <a>Neetrino</a>",
     "contact": "Կապ",
     "social": "Սոցիալական ցանցեր",
     "socialEmpty": "Հղումները կավելացվեն հաստատումից հետո։",

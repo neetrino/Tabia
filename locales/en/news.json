@@ -1,5 +1,7 @@
 {
   "title": "News",
+  "titleLead": "Latest",
+  "titleTail": "news",
   "subtitle": "Organization news and announcements.",
   "empty": "No news yet.",
   "publishedAt": "Date"

@@ -33,7 +33,7 @@ export function ServiceAdminRow({
       <CoverMedia
         src={service.imageUrl}
         alt={service.displayTitle}
-        className="size-12 shrink-0 rounded-md"
+        className="size-12 shrink-0 rounded-[10px]"
         fallback={
           <div className="grid h-full place-items-center bg-[var(--brand)] text-xs text-white/80">
             {getInitials(service.displayTitle)}
@@ -60,12 +60,15 @@ export function ServiceAdminRow({
         disabled={disabled}
         aria-pressed={service.featured}
         aria-label={form("featured")}
-        className="rounded-md p-1 disabled:opacity-60"
-        onClick={() => onToggleFeatured(service, !service.featured)}
+        className="flex size-8 items-center justify-center rounded-[15px] disabled:opacity-60"
+        onClick={(event) => {
+          event.stopPropagation();
+          onToggleFeatured(service, !service.featured);
+        }}
       >
         <Star
           className={cn(
-            "size-4",
+            "size-4 transition-transform duration-200 ease-out hover:scale-110 motion-reduce:transition-none",
             service.featured
               ? "fill-blue-600 text-blue-600"
               : "text-[var(--muted)]",
@@ -75,16 +78,22 @@ export function ServiceAdminRow({
       <button
         type="button"
         aria-label={t("actions.edit")}
-        className="rounded-md p-1 text-[var(--brand)] hover:bg-[var(--surface)]"
-        onClick={() => onEdit(service)}
+        className="flex size-8 items-center justify-center rounded-[15px] text-[var(--brand)] transition-transform duration-200 ease-out hover:scale-105 hover:bg-[var(--surface)] motion-reduce:transition-none motion-reduce:hover:scale-100"
+        onClick={(event) => {
+          event.stopPropagation();
+          onEdit(service);
+        }}
       >
         <Pencil className="size-4" />
       </button>
       <button
         type="button"
         aria-label={t("actions.delete")}
-        className="rounded-md p-1 text-red-700 hover:bg-[var(--surface)]"
-        onClick={() => onDelete(service)}
+        className="flex size-8 items-center justify-center rounded-[15px] text-red-700 transition-transform duration-200 ease-out hover:scale-105 hover:bg-[var(--surface)] motion-reduce:transition-none motion-reduce:hover:scale-100"
+        onClick={(event) => {
+          event.stopPropagation();
+          onDelete(service);
+        }}
       >
         <Trash2 className="size-4" />
       </button>

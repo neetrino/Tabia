@@ -1,19 +1,19 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import {
-  fromDateTimeLocalValue,
-  toDateTimeLocalValue,
-} from "../published-at";
+import { AdminDateTimePicker } from "@/features/admin/client";
 import type { PublicationRecord } from "../types";
-import {
-  PublicationFormField,
-  publicationInputClassName,
-} from "./publication-form-field";
+import { PublicationFormField, publicationInputClassName } from "./publication-form-field";
+
+type PublicationValuesChange = (
+  update:
+    | PublicationRecord
+    | ((current: PublicationRecord) => PublicationRecord),
+) => void;
 
 type PublicationSharedFieldsProps = {
   values: PublicationRecord;
-  onChange: (values: PublicationRecord) => void;
+  onChange: PublicationValuesChange;
 };
 
 export function PublicationSharedFields({
@@ -30,12 +30,10 @@ export function PublicationSharedFields({
           value={values.slug}
           autoComplete="off"
           className={publicationInputClassName}
-          onChange={(event) =>
-            onChange({
-              ...values,
-              slug: event.target.value.trim().toLowerCase(),
-            })
-          }
+          onChange={(event) => {
+            const slug = event.target.value.trim().toLowerCase();
+            onChange((current) => ({ ...current, slug }));
+          }}
         />
       </PublicationFormField>
       <PublicationFormField
@@ -43,16 +41,11 @@ export function PublicationSharedFields({
         label={t("publishedAt")}
         hint={t("publishedAtHint")}
       >
-        <input
+        <AdminDateTimePicker
           id="publishedAt"
-          type="datetime-local"
-          value={toDateTimeLocalValue(values.publishedAt)}
-          className={publicationInputClassName}
-          onChange={(event) =>
-            onChange({
-              ...values,
-              publishedAt: fromDateTimeLocalValue(event.target.value),
-            })
+          value={values.publishedAt}
+          onChange={(publishedAt) =>
+            onChange((current) => ({ ...current, publishedAt }))
           }
         />
       </PublicationFormField>

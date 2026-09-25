@@ -29,6 +29,7 @@ export function TeamAdminForm({
   const [values, setValues] = useState(initialValues);
   const [contentLocale, setContentLocale] = useState<AppLocale>(defaultLocale);
   const [errorKey, setErrorKey] = useState<string | null>(null);
+  const [invalidFields, setInvalidFields] = useState<string[]>([]);
   const [pending, startTransition] = useTransition();
 
   function submit(): void {
@@ -40,6 +41,7 @@ export function TeamAdminForm({
       });
       if (result.errorKey) {
         setErrorKey(result.errorKey);
+        setInvalidFields(result.invalidFields ?? []);
         return;
       }
       onSaved();
@@ -54,22 +56,19 @@ export function TeamAdminForm({
         submit();
       }}
     >
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <AdminContentLocaleSwitcher
-          value={contentLocale}
-          onChange={setContentLocale}
-          label={form("contentLocale")}
-        />
-        <p className="max-w-xl text-xs text-[var(--muted)]">
-          {form("contentLocaleHint")}
-        </p>
-      </div>
+      <AdminContentLocaleSwitcher
+        value={contentLocale}
+        onChange={setContentLocale}
+        label={form("contentLocale")}
+      />
       <div className="grid gap-6">
         <div className="max-w-44">
           <TeamPhotoField
             photoUrl={values.photoUrl}
             name={values.nameEn || values.nameHy}
-            onChange={(url) => setValues({ ...values, photoUrl: url })}
+            onChange={(url) =>
+              setValues((current) => ({ ...current, photoUrl: url }))
+            }
             onError={setErrorKey}
           />
         </div>
@@ -91,19 +90,22 @@ export function TeamAdminForm({
         </div>
       </div>
       {errorKey ? (
-        <p className="text-sm text-red-700">{form(`errors.${errorKey}`)}</p>
+        <p className="text-sm text-red-700">
+          {form(`errors.${errorKey}`)}
+          {invalidFields.length > 0 ? ` (${invalidFields.join(", ")})` : null}
+        </p>
       ) : null}
-      <div className="flex gap-3">
+      <div className="flex justify-end gap-3">
         <button
           type="submit"
           disabled={pending}
-          className="rounded-md bg-[var(--brand)] px-4 py-2 text-sm font-medium text-white disabled:opacity-60"
+          className="rounded-[15px] bg-[var(--brand)] px-5 py-2.5 text-sm font-medium text-white transition-transform duration-200 ease-out hover:scale-105 disabled:opacity-60 motion-reduce:transition-none motion-reduce:hover:scale-100"
         >
           {pending ? form("saving") : t("actions.save")}
         </button>
         <button
           type="button"
-          className="rounded-md border border-[var(--border)] px-4 py-2 text-sm"
+          className="rounded-[15px] border border-[var(--border)] px-5 py-2.5 text-sm transition-transform duration-200 ease-out hover:scale-105 hover:bg-[var(--surface)] motion-reduce:transition-none motion-reduce:hover:scale-100"
           onClick={onCancel}
         >
           {t("actions.cancel")}

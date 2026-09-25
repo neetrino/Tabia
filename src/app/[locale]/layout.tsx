@@ -3,6 +3,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { routing, type AppLocale } from "@/i18n/routing";
 import { SiteFooter, SiteHeader } from "@/features/site";
+import { MotionProvider } from "@/shared/motion/reveal";
 
 type LocaleLayoutProps = {
   children: React.ReactNode;
@@ -28,11 +29,13 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider messages={messages}>
-      <div className="flex min-h-screen flex-col">
-        <SiteHeader />
-        <main className="flex-1">{children}</main>
-        <SiteFooter />
-      </div>
+      <MotionProvider>
+        <div className="desktop-canvas flex min-h-screen flex-col">
+          <SiteHeader />
+          <main className="flex-1">{children}</main>
+          <SiteFooter />
+        </div>
+      </MotionProvider>
     </NextIntlClientProvider>
   );
 }
