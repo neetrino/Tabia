@@ -1,10 +1,86 @@
 {
   "title": "About",
-  "intro": "TABIA is a professional organization providing legal and advisory services.",
-  "history": { "title": "History", "body": "Organization history will be finalized with content." },
-  "mission": { "title": "Mission", "body": "Help clients make sustainable and legally sound decisions." },
-  "vision": { "title": "Vision", "body": "Be a trusted partner for business growth and legal security." },
-  "values": { "title": "Values", "items": ["Professionalism", "Transparency", "Responsibility", "Collaboration"] },
-  "principles": { "title": "Working principles", "body": "Detailed analysis, practical solutions, and long-term partnership." },
-  "experience": { "title": "Professional experience", "body": "The team combines industry experience with modern practice." }
+  "titleLead": "About",
+  "titleTail": "TABIA",
+  "subtitle": "Legal and transaction advisory for businesses and investors.",
+  "intro": [
+    "TABIA Legal & Advisory is a Yerevan-based firm providing legal and transaction advisory services to businesses and investors. We advise on Armenian law and cross-border matters, combining knowledge of the local legal and business environment with an understanding of international transactions.",
+    "Our practice encompasses corporate and commercial law, banking and finance, regulatory advice, and dispute resolution, including international commercial arbitration. We work across industries, including mining and metals, banking, telecommunications, and defense. Our engagements range from ongoing corporate advice to transactions and disputes involving complex legal, regulatory, and commercial considerations."
+  ],
+  "experience": {
+    "title": "Representative experience",
+    "items": [
+      {
+        "industry": "Mining",
+        "title": "Acquisition and continuing advisory work",
+        "body": "We conducted legal due diligence for a prospective buyer in connection with the acquisition of a mining business in Armenia. Our work also included regulatory filings and assistance with bank account openings and know-your-customer procedures. Following the acquisition, we advised the company on corporate governance and continue to assist with a broad range of legal and regulatory matters, including compliance and banking requirements."
+      },
+      {
+        "industry": "Telecommunications",
+        "title": "Transactional and regulatory advice",
+        "body": "We conducted legal due diligence in connection with a transaction involving a telecommunications business in Armenia. The engagement also included regulatory filings and the review of transaction documents."
+      }
+    ]
+  },
+  "approach": {
+    "title": "How we work",
+    "paragraphs": [
+      "We approach each engagement with an understanding of the client’s business, the interests involved, and the consequences of the decisions under consideration. These factors shape both our legal analysis and the advice we give.",
+      "Our clients can expect reasoned recommendations, careful drafting, and direct communication. Where the legal position is uncertain or a proposed course carries material risk, we explain the implications and work through the alternatives. We remain closely involved as negotiations progress and the matter develops.",
+      "Long-term relationships are an important part of our practice. Familiarity with a client’s operations, ownership structure, and commercial priorities allows us to place individual questions in context and provide continuity across transactions and ongoing advisory work."
+    ]
+  },
+  "name": {
+    "titleLead": "Why",
+    "titleTail": "TABIA",
+    "paragraphs": [
+      "Our name reflects the kind of firm our founding partner set out to build.",
+      "In chess, a tabia is an established position from which several continuations are possible. Knowing the position is the starting point; deciding how to proceed calls for analysis, foresight, and independent judgment.",
+      "TABIA was founded with an appetite for legal work that demands those same qualities: complex transactions, difficult negotiations, and matters whose outcome cannot be mapped out in advance. The name expresses our willingness to take on that work and commit to finding the best way forward.",
+      "That approach remains central to our practice. We examine the transaction as a whole, consider the interests and constraints of those involved, and look for a combination of legal and commercial arrangements that can achieve the client’s objectives."
+    ]
+  },
+  "people": {
+    "title": "Our people and principles",
+    "paragraphs": [
+      "Our work rests on thorough preparation, professional judgment, and responsibility for the advice we give. We draw on one another’s experience, discuss difficult questions openly, and invest in the continued development of our team.",
+      "We seek to earn our clients’ trust through the quality of our work and the way we conduct the relationship: attentive service, candid advice, and respect for the confidence placed in us."
+    ]
+  },
+  "cta": "Contact us to discuss how we can assist.",
+  "practices": {
+    "title": "Core practice areas",
+    "subtitle": "Legal support at every stage",
+    "more": "More",
+    "items": [
+      {
+        "title": "Banking, finance and capital markets",
+        "body": "We provide specialist legal advice on banking, investment and financial regulation."
+      },
+      {
+        "title": "Natural resources and infrastructure",
+        "body": "We guide startups and large technology companies on compliance, data protection and intellectual property."
+      },
+      {
+        "title": "Tax and digital strategy advisory",
+        "body": "Drafting, review and negotiation of complex commercial contracts."
+      },
+      {
+        "title": "Corporate advisory",
+        "body": "We support clients on healthcare regulation, compliance and dispute resolution."
+      },
+      {
+        "title": "Environmental law, sustainable development and ESG",
+        "body": "We advise energy companies on renewables, oil and gas, and sustainable development."
+      },
+      {
+        "title": "Public-private partnerships",
+        "body": "We provide specialist representation in commercial, civil and international disputes."
+      },
+      {
+        "title": "Dispute resolution",
+        "body": "We provide specialist representation in commercial, civil and international disputes."
+      }
+    ]
+  }
 }

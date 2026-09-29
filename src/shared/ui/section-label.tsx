@@ -6,14 +6,14 @@ type SectionLabelProps = {
   className?: string;
 };
 
-/** Frosted pill overlapping the seam between home sections (Figma 216:139). */
+/** Frosted pill overlapping the top edge of a home section (Figma 1:1015). */
 export function SectionLabel({ children, className }: SectionLabelProps) {
   return (
-    <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex justify-center">
-      <Reveal y={12} className="pointer-events-auto">
+    <div className="pointer-events-none absolute inset-x-0 -top-5 z-20 flex justify-center">
+      <Reveal y={0} className="pointer-events-auto">
         <p
           className={cn(
-            "-mt-7 hidden h-14 w-fit items-center justify-center rounded-full bg-[rgba(223,223,223,0.3)] px-8 py-4 text-base font-semibold leading-4 tracking-[0.3px] text-[#272727] backdrop-blur-[20px] lg:flex",
+            "hidden h-14 w-fit items-center justify-center whitespace-nowrap rounded-full bg-[rgba(231,231,231,0.62)] px-8 py-4 text-base font-semibold leading-4 tracking-[0.3px] text-[#272727] lg:flex",
             className,
           )}
         >
