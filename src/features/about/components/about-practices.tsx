@@ -19,7 +19,7 @@ export function AboutPractices({
 
   return (
     <section className="mt-16 lg:mt-24">
-      <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,520px)_minmax(0,1fr)] lg:gap-x-14">
+      <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,520px)_minmax(0,1fr)] lg:items-center lg:gap-x-14">
         <Reveal>
           <div className="relative h-[420px] overflow-hidden rounded-3xl lg:aspect-[4/5] lg:h-auto">
             <Image
