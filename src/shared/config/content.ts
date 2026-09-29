@@ -1,12 +1,14 @@
+import { staticImage } from "@/shared/config/static-image";
+
 export const HOME_SERVICES_LIMIT = 6;
 export const HOME_TEAM_LIMIT = 7;
 export const HOME_PUBLICATIONS_LIMIT = 4;
 
 export const HOME_ASSETS = {
-  heroChess: "/images/home/hero-chess.png",
-  aboutBooks: "/images/home/about-books.png",
-  serviceScales: "/images/home/service-scales.png",
-  footerKnight: "/images/home/footer-knight.png",
+  heroChess: staticImage("home/hero-chess.webp"),
+  aboutBooks: staticImage("home/about-books.webp"),
+  serviceScales: staticImage("home/service-scales.webp"),
+  footerKnight: staticImage("home/footer-knight.webp"),
   logo: "/images/brand/logo.svg",
   logoDark: "/images/brand/logo-dark.svg",
   navHome: "/images/icons/nav-home.svg",
