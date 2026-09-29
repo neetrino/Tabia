@@ -45,24 +45,22 @@ export function AboutSectionHeading({ children }: { children: string }) {
 
 export function AboutExperience({
   title,
-  items,
+  items = [],
 }: {
   title: string;
-  items: AboutMatter[];
+  items?: AboutMatter[];
 }) {
   return (
-    <section className="mt-16 border-t border-black/10 pt-12 lg:mt-24 lg:pt-16">
-      <Reveal>
-        <AboutSectionHeading>{title}</AboutSectionHeading>
-      </Reveal>
-      <div className="mt-8 grid gap-4 lg:mt-10 lg:grid-cols-2 lg:gap-6">
+    <div className="mt-10 border-t border-black/10 pt-8 lg:mt-12 lg:pt-10">
+      <AboutSectionHeading>{title}</AboutSectionHeading>
+      <div className="mt-6 grid gap-4 lg:mt-8">
         {items.map((item, index) => (
-          <Reveal key={item.industry} className="h-full" delay={revealDelay(index)}>
+          <Reveal key={item.industry} delay={revealDelay(index)}>
             <AboutMatterCard item={item} />
           </Reveal>
         ))}
       </div>
-    </section>
+    </div>
   );
 }
 

@@ -47,40 +47,5 @@
       "We seek to earn our clients’ trust through the quality of our work and the way we conduct the relationship: attentive service, candid advice, and respect for the confidence placed in us."
     ]
   },
-  "cta": "Contact us to discuss how we can assist.",
-  "practices": {
-    "title": "Core practice areas",
-    "subtitle": "Legal support at every stage",
-    "more": "More",
-    "items": [
-      {
-        "title": "Banking, finance and capital markets",
-        "body": "We provide specialist legal advice on banking, investment and financial regulation."
-      },
-      {
-        "title": "Natural resources and infrastructure",
-        "body": "We guide startups and large technology companies on compliance, data protection and intellectual property."
-      },
-      {
-        "title": "Tax and digital strategy advisory",
-        "body": "Drafting, review and negotiation of complex commercial contracts."
-      },
-      {
-        "title": "Corporate advisory",
-        "body": "We support clients on healthcare regulation, compliance and dispute resolution."
-      },
-      {
-        "title": "Environmental law, sustainable development and ESG",
-        "body": "We advise energy companies on renewables, oil and gas, and sustainable development."
-      },
-      {
-        "title": "Public-private partnerships",
-        "body": "We provide specialist representation in commercial, civil and international disputes."
-      },
-      {
-        "title": "Dispute resolution",
-        "body": "We provide specialist representation in commercial, civil and international disputes."
-      }
-    ]
-  }
+  "cta": "Contact us to discuss how we can assist."
 }

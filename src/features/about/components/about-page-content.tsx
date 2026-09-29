@@ -6,11 +6,10 @@ import {
   InteriorPageHeader,
   InteriorPageShell,
 } from "@/shared/ui/interior-page-header";
-import { AboutPractices, type AboutPractice } from "./about-practices";
+import { AboutPractices } from "./about-practices";
 import {
   AboutClose,
   AboutCopySection,
-  AboutExperience,
   AboutName,
   AboutProse,
   type AboutMatter,
@@ -69,12 +68,11 @@ export async function AboutPageContent() {
   const t = await getTranslations("about");
   const common = await getTranslations("common");
   const intro = t.raw("intro") as string[];
-  const [introLead, ...introRest] = intro;
+  const [introLead, practiceCopy, ...introRest] = intro;
   const matters = t.raw("experience.items") as AboutMatter[];
   const approach = t.raw("approach.paragraphs") as string[];
   const name = t.raw("name.paragraphs") as string[];
   const people = t.raw("people.paragraphs") as string[];
-  const practices = t.raw("practices.items") as AboutPractice[];
 
   return (
     <>
@@ -87,12 +85,10 @@ export async function AboutPageContent() {
           rest={introRest}
         />
         <AboutPractices
-          title={t("practices.title")}
-          subtitle={t("practices.subtitle")}
-          more={t("practices.more")}
-          items={practices}
+          paragraphs={practiceCopy ? [practiceCopy] : []}
+          experienceTitle={t("experience.title")}
+          matters={matters}
         />
-        <AboutExperience title={t("experience.title")} items={matters} />
         <AboutCopySection title={t("approach.title")} paragraphs={approach} />
       </InteriorPageShell>
       <AboutName
