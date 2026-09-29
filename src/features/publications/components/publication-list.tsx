@@ -34,6 +34,11 @@ export async function PublicationList({ locale, type }: PublicationListProps) {
         titleLead={t("titleLead")}
         titleTail={t("titleTail")}
         subtitle={t("subtitle")}
+        titleClassName={
+          type === "NEWS"
+            ? undefined
+            : "text-[clamp(22px,7.6vw,36px)] leading-[1.2]"
+        }
       />
       {items.length === 0 ? (
         <EmptyState message={t("empty")} className="mt-12 lg:mt-16" />

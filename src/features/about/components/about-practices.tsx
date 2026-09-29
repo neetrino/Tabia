@@ -20,7 +20,10 @@ export function AboutPractices({
   return (
     <section className="mt-16 lg:mt-24">
       <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,520px)_minmax(0,1fr)] lg:items-center lg:gap-x-14">
-        <Reveal>
+        <Reveal className="lg:col-start-2 lg:row-start-1">
+          <AboutProse paragraphs={paragraphs} />
+        </Reveal>
+        <Reveal delay={0.08} className="lg:col-start-1 lg:row-span-2 lg:row-start-1">
           <div className="relative h-[420px] overflow-hidden rounded-3xl lg:aspect-[4/5] lg:h-auto">
             <Image
               src={ABOUT_ASSETS.practicesPhoto}
@@ -31,8 +34,7 @@ export function AboutPractices({
             />
           </div>
         </Reveal>
-        <Reveal delay={0.08}>
-          <AboutProse paragraphs={paragraphs} />
+        <Reveal delay={0.12} className="lg:col-start-2 lg:row-start-2">
           <AboutExperience title={experienceTitle} items={matters} />
         </Reveal>
       </div>
