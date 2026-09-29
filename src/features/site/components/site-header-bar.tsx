@@ -171,7 +171,7 @@ function DesktopNav({
   );
 }
 
-const inkHeaderPrefixes = ["/services", "/team", "/news", "/insights", "/contact"] as const;
+const inkHeaderPrefixes = ["/about", "/services", "/team", "/news", "/insights", "/contact"] as const;
 
 function isInkMobileHeader(pathname: string): boolean {
   return inkHeaderPrefixes.some(

@@ -99,7 +99,7 @@ function HeroActions({
         href="/services"
         variant="secondary"
         withArrow
-        className="h-14 w-full gap-3 bg-transparent bg-gradient-to-r from-[rgba(33,33,33,0.08)] to-[rgba(135,135,135,0.08)] px-8 text-black hover:bg-transparent hover:text-black lg:w-auto lg:bg-[#151515] lg:bg-none lg:text-white lg:hover:bg-black lg:hover:text-white"
+        className="h-14 w-full gap-3 bg-gradient-to-r from-[rgba(33,33,33,0.08)] to-[rgba(135,135,135,0.08)] px-8 text-black backdrop-blur-[8px] hover:text-black lg:w-auto lg:bg-[#151515] lg:bg-none lg:text-white lg:backdrop-blur-none lg:hover:bg-black lg:hover:text-white"
       >
           {secondaryLabel}
         </ButtonLink>

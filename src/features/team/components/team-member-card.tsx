@@ -1,6 +1,7 @@
 import { Mail, Phone, ExternalLink } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { getInitials } from "@/shared/lib/localized";
+import { cn } from "@/shared/lib/cn";
 import { CoverMedia } from "@/shared/ui/cover-media";
 import type { TeamMemberPreview } from "../types";
 
@@ -16,9 +17,10 @@ export function TeamMemberCard({
   linkedInLabel,
 }: TeamMemberCardProps) {
   const href = `/team/${member.slug}` as const;
+  const hasContacts = Boolean(member.email || member.phone || member.linkedInUrl);
 
   return (
-    <article className="group relative flex h-full flex-col overflow-hidden rounded-[24px] border border-black/[0.06] bg-[var(--surface)] p-3 transition duration-300 hover:-translate-y-1 hover:border-black/10 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] motion-reduce:transform-none">
+    <article className="group relative flex flex-col overflow-hidden rounded-[24px] border border-black/[0.06] bg-[var(--surface)] p-3 transition duration-300 hover:-translate-y-1 hover:border-black/10 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] motion-reduce:transform-none lg:h-full">
       <Link
         href={href}
         className="absolute inset-0 z-[1] rounded-[24px]"
@@ -53,10 +55,15 @@ export function TeamMemberCard({
         <p className="mt-3 line-clamp-3 min-h-[4.5rem] text-sm font-light leading-relaxed text-[#444748]">
           {member.bio || "\u00a0"}
         </p>
-        <div className="relative z-10 mt-4 min-h-[4.75rem]">
+        <div
+          className={cn(
+            "relative z-10 lg:min-h-[4.75rem]",
+            hasContacts ? "mt-4" : "lg:mt-4",
+          )}
+        >
           <TeamMemberContacts member={member} linkedInLabel={linkedInLabel} />
         </div>
-        <span className="mt-auto pt-4 text-[10px] font-semibold uppercase tracking-[1px] text-[var(--brand)] transition group-hover:translate-x-0.5">
+        <span className="pt-4 text-[10px] font-semibold uppercase tracking-[1px] text-[var(--brand)] transition group-hover:translate-x-0.5 lg:mt-auto">
           {readMoreLabel} →
         </span>
       </div>

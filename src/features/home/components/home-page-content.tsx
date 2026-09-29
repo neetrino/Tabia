@@ -6,6 +6,9 @@ import { HomeTeam } from "./home-team";
 import { getHomePageData } from "../queries";
 import { DeferredSection } from "@/shared/ui/deferred-section";
 
+/** Room above each section so the Figma seam pill is not clipped. */
+const sectionOverlapClassName = "relative z-10 -mt-7 pt-7";
+
 type HomePageContentProps = {
   locale: string;
 };
@@ -16,16 +19,16 @@ export async function HomePageContent({ locale }: HomePageContentProps) {
   return (
     <div>
       <HomeHero />
-      <DeferredSection intrinsicHeight="704px">
+      <DeferredSection className={sectionOverlapClassName} intrinsicHeight="704px">
         <HomeAbout />
       </DeferredSection>
-      <DeferredSection intrinsicHeight="720px">
+      <DeferredSection className={sectionOverlapClassName} intrinsicHeight="720px">
         <HomeServices items={services} />
       </DeferredSection>
-      <DeferredSection intrinsicHeight="640px">
+      <DeferredSection className={sectionOverlapClassName} intrinsicHeight="640px">
         <HomeTeam items={team} />
       </DeferredSection>
-      <DeferredSection intrinsicHeight="600px">
+      <DeferredSection className={sectionOverlapClassName} intrinsicHeight="600px">
         <HomePublications locale={locale} items={publications} />
       </DeferredSection>
     </div>

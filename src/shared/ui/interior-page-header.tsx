@@ -6,6 +6,7 @@ type InteriorPageHeaderProps = {
   titleTail: string;
   subtitle: string;
   className?: string;
+  titleClassName?: string;
 };
 
 /** Shared listing-page hero matching the site typography. */
@@ -14,11 +15,17 @@ export function InteriorPageHeader({
   titleTail,
   subtitle,
   className,
+  titleClassName,
 }: InteriorPageHeaderProps) {
   return (
     <header className={cn("max-w-[720px]", className)}>
       <Enter y={16}>
-        <h1 className="text-[36px] uppercase leading-[44px] text-[#0a0a0a] lg:text-[56px] lg:leading-[56px]">
+        <h1
+          className={cn(
+            "text-[36px] uppercase leading-[44px] text-[#0a0a0a] lg:text-[56px] lg:leading-[56px]",
+            titleClassName,
+          )}
+        >
           <span className="block font-semibold lg:font-extrabold">{titleLead}</span>
           <span className="mt-[7px] block font-light text-[#0a0a0a]/80 lg:mt-[9px] lg:font-extralight">
             {titleTail}
