@@ -149,7 +149,7 @@ export function AboutName({
   const [opening, definition, beside, ...rest] = paragraphs;
 
   return (
-    <section className="relative bg-gradient-to-b from-[#151515] to-[#7a3737] lg:bg-[linear-gradient(126.5deg,#151515_15.214%,#7a3737_81.251%)]">
+    <section className="relative bg-gradient-to-b from-[#151515] to-[#6e1212] lg:bg-[linear-gradient(126.5deg,#151515_15.214%,#6e1212_81.251%)]">
       <div className="mx-auto grid max-w-[1400px] items-start gap-10 px-5 py-16 lg:grid-cols-2 lg:gap-x-16 lg:px-16 lg:py-28">
         <Reveal>
           <div>
