@@ -8,7 +8,7 @@ export const ABOUT_ASSETS = {
   workClipboard: staticImage("about/work-02.webp"),
   workHandshake: staticImage("about/work-03.webp"),
   whyChess: staticImage("about/why-board-side.webp"),
-  peopleHand: staticImage("about/people-kings.webp"),
+  peopleHand: staticImage("about/people-kings-figma.webp"),
   cardGlow: "/images/about/card-glow.svg",
 } as const;
 

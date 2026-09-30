@@ -26,6 +26,8 @@ const files = [
   ["public/images/about/why-board-side.webp", "static/about/why-board-side.webp"],
   ["public/images/about/people-hand.webp", "static/about/people-hand.webp"],
   ["public/images/about/people-kings.webp", "static/about/people-kings.webp"],
+  ["public/images/about/people-kings-side.webp", "static/about/people-kings-side.webp"],
+  ["public/images/about/people-kings-figma.webp", "static/about/people-kings-figma.webp"],
   ["public/images/about/icon-bank.webp", "static/about/icon-bank.webp"],
   ["public/images/about/icon-resources.webp", "static/about/icon-resources.webp"],
   ["public/images/about/icon-document.webp", "static/about/icon-document.webp"],

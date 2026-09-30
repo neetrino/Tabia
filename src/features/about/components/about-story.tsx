@@ -44,16 +44,7 @@ export function AboutPeople({
 }) {
   return (
     <section className="mt-16 grid items-center gap-10 lg:mt-8 lg:grid-cols-2 lg:gap-x-16">
-      <div className="-ml-5 w-[calc(100%+1.25rem)] lg:-ml-[max(4rem,calc((100vw-1400px)/2+4rem))] lg:w-[672px]">
-        <Image
-          src={ABOUT_ASSETS.peopleHand}
-          alt=""
-          width={1121}
-          height={1403}
-          className="h-auto w-full"
-          sizes="(min-width: 1024px) 672px, 90vw"
-        />
-      </div>
+      <PeopleKings />
       <div className="lg:text-right">
         <h2 className="flex flex-col lg:items-end">
           <span className="flex flex-wrap gap-x-[0.3em] lg:justify-end">
@@ -69,6 +60,21 @@ export function AboutPeople({
         />
       </div>
     </section>
+  );
+}
+
+/** Hand and kings, cropped and bled 37px off the left edge as in Figma 134:35. */
+function PeopleKings() {
+  return (
+    <div className="relative -ml-[calc(1.25rem+37px)] aspect-[672/696] w-[calc(100%+1.25rem+37px)] overflow-hidden lg:-ml-[calc(max(4rem,(var(--desktop-canvas-width,100vw)-1400px)/2+4rem)+37px)] lg:aspect-auto lg:h-[696px] lg:w-[672px]">
+      <Image
+        src={ABOUT_ASSETS.peopleHand}
+        alt=""
+        fill
+        className="object-cover object-[60%_center]"
+        sizes="(min-width: 1024px) 672px, 100vw"
+      />
+    </div>
   );
 }
 
