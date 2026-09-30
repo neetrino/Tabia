@@ -19,6 +19,14 @@ export const HOME_ASSETS = {
   socialLinkedIn: "/images/icons/social-linkedin.svg",
 } as const;
 
+const OFFICE_MAP_QUERY = "25%20Sayat-Nova%20Avenue%2C%20Yerevan";
+
+/** Yandex Maps search for the Yerevan office. */
+export const OFFICE_MAP_HREF = `https://yandex.com/maps/?text=${OFFICE_MAP_QUERY}`;
+
+/** Embedded Yandex map for the contact page. */
+export const OFFICE_MAP_EMBED = `https://yandex.com/map-widget/v1/?text=${OFFICE_MAP_QUERY}&z=16`;
+
 /** Per-slug illustration frames from the services section design. */
 export const SERVICE_ILLUSTRATION_FRAME: Record<string, string> = {
   "corporate-advisory": "left-[153px] top-[42px] size-[302px]",

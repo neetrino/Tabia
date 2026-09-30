@@ -35,7 +35,7 @@ export async function PublicationArticle({
     type === "NEWS" ? common("nav.news") : common("nav.insights");
 
   return (
-    <InteriorPageShell>
+    <InteriorPageShell contentClassName="lg:pt-10">
       <article>
         <Enter>
           <ArticleBackLink href={backHref} label={t("title")} />

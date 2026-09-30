@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { HOME_ASSETS, SITE_SOCIAL } from "@/shared/config/content";
+import { HOME_ASSETS, OFFICE_MAP_HREF, SITE_SOCIAL } from "@/shared/config/content";
 import { Drift, Reveal } from "@/shared/motion/reveal";
 import { SiteBrand } from "@/shared/ui/site-brand";
 import { cn } from "@/shared/lib/cn";
@@ -57,7 +57,7 @@ export async function SiteFooter() {
             address={contact("addressValue")}
           />
           </Reveal>
-          <Reveal delay={0.1} className="mt-6 lg:mt-0 lg:w-full lg:max-w-[282px]">
+          <Reveal delay={0.1} className="mt-6 lg:ml-auto lg:mt-0 lg:w-fit">
           <div className="grid grid-cols-2 gap-x-6 lg:block">
             <FooterNav
               title={t("footer.navigation")}
@@ -85,7 +85,7 @@ export async function SiteFooter() {
               br: () => <br />,
               a: (chunks) => (
                 <a
-                  href="https://neetrino.com"
+                  href="https://www.neetrino.com/?utm_source=neetrino.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-bold underline-offset-2 hover:underline"
@@ -146,7 +146,14 @@ function FooterContact({
         <p className="text-[9px] uppercase leading-[13.5px] tracking-[1px] text-[var(--muted)]">
           {addressLabel}
         </p>
-        <p className="mt-1 whitespace-pre-line text-[13px] leading-5 text-[var(--nav)]">{address}</p>
+        <a
+          href={OFFICE_MAP_HREF}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-1 block whitespace-pre-line text-[13px] leading-5 text-[var(--nav)] transition hover:text-white"
+        >
+          {address}
+        </a>
       </div>
     </address>
   );
@@ -161,26 +168,36 @@ type FooterSocial = {
 function FooterFact({
   label,
   value,
+  href,
+  external = false,
   multiline = false,
 }: {
   label: string;
   value: string;
+  href?: string;
+  external?: boolean;
   multiline?: boolean;
 }) {
+  const className = multiline
+    ? "mt-1 whitespace-pre-line text-sm font-light leading-[22.75px] text-[var(--nav)] transition hover:text-white"
+    : "mt-1 text-sm font-light leading-5 text-[var(--nav)] transition hover:text-white";
+
   return (
     <div>
       <p className="text-[10px] uppercase leading-[15px] tracking-[1px] text-[var(--muted)]">
         {label}
       </p>
-      <p
-        className={
-          multiline
-            ? "mt-1 whitespace-pre-line text-sm font-light leading-[22.75px] text-[var(--nav)]"
-            : "mt-1 text-sm font-light leading-5 text-[var(--nav)]"
-        }
-      >
-        {value}
-      </p>
+      {href ? (
+        <a
+          href={href}
+          className={className}
+          {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+        >
+          {value}
+        </a>
+      ) : (
+        <p className={className}>{value}</p>
+      )}
     </div>
   );
 }
@@ -238,9 +255,19 @@ function FooterIdentity({
         })}
       </ul>
       <address className="hidden space-y-4 text-sm not-italic lg:block">
-        <FooterFact label={phoneLabel} value={phone} />
-        <FooterFact label={emailLabel} value={email} />
-        <FooterFact label={addressLabel} value={address} multiline />
+        <FooterFact
+          label={phoneLabel}
+          value={phone}
+          href={`tel:${phone.replace(/[^\d+]/g, "")}`}
+        />
+        <FooterFact label={emailLabel} value={email} href={`mailto:${email}`} />
+        <FooterFact
+          label={addressLabel}
+          value={address}
+          href={OFFICE_MAP_HREF}
+          external
+          multiline
+        />
       </address>
     </div>
   );
@@ -270,7 +297,7 @@ function FooterNav({
   items: { href: (typeof links)[number]["href"]; label: string }[];
 }) {
   return (
-    <div className="w-full lg:max-w-[282px] lg:pt-[60px]">
+    <div className="w-full text-left lg:w-fit lg:pt-[60px]">
       <p className="text-[9px] font-normal uppercase leading-[13.5px] tracking-[3px] text-[var(--muted)] lg:text-[10px] lg:font-semibold lg:leading-[15px]">
         {title}
       </p>

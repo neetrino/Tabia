@@ -1,6 +1,19 @@
 import { staticImage } from "@/shared/config/static-image";
 
 export const ABOUT_ASSETS = {
-  scales: staticImage("about/scales.webp"),
-  practicesPhoto: staticImage("about/practices-photo.webp"),
+  heroKnight: staticImage("about/hero-knight.webp"),
+  introQueen: staticImage("about/intro-queen.webp"),
+  experience: staticImage("about/experience-towers.webp"),
+  workBriefcase: staticImage("about/work-01.webp"),
+  workClipboard: staticImage("about/work-02.webp"),
+  workHandshake: staticImage("about/work-03.webp"),
+  whyChess: staticImage("about/why-chess.webp"),
+  peopleHand: staticImage("about/people-hand.webp"),
+  cardGlow: "/images/about/card-glow.svg",
 } as const;
+
+export const WORK_ICONS = [
+  ABOUT_ASSETS.workBriefcase,
+  ABOUT_ASSETS.workClipboard,
+  ABOUT_ASSETS.workHandshake,
+] as const;

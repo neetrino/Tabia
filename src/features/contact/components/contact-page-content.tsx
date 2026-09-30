@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { OFFICE_MAP_EMBED, OFFICE_MAP_HREF } from "@/shared/config/content";
 import { Reveal } from "@/shared/motion/reveal";
 import { ContactForm } from "./contact-form";
 
@@ -34,7 +35,12 @@ export async function ContactPageContent() {
                 value={t("emailValue")}
                 href={`mailto:${t("emailValue")}`}
               />
-              <ContactDetail label={t("address")} value={t("addressValue")} />
+              <ContactDetail
+                label={t("address")}
+                value={t("addressValue")}
+                href={OFFICE_MAP_HREF}
+                external
+              />
               <ContactDetail label={t("hours")} value={t("hoursValue")} />
             </dl>
           </div>
@@ -43,6 +49,16 @@ export async function ContactPageContent() {
           <Reveal delay={0.12}>
             <ContactForm />
           </Reveal>
+        </div>
+        <div className="mt-12 h-[320px] overflow-hidden rounded-[40px] border-2 border-[var(--brand)] bg-white shadow-[0_16px_48px_rgba(0,0,0,0.06)] lg:mt-16 lg:h-[480px] lg:rounded-[48px]">
+          <iframe
+            title={t("address")}
+            src={OFFICE_MAP_EMBED}
+            className="size-full border-0"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            allowFullScreen
+          />
         </div>
       </div>
     </section>
@@ -53,10 +69,12 @@ function ContactDetail({
   label,
   value,
   href,
+  external = false,
 }: {
   label: string;
   value: string;
   href?: string;
+  external?: boolean;
 }) {
   return (
     <div>
@@ -68,6 +86,7 @@ function ContactDetail({
           <a
             href={href}
             className="transition-colors duration-300 hover:text-[var(--brand)]"
+            {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
           >
             {value}
           </a>
