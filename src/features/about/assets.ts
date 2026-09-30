@@ -1,14 +1,14 @@
 import { staticImage } from "@/shared/config/static-image";
 
 export const ABOUT_ASSETS = {
-  heroKnight: staticImage("about/hero-knight.webp"),
-  introQueen: staticImage("about/intro-queen.webp"),
+  heroKnight: staticImage("about/hero-knight-edge.webp"),
+  introQueen: staticImage("about/intro-queen-side.webp"),
   experience: staticImage("about/experience-towers.webp"),
   workBriefcase: staticImage("about/work-01.webp"),
   workClipboard: staticImage("about/work-02.webp"),
   workHandshake: staticImage("about/work-03.webp"),
-  whyChess: staticImage("about/why-chess.webp"),
-  peopleHand: staticImage("about/people-hand.webp"),
+  whyChess: staticImage("about/why-board-side.webp"),
+  peopleHand: staticImage("about/people-kings.webp"),
   cardGlow: "/images/about/card-glow.svg",
 } as const;
 
