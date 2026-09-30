@@ -27,7 +27,7 @@ export async function HomeAbout() {
   const cta = t("about.cta");
 
   return (
-    <section className="relative bg-gradient-to-b from-[#151515] to-[#7a3737] lg:bg-[linear-gradient(126.5deg,#151515_15.214%,#7a3737_81.251%)]">
+    <section className="relative bg-gradient-to-b from-[#151515] to-[#6e1212] lg:bg-[linear-gradient(126.5deg,#151515_15.214%,#6e1212_81.251%)]">
       <SectionLabel>{t("about.label")}</SectionLabel>
 
       <HomeAboutMobile label={t("about.label")} quote={mobileQuote} cta={cta} stats={stats} />
