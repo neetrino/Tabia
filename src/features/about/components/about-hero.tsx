@@ -80,7 +80,7 @@ function IntroQueen() {
       x={-48}
       y={12}
       delay={0.16}
-      className="-ml-5 translate-y-3 lg:-ml-[max(4rem,calc((100vw-1400px)/2+4rem))] lg:translate-y-10"
+      className="-ml-5 translate-y-3 lg:-ml-[max(4rem,calc((var(--desktop-canvas-width,100vw)-1400px)/2+4rem))] lg:translate-y-10"
     >
       <Image
         src={ABOUT_ASSETS.introQueen}

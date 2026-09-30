@@ -89,7 +89,7 @@ function WhyBoard({ quote }: { quote?: string }) {
   return (
     <ScrollSlide
       fromX={280}
-      className="relative mt-10 -mr-5 w-[calc(100%+1.25rem)] lg:absolute lg:bottom-0 lg:right-[calc((1400px-100vw)/2-4rem)] lg:mr-0 lg:mt-0 lg:w-[min(825px,58vw)]"
+      className="relative mt-10 -mr-5 w-[calc(100%+1.25rem)] lg:absolute lg:bottom-0 lg:right-[calc((1400px-var(--desktop-canvas-width,100vw))/2-4rem)] lg:mr-0 lg:mt-0 lg:w-[825px]"
     >
       <Image
         src={ABOUT_ASSETS.whyChess}
@@ -100,7 +100,7 @@ function WhyBoard({ quote }: { quote?: string }) {
         sizes="(min-width: 1024px) 825px, 100vw"
       />
       {quote ? (
-        <p className="absolute bottom-[14%] right-[7%] max-w-[245px] text-right text-sm font-normal leading-[18.8px] text-white">
+        <p className="absolute bottom-[14%] right-[7%] hidden max-w-[245px] text-right text-sm font-normal leading-[18.8px] text-white lg:block">
           {quote}
         </p>
       ) : null}

@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, type ReactNode } from "react";
-import { motion, MotionConfig, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
+import { useLayoutEffect, useRef, type ReactNode, type RefObject } from "react";
+import { motion, MotionConfig, useMotionValue, useReducedMotion, useSpring, useTransform } from "motion/react";
 import { cn } from "@/shared/lib/cn";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -59,6 +59,57 @@ function glide(progress: number): number {
 }
 
 /**
+ * Converts a layout-pixel rect into visual pixels when the iPad canvas is zoomed.
+ * Some browsers report getBoundingClientRect before zoom, while the viewport is after it.
+ */
+function visualScale(element: HTMLElement): number {
+  const canvas = element.closest(".desktop-canvas");
+  if (!(canvas instanceof HTMLElement)) return 1;
+
+  const zoom = Number(getComputedStyle(canvas).zoom);
+  if (!Number.isFinite(zoom) || zoom <= 0 || Math.abs(zoom - 1) < 0.001) return 1;
+
+  const rectWidth = canvas.getBoundingClientRect().width;
+  const visualWidth = window.innerWidth;
+  const rectIsLayout = Math.abs(rectWidth - visualWidth) > Math.abs(rectWidth * zoom - visualWidth);
+  return rectIsLayout ? zoom : 1;
+}
+
+/** 0 when the block meets the bottom of the screen, 1 when it meets the top. */
+function useSlideProgress(target: RefObject<HTMLElement | null>) {
+  const progress = useMotionValue(0);
+
+  useLayoutEffect(() => {
+    const element = target.current;
+    if (!element) return;
+
+    const update = () => {
+      const viewport = window.visualViewport;
+      const viewHeight = viewport?.height ?? window.innerHeight;
+      const viewOffset = viewport?.offsetTop ?? 0;
+      const top = element.getBoundingClientRect().top * visualScale(element) - viewOffset;
+      const next = viewHeight === 0 ? 0 : (viewHeight - top) / viewHeight;
+      progress.set(Math.min(1, Math.max(0, next)));
+    };
+
+    update();
+    const viewport = window.visualViewport;
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    viewport?.addEventListener("scroll", update);
+    viewport?.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+      viewport?.removeEventListener("scroll", update);
+      viewport?.removeEventListener("resize", update);
+    };
+  }, [progress, target]);
+
+  return progress;
+}
+
+/**
  * Horizontal slide driven by scroll position.
  * Starts only once the block reaches the viewport, and eases in with the scroll.
  */
@@ -74,11 +125,8 @@ export function ScrollSlide({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "start start"],
-  });
-  const shifted = useTransform(scrollYProgress, [0, 1], [reduceMotion ? 0 : fromX, 0], {
+  const slideProgress = useSlideProgress(ref);
+  const shifted = useTransform(slideProgress, [0, 1], [reduceMotion ? 0 : fromX, 0], {
     ease: glide,
   });
   const smooth = useSpring(shifted, { stiffness: 52, damping: 22, mass: 0.6, restDelta: 0.4 });
