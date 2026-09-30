@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import { ARRIVAL, Reveal } from "@/shared/motion/reveal";
 import { InteriorPageShell } from "@/shared/ui/interior-page-header";
 import { AboutApproach } from "./about-approach";
 import { AboutExperienceSection, type AboutMatter } from "./about-experience";
@@ -16,7 +17,7 @@ export async function AboutPageContent() {
   const people = t.raw("people.paragraphs") as string[];
 
   return (
-    <InteriorPageShell className="overflow-hidden pb-20 lg:pb-28">
+    <InteriorPageShell className="overflow-hidden" contentClassName="pb-6 lg:pb-10">
       <AboutHero
         titleLead={t("titleLead")}
         titleTail={t("titleTail")}
@@ -24,16 +25,20 @@ export async function AboutPageContent() {
         lead={introLead}
         practice={practice}
       />
-      <AboutExperienceSection
-        titleLead={t("experience.titleLead")}
-        titleTail={t("experience.titleTail")}
-        items={matters}
-      />
-      <AboutApproach
-        titleLead={t("approach.titleLead")}
-        titleTail={t("approach.titleTail")}
-        paragraphs={approach}
-      />
+      <Reveal {...ARRIVAL}>
+        <AboutExperienceSection
+          titleLead={t("experience.titleLead")}
+          titleTail={t("experience.titleTail")}
+          items={matters}
+        />
+      </Reveal>
+      <Reveal {...ARRIVAL} delay={0.08}>
+        <AboutApproach
+          titleLead={t("approach.titleLead")}
+          titleTail={t("approach.titleTail")}
+          paragraphs={approach}
+        />
+      </Reveal>
       <AboutWhy
         titleLead={t("name.titleLead")}
         titleTail={t("name.titleTail")}
