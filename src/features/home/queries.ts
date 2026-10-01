@@ -10,6 +10,10 @@ import { getFeaturedServices } from "@/features/services";
 import { getFeaturedTeamMembers } from "@/features/team";
 
 export async function getHomePageData(locale: string) {
+  if (!process.env.DATABASE_URL) {
+    return { services: [], team: [], publications: [] };
+  }
+
   const [services, team, publications] = await Promise.all([
     getFeaturedServices(locale, HOME_SERVICES_LIMIT),
     getFeaturedTeamMembers(locale, HOME_TEAM_LIMIT),
