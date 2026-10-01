@@ -5,7 +5,7 @@
     "label": "Language"
   },
   "login": {
-    "title": "TABIA Admin",
+    "title": "Admin Panel",
     "subtitle": "Sign in with your admin credentials.",
     "email": "Email",
     "password": "Password",

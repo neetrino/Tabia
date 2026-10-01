@@ -5,7 +5,7 @@
     "label": "Язык"
   },
   "login": {
-    "title": "TABIA Admin",
+    "title": "Admin Panel",
     "subtitle": "Войдите с данными администратора.",
     "email": "Эл. почта",
     "password": "Пароль",
