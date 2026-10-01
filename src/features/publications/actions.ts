@@ -39,6 +39,7 @@ function toWriteData(input: Omit<PublicationRecord, "id">) {
     status: input.status,
     coverUrl: input.coverUrl,
     bodyImageUrl: input.bodyImageUrl,
+    galleryUrls: input.galleryUrls ?? [],
     titleHy: input.titleHy,
     titleEn: input.titleEn,
     titleRu: input.titleRu,

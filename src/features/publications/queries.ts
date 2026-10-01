@@ -85,7 +85,13 @@ export async function getPublishedPublicationBySlug(
   locale: string,
   type: PublicationTypeValue,
   slug: string,
-): Promise<(PublicationPreview & { body: string; bodyImageUrl: string | null }) | null> {
+): Promise<
+  (PublicationPreview & {
+    body: string;
+    bodyImageUrl: string | null;
+    galleryUrls: string[];
+  }) | null
+> {
   const record = await prisma.publication.findUnique({
     where: { type_slug: { type, slug } },
   });
@@ -102,6 +108,7 @@ export async function getPublishedPublicationBySlug(
       ru: record.bodyRu,
     }),
     bodyImageUrl: record.bodyImageUrl,
+    galleryUrls: record.galleryUrls ?? [],
   };
 }
 

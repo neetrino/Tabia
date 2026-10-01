@@ -12,6 +12,7 @@ import { cn } from "@/shared/lib/cn";
 import { savePublicationAction } from "../actions";
 import type { PublicationRecord, PublicationStatusValue } from "../types";
 import { PublicationCoverField } from "./publication-cover-field";
+import { PublicationGalleryField } from "./publication-gallery-field";
 import {
   PublicationLocalizedCopyFields,
   PublicationLocalizedTitleField,
@@ -152,6 +153,21 @@ export function PublicationAdminForm({
             <PublicationSharedFields values={values} onChange={setValues} />
           </div>
         </div>
+        {values.type === "NEWS" ? (
+          <PublicationGalleryField
+            urls={values.galleryUrls ?? []}
+            onChange={(galleryUrls) =>
+              setValues((current) => ({
+                ...current,
+                galleryUrls:
+                  typeof galleryUrls === "function"
+                    ? galleryUrls(current.galleryUrls ?? [])
+                    : galleryUrls,
+              }))
+            }
+            onError={setErrorKey}
+          />
+        ) : null}
         <PublicationLocalizedCopyFields
           locale={contentLocale}
           values={values}

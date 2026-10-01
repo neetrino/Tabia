@@ -1,0 +1,1 @@
+ALTER TABLE "Publication" ADD COLUMN "galleryUrls" TEXT[] NOT NULL DEFAULT ARRAY[]::TEXT[];

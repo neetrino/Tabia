@@ -37,6 +37,7 @@ export const publicationInputSchema = z.object({
     .optional()
     .nullable()
     .transform((value) => value || null),
+  galleryUrls: z.array(z.string().trim().min(1).max(500)).max(12).default([]),
   titleHy: requiredText(MAX_TITLE_LENGTH),
   titleEn: requiredText(MAX_TITLE_LENGTH),
   titleRu: requiredText(MAX_TITLE_LENGTH),
