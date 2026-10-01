@@ -2,10 +2,15 @@
 
 import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
-import { AdminContentLocaleSwitcher } from "@/features/admin/client";
+import {
+  AdminConfirmDialog,
+  AdminContentLocaleSwitcher,
+  AdminDrawerHeaderActions,
+} from "@/features/admin/client";
 import { defaultLocale, type AppLocale } from "@/i18n/routing";
+import { cn } from "@/shared/lib/cn";
 import { saveTeamMemberAction } from "../actions";
-import type { TeamMemberRecord } from "../types";
+import type { ContentVisibilityValue, TeamMemberRecord } from "../types";
 import { TeamPhotoField } from "./team-photo-field";
 import {
   TeamLocalizedBioFields,
@@ -16,12 +21,14 @@ import { TeamSharedFields } from "./team-shared-fields";
 type TeamAdminFormProps = {
   values: TeamMemberRecord;
   onSaved: () => void;
+  onChanged?: () => void;
   onCancel: () => void;
 };
 
 export function TeamAdminForm({
   values: initialValues,
   onSaved,
+  onChanged,
   onCancel,
 }: TeamAdminFormProps) {
   const t = useTranslations("admin");
@@ -31,12 +38,26 @@ export function TeamAdminForm({
   const [errorKey, setErrorKey] = useState<string | null>(null);
   const [invalidFields, setInvalidFields] = useState<string[]>([]);
   const [pending, startTransition] = useTransition();
+  const [confirmHide, setConfirmHide] = useState(false);
 
-  function submit(): void {
+  const isPublished = values.visibility === "PUBLISHED";
+  const displayName =
+    values.nameHy.trim() ||
+    values.nameEn.trim() ||
+    values.nameRu.trim() ||
+    values.slug;
+
+  function submit(
+    options: { close: boolean; visibility?: ContentVisibilityValue } = {
+      close: true,
+    },
+  ): void {
     startTransition(async () => {
       const { id, ...rest } = values;
+      const visibility = options.visibility ?? values.visibility;
       const result = await saveTeamMemberAction({
         ...rest,
+        visibility,
         id: id.length > 0 ? id : undefined,
       });
       if (result.errorKey) {
@@ -44,8 +65,28 @@ export function TeamAdminForm({
         setInvalidFields(result.invalidFields ?? []);
         return;
       }
-      onSaved();
+      setValues((current) => ({ ...current, visibility }));
+      if (options.close) {
+        onSaved();
+        return;
+      }
+      onChanged?.();
     });
+  }
+
+  function handleVisibilityChange(visibility: ContentVisibilityValue): void {
+    if (visibility === values.visibility) {
+      return;
+    }
+    if (visibility === "HIDDEN" && values.id) {
+      setConfirmHide(true);
+      return;
+    }
+    if (values.id) {
+      submit({ close: false, visibility });
+      return;
+    }
+    setValues((current) => ({ ...current, visibility }));
   }
 
   return (
@@ -53,9 +94,19 @@ export function TeamAdminForm({
       className="space-y-6"
       onSubmit={(event) => {
         event.preventDefault();
-        submit();
+        submit({ close: true });
       }}
     >
+      <AdminDrawerHeaderActions>
+        <TeamSheetSwitch
+          published={isPublished}
+          pending={pending}
+          label={isPublished ? form("hidden") : form("published")}
+          onToggle={() =>
+            handleVisibilityChange(isPublished ? "HIDDEN" : "PUBLISHED")
+          }
+        />
+      </AdminDrawerHeaderActions>
       <AdminContentLocaleSwitcher
         value={contentLocale}
         onChange={setContentLocale}
@@ -111,6 +162,55 @@ export function TeamAdminForm({
           {t("actions.cancel")}
         </button>
       </div>
+      <AdminConfirmDialog
+        open={confirmHide}
+        message={form("confirmHide", { name: displayName })}
+        confirmLabel={t("confirm.hide")}
+        pending={pending}
+        onCancel={() => setConfirmHide(false)}
+        onConfirm={() => {
+          setConfirmHide(false);
+          submit({ close: false, visibility: "HIDDEN" });
+        }}
+      />
     </form>
+  );
+}
+
+function TeamSheetSwitch({
+  published,
+  pending,
+  label,
+  onToggle,
+}: {
+  published: boolean;
+  pending: boolean;
+  label: string;
+  onToggle: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      role="switch"
+      aria-checked={published}
+      aria-label={label}
+      title={label}
+      disabled={pending}
+      className={cn(
+        "relative h-7 w-12 shrink-0 rounded-full transition-colors duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
+        "motion-reduce:transition-none disabled:opacity-60",
+        published ? "bg-emerald-500" : "bg-red-500",
+      )}
+      onClick={onToggle}
+    >
+      <span
+        className={cn(
+          "absolute top-0.5 size-6 rounded-full bg-white",
+          "transition-[left] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
+          "motion-reduce:transition-none",
+          published ? "left-[1.375rem]" : "left-0.5",
+        )}
+      />
+    </button>
   );
 }
