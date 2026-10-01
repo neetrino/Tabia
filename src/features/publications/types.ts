@@ -32,6 +32,7 @@ export type PublicationAdminItem = PublicationRecord & {
   displayTitle: string;
   displaySummary: string;
   displayDate: string | null;
+  featured: boolean;
 };
 
 export type PublicationErrorKey =

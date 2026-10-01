@@ -1,8 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { AdminSelect } from "@/features/admin/client";
-import type { ContentVisibilityValue, TeamMemberRecord } from "../types";
+import type { TeamMemberRecord } from "../types";
 import { TeamFormField, teamInputClassName } from "./team-form-field";
 
 type TeamValuesChange = (
@@ -65,32 +64,6 @@ export function TeamSharedFields({
           value={values.linkedInUrl}
           className={teamInputClassName}
           onChange={(event) => update("linkedInUrl", event.target.value)}
-        />
-      </TeamFormField>
-      <TeamFormField id="sortOrder" label={t("sortOrder")}>
-        <input
-          id="sortOrder"
-          type="number"
-          min={0}
-          max={9999}
-          value={values.sortOrder}
-          className={teamInputClassName}
-          onChange={(event) =>
-            update("sortOrder", Number(event.target.value) || 0)
-          }
-        />
-      </TeamFormField>
-      <TeamFormField id="visibility" label={t("visibility")}>
-        <AdminSelect
-          id="visibility"
-          value={values.visibility}
-          options={[
-            { value: "PUBLISHED", label: t("published") },
-            { value: "HIDDEN", label: t("hidden") },
-          ]}
-          onChange={(visibility: ContentVisibilityValue) =>
-            update("visibility", visibility)
-          }
         />
       </TeamFormField>
     </>

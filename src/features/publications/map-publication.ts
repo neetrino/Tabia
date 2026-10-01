@@ -70,5 +70,6 @@ export function toPublicationAdminItem(
       ru: row.summaryRu,
     }),
     displayDate: formatPublishedDate(locale, row.publishedAt),
+    featured: row.featured,
   };
 }

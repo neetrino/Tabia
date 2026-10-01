@@ -112,9 +112,11 @@ model Publication {
   bodyEn      String            @db.Text
   bodyRu      String            @db.Text
   publishedAt DateTime?
+  featured    Boolean           @default(false)
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
 
   @@unique([type, slug])
   @@index([type, status, publishedAt])
+  @@index([status, featured, publishedAt])
 }

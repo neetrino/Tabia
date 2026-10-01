@@ -6,6 +6,7 @@ import { AdminConfirmDialog } from "@/features/admin/client";
 import { cn } from "@/shared/lib/cn";
 import {
   deletePublicationAction,
+  updatePublicationFeaturedAction,
   updatePublicationStatusAction,
 } from "../actions";
 import type { PublicationAdminItem, PublicationTypeValue } from "../types";
@@ -45,6 +46,20 @@ export function PublicationAdminList({
         items.map((item) => (item.id === id ? { ...item, status } : item)),
       );
       const result = await updatePublicationStatusAction({ id, status });
+      if (result.errorKey) {
+        setErrorKey(result.errorKey);
+        return;
+      }
+      onChanged();
+    });
+  }
+
+  function setFeatured(id: string, featured: boolean): void {
+    startTransition(async () => {
+      setOptimisticItems(
+        items.map((item) => (item.id === id ? { ...item, featured } : item)),
+      );
+      const result = await updatePublicationFeaturedAction({ id, featured });
       if (result.errorKey) {
         setErrorKey(result.errorKey);
         return;
@@ -123,6 +138,9 @@ export function PublicationAdminList({
               onEdit={onEdit}
               onDelete={(item) => setConfirm({ kind: "delete", item })}
               onTogglePublished={requestTogglePublished}
+              onToggleFeatured={(item, featured) =>
+                setFeatured(item.id, featured)
+              }
             />
           </li>
         ))}

@@ -186,6 +186,7 @@
     "publishedAtHint": "If you publish without a date, the current time is used.",
     "saveDraft": "Save as draft",
     "publish": "Publish",
+    "featured": "Show on the home page",
     "deactivate": "Deactivate",
     "saving": "Saving…",
     "confirmDelete": "Delete “{name}”?",

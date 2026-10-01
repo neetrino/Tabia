@@ -1,6 +1,6 @@
 "use client";
 
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil, Star, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { CoverMedia } from "@/shared/ui/cover-media";
 import { getInitials } from "@/shared/lib/localized";
@@ -17,6 +17,10 @@ type PublicationAdminRowProps = {
     publication: PublicationAdminItem,
     published: boolean,
   ) => void;
+  onToggleFeatured: (
+    publication: PublicationAdminItem,
+    featured: boolean,
+  ) => void;
 };
 
 const STATUS_CLASSNAME: Record<PublicationStatusValue, string> = {
@@ -31,6 +35,7 @@ export function PublicationAdminRow({
   onEdit,
   onDelete,
   onTogglePublished,
+  onToggleFeatured,
 }: PublicationAdminRowProps) {
   const t = useTranslations("admin");
   const form = useTranslations("admin.publicationForm");
@@ -49,9 +54,6 @@ export function PublicationAdminRow({
       />
       <div className="min-w-0 flex-1">
         <p className="truncate font-medium">{publication.displayTitle}</p>
-        <p className="truncate text-sm text-[var(--muted)]">
-          {publication.displaySummary}
-        </p>
       </div>
       <span
         className={cn(
@@ -72,6 +74,26 @@ export function PublicationAdminRow({
         label={form("publish")}
         onChange={(checked) => onTogglePublished(publication, checked)}
       />
+      <button
+        type="button"
+        disabled={disabled}
+        aria-pressed={publication.featured}
+        aria-label={form("featured")}
+        className="flex size-8 items-center justify-center rounded-[15px] disabled:opacity-60"
+        onClick={(event) => {
+          event.stopPropagation();
+          onToggleFeatured(publication, !publication.featured);
+        }}
+      >
+        <Star
+          className={cn(
+            "size-4 transition-transform duration-200 ease-out hover:scale-110 motion-reduce:transition-none",
+            publication.featured
+              ? "fill-blue-600 text-blue-600"
+              : "text-[var(--muted)]",
+          )}
+        />
+      </button>
       <button
         type="button"
         aria-label={t("actions.edit")}

@@ -61,4 +61,9 @@ export const publicationStatusSchema = z.object({
   status: z.enum(["DRAFT", "PUBLISHED", "ARCHIVED"]),
 });
 
+export const publicationFeaturedSchema = z.object({
+  id: z.string().trim().min(1),
+  featured: z.boolean(),
+});
+
 export type PublicationInput = z.infer<typeof publicationInputSchema>;

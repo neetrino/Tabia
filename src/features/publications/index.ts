@@ -3,6 +3,7 @@ export { PublicationAdminPanel } from "./components/publication-admin-panel";
 export { PublicationList } from "./components/publication-list";
 export {
   getAdminPublications,
+  getFeaturedPublications,
   getPublicationHref,
   getPublishedPublicationBySlug,
   getPublishedPublications,

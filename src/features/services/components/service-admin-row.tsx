@@ -42,9 +42,6 @@ export function ServiceAdminRow({
       />
       <div className="min-w-0 flex-1">
         <p className="truncate font-medium">{service.displayTitle}</p>
-        <p className="truncate text-sm text-[var(--muted)]">
-          {service.displaySummary}
-        </p>
       </div>
       <span className="hidden text-xs text-[var(--muted)] sm:inline">
         {form("orderValue", { value: service.sortOrder })}
