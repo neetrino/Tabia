@@ -23,6 +23,8 @@ import type { CSSProperties, ReactNode } from "react";
 import { cn } from "@/shared/lib/cn";
 
 type AdminSortableRootProps = {
+  /** Stable id so the drag description matches between server and client. */
+  id: string;
   items: string[];
   disabled?: boolean;
   strategy?: SortingStrategy;
@@ -48,6 +50,7 @@ type UseAdminSortableItemResult = {
 const POINTER_ACTIVATION_DISTANCE_PX = 6;
 
 export function AdminSortableRoot({
+  id,
   items,
   disabled = false,
   strategy = verticalListSortingStrategy,
@@ -73,6 +76,7 @@ export function AdminSortableRoot({
 
   return (
     <DndContext
+      id={id}
       sensors={sensors}
       collisionDetection={closestCenter}
       onDragEnd={handleDragEnd}

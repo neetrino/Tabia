@@ -6,9 +6,9 @@ import {
   AdminConfirmDialog,
   AdminContentLocaleSwitcher,
   AdminDrawerHeaderActions,
-  AdminSelect,
 } from "@/features/admin/client";
 import { defaultLocale, type AppLocale } from "@/i18n/routing";
+import { cn } from "@/shared/lib/cn";
 import { saveServiceAction } from "../actions";
 import type { ContentVisibilityValue, ServiceRecord } from "../types";
 import { ServiceImageField } from "./service-image-field";
@@ -40,6 +40,7 @@ export function ServiceAdminForm({
   const [pending, startTransition] = useTransition();
   const [confirmHide, setConfirmHide] = useState(false);
 
+  const isPublished = values.visibility === "PUBLISHED";
   const displayTitle =
     values.titleEn.trim() ||
     values.titleHy.trim() ||
@@ -101,19 +102,31 @@ export function ServiceAdminForm({
       }}
     >
       <AdminDrawerHeaderActions>
-        <div className="w-[9.5rem]">
-          <AdminSelect
-            id="service-visibility"
-            size="sm"
-            value={values.visibility}
-            disabled={pending}
-            options={[
-              { value: "PUBLISHED", label: form("published") },
-              { value: "HIDDEN", label: form("hidden") },
-            ]}
-            onChange={handleVisibilityChange}
+        <button
+          type="button"
+          role="switch"
+          aria-checked={isPublished}
+          aria-label={isPublished ? form("hidden") : form("published")}
+          title={isPublished ? form("hidden") : form("published")}
+          disabled={pending}
+          className={cn(
+            "relative h-7 w-12 shrink-0 rounded-full transition-colors duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
+            "motion-reduce:transition-none disabled:opacity-60",
+            isPublished ? "bg-emerald-500" : "bg-red-500",
+          )}
+          onClick={() =>
+            handleVisibilityChange(isPublished ? "HIDDEN" : "PUBLISHED")
+          }
+        >
+          <span
+            className={cn(
+              "absolute top-0.5 size-6 rounded-full bg-white",
+              "transition-[left] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
+              "motion-reduce:transition-none",
+              isPublished ? "left-[1.375rem]" : "left-0.5",
+            )}
           />
-        </div>
+        </button>
       </AdminDrawerHeaderActions>
       <AdminContentLocaleSwitcher
         value={contentLocale}

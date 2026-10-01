@@ -178,6 +178,7 @@ export function ServiceAdminList({
         <p className="text-sm text-red-700">{form(`errors.${errorKey}`)}</p>
       ) : null}
       <AdminSortableRoot
+        id="admin-services"
         items={items.map((item) => item.id)}
         disabled={pending}
         onReorder={reorder}

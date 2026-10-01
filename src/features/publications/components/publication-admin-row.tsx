@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { CoverMedia } from "@/shared/ui/cover-media";
 import { getInitials } from "@/shared/lib/localized";
 import { cn } from "@/shared/lib/cn";
-import type { PublicationAdminItem, PublicationStatusValue } from "../types";
+import type { PublicationAdminItem } from "../types";
 import { PublicationAdminSwitch } from "./publication-admin-switch";
 
 type PublicationAdminRowProps = {
@@ -21,12 +21,6 @@ type PublicationAdminRowProps = {
     publication: PublicationAdminItem,
     featured: boolean,
   ) => void;
-};
-
-const STATUS_CLASSNAME: Record<PublicationStatusValue, string> = {
-  DRAFT: "bg-[var(--surface)] text-[var(--muted)]",
-  PUBLISHED: "bg-[var(--brand-soft)] text-[var(--brand)]",
-  ARCHIVED: "bg-[var(--surface)] text-[var(--muted-strong)]",
 };
 
 export function PublicationAdminRow({
@@ -55,14 +49,6 @@ export function PublicationAdminRow({
       <div className="min-w-0 flex-1">
         <p className="truncate font-medium">{publication.displayTitle}</p>
       </div>
-      <span
-        className={cn(
-          "hidden rounded-[15px] px-2 py-0.5 text-xs font-medium sm:inline",
-          STATUS_CLASSNAME[publication.status],
-        )}
-      >
-        {form(`status.${publication.status}`)}
-      </span>
       {publication.displayDate ? (
         <span className="hidden text-xs text-[var(--muted)] lg:inline">
           {publication.displayDate}
