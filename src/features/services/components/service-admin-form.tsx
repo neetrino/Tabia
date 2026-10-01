@@ -133,32 +133,45 @@ export function ServiceAdminForm({
         onChange={setContentLocale}
         label={form("contentLocale")}
       />
-      <div className="grid gap-6 md:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] md:items-stretch">
-        <ServiceImageField
-          imageUrl={values.imageUrl}
-          title={values.titleEn || values.titleHy}
-          onChange={(url) =>
-            setValues((current) => ({ ...current, imageUrl: url }))
-          }
+      <div className="space-y-6">
+        <div className="flex items-start gap-6">
+          <div className="flex w-48 shrink-0 flex-col gap-4">
+            <ServiceImageField
+              imageUrl={values.imageUrl}
+              title={values.titleEn || values.titleHy}
+              label={form("image")}
+              onChange={(url) =>
+                setValues((current) => ({ ...current, imageUrl: url }))
+              }
+              onError={setErrorKey}
+            />
+            <ServiceImageField
+              fieldId="body-image"
+              imageUrl={values.bodyImageUrl}
+              title={values.titleEn || values.titleHy}
+              label={form("bodyImage")}
+              removeLabel={form("removeBodyImage")}
+              onChange={(url) =>
+                setValues((current) => ({ ...current, bodyImageUrl: url }))
+              }
+              onError={setErrorKey}
+            />
+          </div>
+          <div className="flex min-w-0 flex-1 flex-col gap-4">
+            <ServiceLocalizedTitleField
+              locale={contentLocale}
+              values={values}
+              onChange={setValues}
+            />
+            <ServiceSharedFields values={values} onChange={setValues} />
+          </div>
+        </div>
+        <ServiceLocalizedCopyFields
+          locale={contentLocale}
+          values={values}
+          onChange={setValues}
           onError={setErrorKey}
-          stretch
         />
-        <div className="flex flex-col justify-between gap-4">
-          <ServiceLocalizedTitleField
-            locale={contentLocale}
-            values={values}
-            onChange={setValues}
-          />
-          <ServiceSharedFields values={values} onChange={setValues} />
-        </div>
-        <div className="space-y-4 md:col-span-2">
-          <ServiceLocalizedCopyFields
-            locale={contentLocale}
-            values={values}
-            onChange={setValues}
-            onError={setErrorKey}
-          />
-        </div>
       </div>
       {errorKey ? (
         <p className="text-sm text-red-700">

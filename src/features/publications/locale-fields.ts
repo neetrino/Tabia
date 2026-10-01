@@ -28,6 +28,7 @@ export function createEmptyPublication(
     type,
     status: "DRAFT",
     coverUrl: null,
+    bodyImageUrl: null,
     titleHy: "",
     titleEn: "",
     titleRu: "",

@@ -33,6 +33,13 @@ export const serviceInputSchema = z.object({
       }
       return value;
     }),
+  bodyImageUrl: z
+    .string()
+    .trim()
+    .max(500)
+    .optional()
+    .nullable()
+    .transform((value) => value || null),
   titleHy: requiredText(160),
   titleEn: requiredText(160),
   titleRu: requiredText(160),

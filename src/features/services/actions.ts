@@ -32,6 +32,7 @@ function toWriteData(input: Omit<ServiceRecord, "id">) {
   return {
     slug: input.slug,
     imageUrl: input.imageUrl,
+    bodyImageUrl: input.bodyImageUrl,
     titleHy: input.titleHy,
     titleEn: input.titleEn,
     titleRu: input.titleRu,
@@ -70,6 +71,7 @@ export async function saveServiceAction(
   const data = toWriteData({
     ...values,
     imageUrl: values.imageUrl ?? null,
+    bodyImageUrl: values.bodyImageUrl ?? null,
   });
 
   try {
@@ -105,6 +107,9 @@ async function updateExistingService(
   if (existing.imageUrl && existing.imageUrl !== data.imageUrl) {
     await deleteStoredImage(existing.imageUrl);
   }
+  if (existing.bodyImageUrl && existing.bodyImageUrl !== data.bodyImageUrl) {
+    await deleteStoredImage(existing.bodyImageUrl);
+  }
 
   await prisma.service.update({ where: { id }, data });
   await invalidateServicesCache();
@@ -128,6 +133,7 @@ export async function deleteServiceAction(
 
   await prisma.service.delete({ where: { id } });
   await deleteStoredImage(existing.imageUrl);
+  await deleteStoredImage(existing.bodyImageUrl);
   await invalidateServicesCache();
   revalidateServicePaths(existing.slug);
   return { ok: true };

@@ -52,6 +52,17 @@ export async function ServiceArticle({ locale, slug }: ServiceArticleProps) {
           />
         </Reveal>
 
+        {service.bodyImageUrl ? (
+          <Reveal delay={0.06}>
+            <CoverMedia
+              src={service.bodyImageUrl}
+              alt={service.title}
+              className="mt-10 aspect-[16/9] max-w-[720px] overflow-hidden rounded-2xl bg-[#e8e8e8] lg:mt-12 lg:rounded-3xl"
+              imageClassName="object-cover"
+            />
+          </Reveal>
+        ) : null}
+
         {service.body.trim().length > 0 ? (
           <Reveal delay={0.08}>
             <div className="mt-10 max-w-[720px] lg:mt-12">

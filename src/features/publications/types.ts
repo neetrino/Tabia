@@ -16,6 +16,7 @@ export type PublicationRecord = {
   type: PublicationTypeValue;
   status: PublicationStatusValue;
   coverUrl: string | null;
+  bodyImageUrl: string | null;
   titleHy: string;
   titleEn: string;
   titleRu: string;

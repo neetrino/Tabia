@@ -17,6 +17,7 @@ export function toPublicationRecord(row: Publication): PublicationRecord {
     type: row.type,
     status: row.status,
     coverUrl: row.coverUrl,
+    bodyImageUrl: row.bodyImageUrl,
     titleHy: row.titleHy,
     titleEn: row.titleEn,
     titleRu: row.titleRu,

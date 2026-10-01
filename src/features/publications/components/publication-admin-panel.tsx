@@ -25,6 +25,7 @@ function toRecord(publication: PublicationAdminItem): PublicationRecord {
     type: publication.type,
     status: publication.status,
     coverUrl: publication.coverUrl,
+    bodyImageUrl: publication.bodyImageUrl,
     titleHy: publication.titleHy,
     titleEn: publication.titleEn,
     titleRu: publication.titleRu,

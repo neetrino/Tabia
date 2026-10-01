@@ -16,6 +16,9 @@ type ServiceImageFieldProps = {
   onError: (key: string) => void;
   /** Stretch the preview to match a sibling column height. */
   stretch?: boolean;
+  fieldId?: string;
+  label?: string;
+  removeLabel?: string;
 };
 
 export function ServiceImageField({
@@ -24,8 +27,13 @@ export function ServiceImageField({
   onChange,
   onError,
   stretch = false,
+  fieldId = "image",
+  label,
+  removeLabel,
 }: ServiceImageFieldProps) {
   const t = useTranslations("admin.serviceForm");
+  const fieldLabel = label ?? t("image");
+  const removeFieldLabel = removeLabel ?? t("removeImage");
   const inputRef = useRef<HTMLInputElement>(null);
   const [pending, startTransition] = useTransition();
 
@@ -37,8 +45,8 @@ export function ServiceImageField({
 
   return (
     <ServiceFormField
-      id="image"
-      label={t("image")}
+      id={fieldId}
+      label={fieldLabel}
       className={stretch ? "flex h-full flex-col" : undefined}
     >
       <div className={cn(stretch && "flex min-h-0 flex-1 flex-col")}>
@@ -51,7 +59,7 @@ export function ServiceImageField({
           <button
             type="button"
             disabled={pending}
-            aria-label={t("image")}
+            aria-label={fieldLabel}
             className={cn(
               "group relative block w-full overflow-hidden rounded-[15px] text-left",
               "transition duration-200 hover:opacity-95 disabled:opacity-60",
@@ -61,7 +69,7 @@ export function ServiceImageField({
           >
             <CoverMedia
               src={imageUrl}
-              alt={title || t("image")}
+              alt={title || fieldLabel}
               className={cn(
                 "w-full rounded-[15px]",
                 stretch ? "h-full min-h-40" : "aspect-[16/9]",
@@ -81,8 +89,8 @@ export function ServiceImageField({
           {imageUrl ? (
             <button
               type="button"
-              aria-label={t("removeImage")}
-              title={t("removeImage")}
+              aria-label={removeFieldLabel}
+              title={removeFieldLabel}
               className="absolute top-2 right-2 z-10 flex size-8 items-center justify-center rounded-full bg-black/55 text-white transition hover:bg-black/75"
               onClick={(event) => {
                 event.stopPropagation();
@@ -95,7 +103,7 @@ export function ServiceImageField({
         </div>
         <input
           ref={inputRef}
-          id="image"
+          id={fieldId}
           type="file"
           accept="image/jpeg,image/png,image/webp"
           disabled={pending}

@@ -76,7 +76,8 @@ model TeamMember {
 model Service {
   id         String            @id @default(cuid())
   slug       String            @unique
-  imageUrl   String?
+  imageUrl     String?
+  bodyImageUrl String?
   titleHy    String
   titleEn    String
   titleRu    String
@@ -101,7 +102,8 @@ model Publication {
   slug        String
   type        PublicationType
   status      PublicationStatus @default(DRAFT)
-  coverUrl    String?
+  coverUrl     String?
+  bodyImageUrl String?
   titleHy     String
   titleEn     String
   titleRu     String

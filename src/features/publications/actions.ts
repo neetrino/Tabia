@@ -38,6 +38,7 @@ function toWriteData(input: Omit<PublicationRecord, "id">) {
     type: input.type,
     status: input.status,
     coverUrl: input.coverUrl,
+    bodyImageUrl: input.bodyImageUrl,
     titleHy: input.titleHy,
     titleEn: input.titleEn,
     titleRu: input.titleRu,
@@ -74,6 +75,7 @@ export async function savePublicationAction(
   const data = toWriteData({
     ...values,
     coverUrl: values.coverUrl ?? null,
+    bodyImageUrl: values.bodyImageUrl ?? null,
   });
 
   try {

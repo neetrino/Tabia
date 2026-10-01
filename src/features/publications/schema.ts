@@ -30,6 +30,13 @@ export const publicationInputSchema = z.object({
     .optional()
     .nullable()
     .transform((value) => value || null),
+  bodyImageUrl: z
+    .string()
+    .trim()
+    .max(500)
+    .optional()
+    .nullable()
+    .transform((value) => value || null),
   titleHy: requiredText(MAX_TITLE_LENGTH),
   titleEn: requiredText(MAX_TITLE_LENGTH),
   titleRu: requiredText(MAX_TITLE_LENGTH),

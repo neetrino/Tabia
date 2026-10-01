@@ -81,6 +81,17 @@ export async function PublicationArticle({
           </Reveal>
         ) : null}
 
+        {article.bodyImageUrl ? (
+          <Reveal delay={0.08}>
+            <CoverMedia
+              src={article.bodyImageUrl}
+              alt={article.title}
+              className="mx-auto mt-10 aspect-[16/9] max-w-[720px] overflow-hidden rounded-2xl bg-[#e8e8e8] lg:mt-12 lg:rounded-3xl"
+              imageClassName="object-cover"
+            />
+          </Reveal>
+        ) : null}
+
         <Reveal delay={0.1}>
           <div className="mx-auto mt-10 max-w-[720px] text-base font-light leading-[1.75] text-[#363636] lg:mt-12 lg:text-lg lg:leading-[1.8]">
             <PublicationBody html={article.body} />
