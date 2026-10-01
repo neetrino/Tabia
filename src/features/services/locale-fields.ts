@@ -24,6 +24,7 @@ export function createEmptyService(sortOrder: number): ServiceRecord {
     id: "",
     slug: "",
     imageUrl: null,
+    bodyImageUrl: null,
     titleHy: "",
     titleEn: "",
     titleRu: "",

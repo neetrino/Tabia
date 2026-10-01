@@ -9,12 +9,14 @@ export type ServicePreview = {
 
 export type ServiceProfile = ServicePreview & {
   body: string;
+  bodyImageUrl: string | null;
 };
 
 export type ServiceRecord = {
   id: string;
   slug: string;
   imageUrl: string | null;
+  bodyImageUrl: string | null;
   titleHy: string;
   titleEn: string;
   titleRu: string;

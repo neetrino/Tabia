@@ -19,6 +19,7 @@ function toRecord(service: ServiceAdminItem): ServiceRecord {
     id: service.id,
     slug: service.slug,
     imageUrl: service.imageUrl,
+    bodyImageUrl: service.bodyImageUrl,
     titleHy: service.titleHy,
     titleEn: service.titleEn,
     titleRu: service.titleRu,

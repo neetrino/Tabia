@@ -5,10 +5,13 @@
   "subtitle": "Legal and transaction advisory for businesses and investors.",
   "intro": [
     "TABIA Legal & Advisory is a Yerevan-based firm providing legal and transaction advisory services to businesses and investors. We advise on Armenian law and cross-border matters, combining knowledge of the local legal and business environment with an understanding of international transactions.",
-    "Our practice encompasses corporate and commercial law, banking and finance, regulatory advice, and dispute resolution, including international commercial arbitration. We work across industries, including mining and metals, banking, telecommunications, and defense. Our engagements range from ongoing corporate advice to transactions and disputes involving complex legal, regulatory, and commercial considerations."
+    "Our practice encompasses corporate and commercial law, banking and finance, regulatory advice, and dispute resolution, including international commercial arbitration.",
+    "We work across industries, including mining and metals, banking, telecommunications, and defense. Our engagements range from ongoing corporate advice to transactions and disputes involving complex legal, regulatory, and commercial considerations."
   ],
   "experience": {
     "title": "Representative experience",
+    "titleLead": "Representative",
+    "titleTail": "experience",
     "items": [
       {
         "industry": "Mining",
@@ -24,6 +27,8 @@
   },
   "approach": {
     "title": "How we work",
+    "titleLead": "How we",
+    "titleTail": "work",
     "paragraphs": [
       "We approach each engagement with an understanding of the client’s business, the interests involved, and the consequences of the decisions under consideration. These factors shape both our legal analysis and the advice we give.",
       "Our clients can expect reasoned recommendations, careful drafting, and direct communication. Where the legal position is uncertain or a proposed course carries material risk, we explain the implications and work through the alternatives. We remain closely involved as negotiations progress and the matter develops.",
@@ -42,6 +47,10 @@
   },
   "people": {
     "title": "Our people and principles",
+    "lead": "Our",
+    "em": "people",
+    "tail": "and",
+    "line2": "principles",
     "paragraphs": [
       "Our work rests on thorough preparation, professional judgment, and responsibility for the advice we give. We draw on one another’s experience, discuss difficult questions openly, and invest in the continued development of our team.",
       "We seek to earn our clients’ trust through the quality of our work and the way we conduct the relationship: attentive service, candid advice, and respect for the confidence placed in us."

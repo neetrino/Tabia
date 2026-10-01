@@ -13,11 +13,25 @@ export function ArticleBackLink({ href, label, className }: ArticleBackLinkProps
     <Link
       href={href}
       className={cn(
-        "inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[1px] text-[var(--brand)] transition hover:gap-3",
+        "group inline-flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[1px] text-[var(--brand)]",
         className,
       )}
     >
-      ← {label}
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 16 16"
+        className="size-3.5 shrink-0 transition-transform duration-200 group-hover:-translate-x-1"
+        fill="none"
+      >
+        <path
+          d="M13 8H3M7 4 3 8l4 4"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+      {label}
     </Link>
   );
 }

@@ -17,6 +17,8 @@ export function toPublicationRecord(row: Publication): PublicationRecord {
     type: row.type,
     status: row.status,
     coverUrl: row.coverUrl,
+    bodyImageUrl: row.bodyImageUrl,
+    galleryUrls: row.galleryUrls ?? [],
     titleHy: row.titleHy,
     titleEn: row.titleEn,
     titleRu: row.titleRu,
@@ -70,5 +72,6 @@ export function toPublicationAdminItem(
       ru: row.summaryRu,
     }),
     displayDate: formatPublishedDate(locale, row.publishedAt),
+    featured: row.featured,
   };
 }

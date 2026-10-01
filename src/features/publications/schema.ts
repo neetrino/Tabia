@@ -30,6 +30,14 @@ export const publicationInputSchema = z.object({
     .optional()
     .nullable()
     .transform((value) => value || null),
+  bodyImageUrl: z
+    .string()
+    .trim()
+    .max(500)
+    .optional()
+    .nullable()
+    .transform((value) => value || null),
+  galleryUrls: z.array(z.string().trim().min(1).max(500)).max(12).default([]),
   titleHy: requiredText(MAX_TITLE_LENGTH),
   titleEn: requiredText(MAX_TITLE_LENGTH),
   titleRu: requiredText(MAX_TITLE_LENGTH),
@@ -59,6 +67,11 @@ export const publicationInputSchema = z.object({
 export const publicationStatusSchema = z.object({
   id: z.string().trim().min(1),
   status: z.enum(["DRAFT", "PUBLISHED", "ARCHIVED"]),
+});
+
+export const publicationFeaturedSchema = z.object({
+  id: z.string().trim().min(1),
+  featured: z.boolean(),
 });
 
 export type PublicationInput = z.infer<typeof publicationInputSchema>;

@@ -6,44 +6,49 @@ import { loginAction, type LoginState } from "@/features/auth/client";
 
 const initialState: LoginState = {};
 
+const fieldClassName =
+  "mt-1 w-full rounded-[15px] border border-[var(--border)] bg-[var(--surface)] px-3.5 py-2.5 text-sm text-[#171717] outline-none transition-colors focus:border-[var(--brand)] focus:bg-white";
+
 export function AdminLoginForm() {
   const t = useTranslations("admin");
   const [state, formAction, pending] = useActionState(loginAction, initialState);
 
   return (
     <form action={formAction} className="mt-6 space-y-4">
-      <div className="space-y-1">
-        <label htmlFor="email" className="text-sm font-medium">
-          {t("login.email")}
-        </label>
+      <label className="block" htmlFor="email">
+        <span className="text-sm font-medium text-[#171717]">{t("login.email")}</span>
         <input
           id="email"
           name="email"
           type="email"
           required
-          className="w-full rounded-[15px] border border-[var(--border)] px-3 py-2"
+          autoComplete="email"
+          className={fieldClassName}
         />
-      </div>
-      <div className="space-y-1">
-        <label htmlFor="password" className="text-sm font-medium">
+      </label>
+      <label className="block" htmlFor="password">
+        <span className="text-sm font-medium text-[#171717]">
           {t("login.password")}
-        </label>
+        </span>
         <input
           id="password"
           name="password"
           type="password"
           required
           minLength={8}
-          className="w-full rounded-[15px] border border-[var(--border)] px-3 py-2"
+          autoComplete="current-password"
+          className={fieldClassName}
         />
-      </div>
+      </label>
       {state.errorKey ? (
-        <p className="text-sm text-red-700">{t(`login.errors.${state.errorKey}`)}</p>
+        <p className="text-sm font-medium text-red-700">
+          {t(`login.errors.${state.errorKey}`)}
+        </p>
       ) : null}
       <button
         type="submit"
         disabled={pending}
-        className="w-full rounded-[15px] bg-[var(--brand)] px-4 py-2.5 text-sm font-medium text-white transition-transform duration-200 ease-out hover:scale-[1.02] disabled:opacity-60 motion-reduce:transition-none motion-reduce:hover:scale-100"
+        className="mt-2 flex h-12 w-full items-center justify-center rounded-full bg-[var(--brand)] px-8 text-base font-semibold tracking-[0.3px] text-[var(--cream)] transition-colors hover:bg-[var(--brand-deep)] disabled:opacity-60"
       >
         {pending ? t("login.pending") : t("login.submit")}
       </button>

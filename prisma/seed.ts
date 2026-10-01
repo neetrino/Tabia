@@ -433,8 +433,8 @@ async function seedContent(): Promise<void> {
       where: {
         type_slug: { type: publication.type, slug: publication.slug },
       },
-      update: publication,
-      create: publication,
+      update: { ...publication, featured: true },
+      create: { ...publication, featured: true },
     });
   }
 

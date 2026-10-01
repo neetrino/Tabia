@@ -14,15 +14,12 @@ import {
 import { useTranslations } from "next-intl";
 import { cn } from "@/shared/lib/cn";
 
-type PublicationRichTextToolbarProps = {
+type RichTextToolbarProps = {
   editor: Editor | null;
   onInsertImage: () => void;
 };
 
-export function PublicationRichTextToolbar({
-  editor,
-  onInsertImage,
-}: PublicationRichTextToolbarProps) {
+export function RichTextToolbar({ editor, onInsertImage }: RichTextToolbarProps) {
   const t = useTranslations("admin.publicationForm.editor");
 
   function setLink(): void {

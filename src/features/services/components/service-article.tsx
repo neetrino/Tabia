@@ -5,6 +5,7 @@ import { ButtonLink } from "@/shared/ui/button-link";
 import { ArticleBackLink, ArticleTitle } from "@/shared/ui/article-chrome";
 import { CoverMedia } from "@/shared/ui/cover-media";
 import { InteriorPageShell } from "@/shared/ui/interior-page-header";
+import { RichTextBody } from "@/shared/ui/rich-text/rich-text-body";
 import { getPublishedServiceBySlug } from "../queries";
 
 type ServiceArticleProps = {
@@ -51,10 +52,21 @@ export async function ServiceArticle({ locale, slug }: ServiceArticleProps) {
           />
         </Reveal>
 
+        {service.bodyImageUrl ? (
+          <Reveal delay={0.06}>
+            <CoverMedia
+              src={service.bodyImageUrl}
+              alt={service.title}
+              className="mt-10 aspect-[16/9] max-w-[720px] overflow-hidden rounded-2xl bg-[#e8e8e8] lg:mt-12 lg:rounded-3xl"
+              imageClassName="object-cover"
+            />
+          </Reveal>
+        ) : null}
+
         {service.body.trim().length > 0 ? (
           <Reveal delay={0.08}>
-            <div className="mt-10 max-w-[720px] space-y-4 whitespace-pre-line text-base font-light leading-[1.75] text-[#363636] lg:mt-12 lg:text-lg lg:leading-[1.8]">
-              {service.body}
+            <div className="mt-10 max-w-[720px] lg:mt-12">
+              <RichTextBody html={service.body} />
             </div>
           </Reveal>
         ) : null}

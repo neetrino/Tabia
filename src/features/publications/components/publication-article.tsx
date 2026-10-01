@@ -35,7 +35,7 @@ export async function PublicationArticle({
     type === "NEWS" ? common("nav.news") : common("nav.insights");
 
   return (
-    <InteriorPageShell>
+    <InteriorPageShell contentClassName="lg:pt-10">
       <article>
         <Enter>
           <ArticleBackLink href={backHref} label={t("title")} />
@@ -75,14 +75,41 @@ export async function PublicationArticle({
 
         {article.summary ? (
           <Reveal delay={0.06}>
-            <p className="mx-auto mt-10 max-w-[720px] border-l-2 border-[var(--brand)] pl-5 text-base font-light leading-7 text-[#363636] lg:mt-12 lg:text-lg lg:leading-8">
+            <p className="mt-10 max-w-[1040px] border-l-2 border-[var(--brand)] pl-5 text-base font-light leading-7 text-[#363636] lg:mt-12 lg:text-lg lg:leading-8">
               {article.summary}
             </p>
           </Reveal>
         ) : null}
 
+        {article.type === "NEWS" && (article.galleryUrls?.length ?? 0) > 0 ? (
+          <Reveal delay={0.08}>
+            <div className="mt-10 grid w-full grid-cols-2 gap-3 sm:grid-cols-4 lg:mt-12">
+              {article.galleryUrls.map((url) => (
+                <CoverMedia
+                  key={url}
+                  src={url}
+                  alt={article.title}
+                  className="aspect-[4/3] overflow-hidden rounded-2xl bg-[#e8e8e8]"
+                  imageClassName="object-cover"
+                />
+              ))}
+            </div>
+          </Reveal>
+        ) : null}
+
+        {article.bodyImageUrl ? (
+          <Reveal delay={0.08}>
+            <CoverMedia
+              src={article.bodyImageUrl}
+              alt={article.title}
+              className="mt-10 aspect-[16/9] max-w-[1040px] overflow-hidden rounded-2xl bg-[#e8e8e8] lg:mt-12 lg:rounded-3xl"
+              imageClassName="object-cover"
+            />
+          </Reveal>
+        ) : null}
+
         <Reveal delay={0.1}>
-          <div className="mx-auto mt-10 max-w-[720px] text-base font-light leading-[1.75] text-[#363636] lg:mt-12 lg:text-lg lg:leading-[1.8]">
+          <div className="mt-10 max-w-[1040px] text-base font-light leading-[1.75] text-[#363636] lg:mt-12 lg:text-lg lg:leading-[1.8]">
             <PublicationBody html={article.body} />
           </div>
         </Reveal>

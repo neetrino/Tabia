@@ -12,6 +12,7 @@ import { cn } from "@/shared/lib/cn";
 import { savePublicationAction } from "../actions";
 import type { PublicationRecord, PublicationStatusValue } from "../types";
 import { PublicationCoverField } from "./publication-cover-field";
+import { PublicationGalleryField } from "./publication-gallery-field";
 import {
   PublicationLocalizedCopyFields,
   PublicationLocalizedTitleField,
@@ -120,32 +121,59 @@ export function PublicationAdminForm({
         onChange={setContentLocale}
         label={form("contentLocale")}
       />
-      <div className="grid gap-6 md:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] md:items-stretch">
-        <PublicationCoverField
-          coverUrl={values.coverUrl}
-          title={values.titleEn || values.titleHy}
-          onChange={(url) =>
-            setValues((current) => ({ ...current, coverUrl: url }))
-          }
-          onError={setErrorKey}
-          stretch
-        />
-        <div className="flex flex-col justify-between gap-4">
-          <PublicationLocalizedTitleField
-            locale={contentLocale}
-            values={values}
-            onChange={setValues}
-          />
-          <PublicationSharedFields values={values} onChange={setValues} />
+      <div className="space-y-6">
+        <div className="flex items-start gap-6">
+          <div className="flex w-48 shrink-0 flex-col gap-4">
+            <PublicationCoverField
+              coverUrl={values.coverUrl}
+              title={values.titleEn || values.titleHy}
+              onChange={(url) =>
+                setValues((current) => ({ ...current, coverUrl: url }))
+              }
+              onError={setErrorKey}
+            />
+            <PublicationCoverField
+              fieldId="body-image"
+              coverUrl={values.bodyImageUrl}
+              title={values.titleEn || values.titleHy}
+              label={form("bodyImage")}
+              removeLabel={form("removeBodyImage")}
+              onChange={(url) =>
+                setValues((current) => ({ ...current, bodyImageUrl: url }))
+              }
+              onError={setErrorKey}
+            />
+          </div>
+          <div className="flex min-w-0 flex-1 flex-col gap-4">
+            <PublicationLocalizedTitleField
+              locale={contentLocale}
+              values={values}
+              onChange={setValues}
+            />
+            <PublicationSharedFields values={values} onChange={setValues} />
+          </div>
         </div>
-        <div className="space-y-4 md:col-span-2">
-          <PublicationLocalizedCopyFields
-            locale={contentLocale}
-            values={values}
-            onChange={setValues}
+        {values.type === "NEWS" ? (
+          <PublicationGalleryField
+            urls={values.galleryUrls ?? []}
+            onChange={(galleryUrls) =>
+              setValues((current) => ({
+                ...current,
+                galleryUrls:
+                  typeof galleryUrls === "function"
+                    ? galleryUrls(current.galleryUrls ?? [])
+                    : galleryUrls,
+              }))
+            }
             onError={setErrorKey}
           />
-        </div>
+        ) : null}
+        <PublicationLocalizedCopyFields
+          locale={contentLocale}
+          values={values}
+          onChange={setValues}
+          onError={setErrorKey}
+        />
       </div>
       {errorKey ? (
         <p className="text-sm text-red-700">

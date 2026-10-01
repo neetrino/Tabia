@@ -12,6 +12,7 @@ export function toServiceRecord(row: Service): ServiceRecord {
     id: row.id,
     slug: row.slug,
     imageUrl: row.imageUrl,
+    bodyImageUrl: row.bodyImageUrl,
     titleHy: row.titleHy,
     titleEn: row.titleEn,
     titleRu: row.titleRu,
@@ -52,6 +53,7 @@ export function toServiceProfile(row: Service, locale: string): ServiceProfile {
       en: row.bodyEn,
       ru: row.bodyRu,
     }),
+    bodyImageUrl: row.bodyImageUrl,
   };
 }
 

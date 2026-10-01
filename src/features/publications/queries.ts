@@ -49,6 +49,20 @@ async function loadPublishedPreviews(
   return items;
 }
 
+/** Starred published items for the home page, newest first. */
+export async function getFeaturedPublications(
+  locale: string,
+  limit: number,
+): Promise<PublicationPreview[]> {
+  const rows = await prisma.publication.findMany({
+    where: { status: "PUBLISHED", featured: true },
+    orderBy: publishedOrder,
+    take: limit,
+  });
+
+  return rows.map((row) => toPublicationPreview(row, toAppLocale(locale)));
+}
+
 /** Published news and insights for a public locale, newest first. */
 export async function getPublishedPublications({
   locale,
@@ -71,7 +85,13 @@ export async function getPublishedPublicationBySlug(
   locale: string,
   type: PublicationTypeValue,
   slug: string,
-): Promise<(PublicationPreview & { body: string }) | null> {
+): Promise<
+  (PublicationPreview & {
+    body: string;
+    bodyImageUrl: string | null;
+    galleryUrls: string[];
+  }) | null
+> {
   const record = await prisma.publication.findUnique({
     where: { type_slug: { type, slug } },
   });
@@ -87,6 +107,8 @@ export async function getPublishedPublicationBySlug(
       en: record.bodyEn,
       ru: record.bodyRu,
     }),
+    bodyImageUrl: record.bodyImageUrl,
+    galleryUrls: record.galleryUrls ?? [],
   };
 }
 

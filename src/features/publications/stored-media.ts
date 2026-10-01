@@ -4,6 +4,8 @@ import { extractHtmlImageUrls } from "./html-media";
 
 type PublicationMediaSource = {
   coverUrl: string | null;
+  bodyImageUrl: string | null;
+  galleryUrls: string[];
   bodyHy: string;
   bodyEn: string;
   bodyRu: string;
@@ -28,6 +30,12 @@ export function collectPublicationMediaUrls(
   const urls = new Set<string>();
   if (source.coverUrl) {
     urls.add(source.coverUrl);
+  }
+  if (source.bodyImageUrl) {
+    urls.add(source.bodyImageUrl);
+  }
+  for (const url of source.galleryUrls ?? []) {
+    urls.add(url);
   }
 
   for (const url of extractHtmlImageUrls(

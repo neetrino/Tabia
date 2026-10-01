@@ -6,7 +6,11 @@ import { prisma } from "@/shared/lib/prisma";
 import { zodInvalidFields } from "@/shared/lib/zod-invalid-fields";
 import { invalidatePublicationsCache } from "./cache";
 import { revalidatePublicationPaths } from "./revalidate";
-import { publicationInputSchema, publicationStatusSchema } from "./schema";
+import {
+  publicationFeaturedSchema,
+  publicationInputSchema,
+  publicationStatusSchema,
+} from "./schema";
 import {
   deletePublicationMedia,
   deleteRemovedPublicationMedia,
@@ -34,6 +38,8 @@ function toWriteData(input: Omit<PublicationRecord, "id">) {
     type: input.type,
     status: input.status,
     coverUrl: input.coverUrl,
+    bodyImageUrl: input.bodyImageUrl,
+    galleryUrls: input.galleryUrls ?? [],
     titleHy: input.titleHy,
     titleEn: input.titleEn,
     titleRu: input.titleRu,
@@ -70,6 +76,7 @@ export async function savePublicationAction(
   const data = toWriteData({
     ...values,
     coverUrl: values.coverUrl ?? null,
+    bodyImageUrl: values.bodyImageUrl ?? null,
   });
 
   try {
@@ -163,6 +170,35 @@ export async function updatePublicationStatusAction(
         existing.publishedAt?.toISOString() ?? null,
       ),
     },
+  });
+  await invalidatePublicationsCache();
+  revalidatePublicationPaths(existing.type, existing.slug);
+  return { ok: true };
+}
+
+export async function updatePublicationFeaturedAction(
+  raw: unknown,
+): Promise<PublicationActionResult> {
+  const session = await getAdminSession();
+  if (!session) {
+    return { errorKey: "unauthorized" };
+  }
+
+  const parsed = publicationFeaturedSchema.safeParse(raw);
+  if (!parsed.success) {
+    return { errorKey: "invalid" };
+  }
+
+  const existing = await prisma.publication.findUnique({
+    where: { id: parsed.data.id },
+  });
+  if (!existing) {
+    return { errorKey: "notFound" };
+  }
+
+  await prisma.publication.update({
+    where: { id: existing.id },
+    data: { featured: parsed.data.featured },
   });
   await invalidatePublicationsCache();
   revalidatePublicationPaths(existing.type, existing.slug);

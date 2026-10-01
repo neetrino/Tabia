@@ -180,6 +180,7 @@ export function TeamAdminList({
         <p className="text-sm text-red-700">{form(`errors.${errorKey}`)}</p>
       ) : null}
       <AdminSortableRoot
+        id="admin-team"
         items={items.map((item) => item.id)}
         disabled={pending}
         onReorder={reorder}

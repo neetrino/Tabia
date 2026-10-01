@@ -6,9 +6,9 @@ import {
   AdminConfirmDialog,
   AdminContentLocaleSwitcher,
   AdminDrawerHeaderActions,
-  AdminSelect,
 } from "@/features/admin/client";
 import { defaultLocale, type AppLocale } from "@/i18n/routing";
+import { cn } from "@/shared/lib/cn";
 import { saveServiceAction } from "../actions";
 import type { ContentVisibilityValue, ServiceRecord } from "../types";
 import { ServiceImageField } from "./service-image-field";
@@ -40,6 +40,7 @@ export function ServiceAdminForm({
   const [pending, startTransition] = useTransition();
   const [confirmHide, setConfirmHide] = useState(false);
 
+  const isPublished = values.visibility === "PUBLISHED";
   const displayTitle =
     values.titleEn.trim() ||
     values.titleHy.trim() ||
@@ -101,50 +102,76 @@ export function ServiceAdminForm({
       }}
     >
       <AdminDrawerHeaderActions>
-        <div className="w-[9.5rem]">
-          <AdminSelect
-            id="service-visibility"
-            size="sm"
-            value={values.visibility}
-            disabled={pending}
-            options={[
-              { value: "PUBLISHED", label: form("published") },
-              { value: "HIDDEN", label: form("hidden") },
-            ]}
-            onChange={handleVisibilityChange}
+        <button
+          type="button"
+          role="switch"
+          aria-checked={isPublished}
+          aria-label={isPublished ? form("hidden") : form("published")}
+          title={isPublished ? form("hidden") : form("published")}
+          disabled={pending}
+          className={cn(
+            "relative h-7 w-12 shrink-0 rounded-full transition-colors duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
+            "motion-reduce:transition-none disabled:opacity-60",
+            isPublished ? "bg-emerald-500" : "bg-red-500",
+          )}
+          onClick={() =>
+            handleVisibilityChange(isPublished ? "HIDDEN" : "PUBLISHED")
+          }
+        >
+          <span
+            className={cn(
+              "absolute top-0.5 size-6 rounded-full bg-white",
+              "transition-[left] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
+              "motion-reduce:transition-none",
+              isPublished ? "left-[1.375rem]" : "left-0.5",
+            )}
           />
-        </div>
+        </button>
       </AdminDrawerHeaderActions>
       <AdminContentLocaleSwitcher
         value={contentLocale}
         onChange={setContentLocale}
         label={form("contentLocale")}
       />
-      <div className="grid gap-6 md:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] md:items-stretch">
-        <ServiceImageField
-          imageUrl={values.imageUrl}
-          title={values.titleEn || values.titleHy}
-          onChange={(url) =>
-            setValues((current) => ({ ...current, imageUrl: url }))
-          }
+      <div className="space-y-6">
+        <div className="flex items-start gap-6">
+          <div className="flex w-48 shrink-0 flex-col gap-4">
+            <ServiceImageField
+              imageUrl={values.imageUrl}
+              title={values.titleEn || values.titleHy}
+              label={form("image")}
+              onChange={(url) =>
+                setValues((current) => ({ ...current, imageUrl: url }))
+              }
+              onError={setErrorKey}
+            />
+            <ServiceImageField
+              fieldId="body-image"
+              imageUrl={values.bodyImageUrl}
+              title={values.titleEn || values.titleHy}
+              label={form("bodyImage")}
+              removeLabel={form("removeBodyImage")}
+              onChange={(url) =>
+                setValues((current) => ({ ...current, bodyImageUrl: url }))
+              }
+              onError={setErrorKey}
+            />
+          </div>
+          <div className="flex min-w-0 flex-1 flex-col gap-4">
+            <ServiceLocalizedTitleField
+              locale={contentLocale}
+              values={values}
+              onChange={setValues}
+            />
+            <ServiceSharedFields values={values} onChange={setValues} />
+          </div>
+        </div>
+        <ServiceLocalizedCopyFields
+          locale={contentLocale}
+          values={values}
+          onChange={setValues}
           onError={setErrorKey}
-          stretch
         />
-        <div className="flex flex-col justify-between gap-4">
-          <ServiceLocalizedTitleField
-            locale={contentLocale}
-            values={values}
-            onChange={setValues}
-          />
-          <ServiceSharedFields values={values} onChange={setValues} />
-        </div>
-        <div className="space-y-4 md:col-span-2">
-          <ServiceLocalizedCopyFields
-            locale={contentLocale}
-            values={values}
-            onChange={setValues}
-          />
-        </div>
       </div>
       {errorKey ? (
         <p className="text-sm text-red-700">

@@ -39,23 +39,6 @@ export function ServiceSharedFields({
           }
         />
       </ServiceFormField>
-      <ServiceFormField
-        id="sortOrder"
-        label={t("sortOrder")}
-        hint={t("sortOrderHint")}
-      >
-        <input
-          id="sortOrder"
-          type="number"
-          min={0}
-          max={9999}
-          value={values.sortOrder}
-          className={serviceInputClassName}
-          onChange={(event) =>
-            update("sortOrder", Number(event.target.value) || 0)
-          }
-        />
-      </ServiceFormField>
     </>
   );
 }
