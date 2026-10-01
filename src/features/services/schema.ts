@@ -1,7 +1,17 @@
 import { z } from "zod";
+import {
+  hasRichTextContent,
+  sanitizeRichTextHtml,
+} from "@/shared/ui/rich-text/sanitize-html";
 import { isLatinSlug } from "./slug";
 
 const requiredText = (max: number) => z.string().trim().min(1).max(max);
+
+const requiredRichText = z
+  .string()
+  .max(50_000)
+  .transform((value) => sanitizeRichTextHtml(value.trim()))
+  .refine(hasRichTextContent);
 
 export const serviceInputSchema = z.object({
   id: z.string().trim().min(1).optional(),
@@ -29,9 +39,9 @@ export const serviceInputSchema = z.object({
   summaryHy: requiredText(500),
   summaryEn: requiredText(500),
   summaryRu: requiredText(500),
-  bodyHy: requiredText(8000),
-  bodyEn: requiredText(8000),
-  bodyRu: requiredText(8000),
+  bodyHy: requiredRichText,
+  bodyEn: requiredRichText,
+  bodyRu: requiredRichText,
   sortOrder: z.number().int().min(0).max(9999),
   visibility: z.enum(["PUBLISHED", "HIDDEN"]),
   featured: z.boolean(),

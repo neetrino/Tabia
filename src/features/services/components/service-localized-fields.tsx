@@ -1,7 +1,10 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { plainTextToEditorHtml } from "@/shared/ui/rich-text/plain-text";
+import { RichTextEditor } from "@/shared/ui/rich-text/rich-text-editor";
 import type { AppLocale } from "@/i18n/routing";
+import { uploadServiceImageAction } from "../upload";
 import { serviceLocaleField } from "../locale-fields";
 import { slugifyLatin } from "../slug";
 import type { ServiceRecord } from "../types";
@@ -19,6 +22,7 @@ type ServiceLocalizedFieldsProps = {
   locale: AppLocale;
   values: ServiceRecord;
   onChange: ServiceValuesChange;
+  onError?: (key: string) => void;
 };
 
 function updateLocalizedField(
@@ -67,6 +71,7 @@ export function ServiceLocalizedCopyFields({
   locale,
   values,
   onChange,
+  onError,
 }: ServiceLocalizedFieldsProps) {
   const t = useTranslations("admin.serviceForm");
   const summaryKey = serviceLocaleField("summary", locale);
@@ -89,15 +94,24 @@ export function ServiceLocalizedCopyFields({
         />
       </ServiceFormField>
       <ServiceFormField id={bodyKey} label={t("body")} hint={t("bodyHint")}>
-        <textarea
+        <RichTextEditor
+          key={bodyKey}
           id={bodyKey}
-          value={String(values[bodyKey])}
-          className={serviceTextAreaClassName("min-h-40")}
-          onChange={(event) =>
-            updateLocalizedField(onChange, bodyKey, event.target.value)
-          }
+          value={plainTextToEditorHtml(String(values[bodyKey]))}
+          onChange={(html) => updateLocalizedField(onChange, bodyKey, html)}
+          onError={onError ?? (() => undefined)}
+          uploadImage={uploadServiceBodyImage}
         />
       </ServiceFormField>
     </>
   );
+}
+
+async function uploadServiceBodyImage(file: File): Promise<{
+  errorKey?: string;
+  url?: string;
+}> {
+  const formData = new FormData();
+  formData.set("image", file);
+  return uploadServiceImageAction(formData);
 }

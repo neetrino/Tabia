@@ -1,4 +1,8 @@
 import { z } from "zod";
+import {
+  hasRichTextContent,
+  sanitizeRichTextHtml,
+} from "@/shared/ui/rich-text/sanitize-html";
 import { isLatinSlug } from "./slug";
 
 const requiredText = (max: number) => z.string().trim().min(1).max(max);
@@ -9,6 +13,14 @@ const optionalText = (max: number) =>
     .max(max)
     .optional()
     .transform((value) => value ?? "");
+
+const optionalRichText = z
+  .string()
+  .max(50_000)
+  .transform((value) => {
+    const sanitized = sanitizeRichTextHtml(value.trim());
+    return hasRichTextContent(sanitized) ? sanitized : "";
+  });
 
 export const teamMemberInputSchema = z.object({
   id: z.string().trim().min(1).optional(),
@@ -39,9 +51,9 @@ export const teamMemberInputSchema = z.object({
   bioHy: requiredText(500),
   bioEn: requiredText(500),
   bioRu: requiredText(500),
-  detailsHy: optionalText(8000),
-  detailsEn: optionalText(8000),
-  detailsRu: optionalText(8000),
+  detailsHy: optionalRichText,
+  detailsEn: optionalRichText,
+  detailsRu: optionalRichText,
   email: optionalText(200).refine(
     (value) => value.length === 0 || z.string().email().safeParse(value).success,
     { message: "invalid" },

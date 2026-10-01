@@ -156,6 +156,7 @@ export function ServiceAdminForm({
             locale={contentLocale}
             values={values}
             onChange={setValues}
+            onError={setErrorKey}
           />
         </div>
       </div>

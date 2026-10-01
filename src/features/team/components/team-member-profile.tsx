@@ -6,6 +6,7 @@ import { Enter, Reveal } from "@/shared/motion/reveal";
 import { ArticleBackLink, ArticleTitle } from "@/shared/ui/article-chrome";
 import { CoverMedia } from "@/shared/ui/cover-media";
 import { InteriorPageShell } from "@/shared/ui/interior-page-header";
+import { RichTextBody } from "@/shared/ui/rich-text/rich-text-body";
 import { getPublishedTeamMemberBySlug } from "../queries";
 
 type TeamMemberProfileProps = {
@@ -107,8 +108,8 @@ export async function TeamMemberProfile({
 
         {member.details.trim().length > 0 ? (
           <Reveal>
-            <div className="mx-auto mt-12 max-w-[720px] space-y-4 whitespace-pre-line border-t border-black/10 pt-10 text-base font-light leading-[1.75] text-[#363636] lg:mt-16 lg:text-lg lg:leading-[1.8]">
-              {member.details}
+            <div className="mx-auto mt-12 max-w-[720px] border-t border-black/10 pt-10 lg:mt-16">
+              <RichTextBody html={member.details} />
             </div>
           </Reveal>
         ) : null}
