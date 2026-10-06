@@ -23,7 +23,7 @@ export async function ServiceArticle({ locale, slug }: ServiceArticleProps) {
   const common = await getTranslations("common");
 
   return (
-    <InteriorPageShell>
+    <InteriorPageShell contentClassName="lg:pt-12">
       <article className="mx-auto max-w-[920px]">
         <Enter>
           <ArticleBackLink href="/services" label={t("back")} />
@@ -65,7 +65,7 @@ export async function ServiceArticle({ locale, slug }: ServiceArticleProps) {
 
         {service.body.trim().length > 0 ? (
           <Reveal delay={0.08}>
-            <div className="mt-10 max-w-[720px] lg:mt-12">
+            <div className="mt-10 lg:mt-12">
               <RichTextBody html={service.body} />
             </div>
           </Reveal>
