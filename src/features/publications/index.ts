@@ -7,6 +7,7 @@ export {
   getPublicationHref,
   getPublishedPublicationBySlug,
   getPublishedPublications,
+  searchPublications,
 } from "./queries";
 export type {
   PublicationAdminItem,

@@ -14,7 +14,17 @@
     "viewAll": "View all",
     "submit": "Submit",
     "contactUs": "Get in touch",
-    "menu": "Menu"
+    "menu": "Menu",
+    "search": "Search",
+    "searchPlaceholder": "Search",
+    "back": "Back"
+  },
+  "search": {
+    "titleLead": "Search",
+    "titleTail": "results",
+    "subtitle": "News and insight titles matching your query.",
+    "empty": "Nothing matched this query.",
+    "prompt": "Type a word to search news and insights."
   },
   "footer": {
     "description": "TABIA — professional legal and advisory services.",

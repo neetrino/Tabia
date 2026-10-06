@@ -63,6 +63,20 @@ export async function getFeaturedPublications(
   return rows.map((row) => toPublicationPreview(row, toAppLocale(locale)));
 }
 
+/** Published news and insights whose title contains the query. */
+export async function searchPublications(
+  locale: string,
+  query: string,
+): Promise<PublicationPreview[]> {
+  const needle = query.trim().toLocaleLowerCase();
+  if (!needle) {
+    return [];
+  }
+
+  const items = await getPublishedPublications({ locale });
+  return items.filter((item) => item.title.toLocaleLowerCase().includes(needle));
+}
+
 /** Published news and insights for a public locale, newest first. */
 export async function getPublishedPublications({
   locale,

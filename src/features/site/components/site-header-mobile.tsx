@@ -4,6 +4,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/shared/lib/cn";
 import { SiteBrand } from "@/shared/ui/site-brand";
+import { HeaderSearch, type HeaderSearchItem } from "./header-search";
 import { LocaleSwitcher } from "./locale-switcher";
 import type { HeaderNavItem } from "./site-header-bar";
 
@@ -14,6 +15,10 @@ type HeaderTone = "light" | "ink";
 type SiteHeaderMobileProps = {
   brand: string;
   menuLabel: string;
+  searchLabel: string;
+  searchPlaceholder: string;
+  searchBackLabel: string;
+  searchItems: HeaderSearchItem[];
   items: LabeledNavItem[];
   tone?: HeaderTone;
 };
@@ -23,6 +28,10 @@ const MENU_EASE = "ease-[cubic-bezier(0.22,1,0.36,1)]";
 export function SiteHeaderMobile({
   brand,
   menuLabel,
+  searchLabel,
+  searchPlaceholder,
+  searchBackLabel,
+  searchItems,
   items,
   tone = "light",
 }: SiteHeaderMobileProps) {
@@ -30,6 +39,13 @@ export function SiteHeaderMobile({
     <div className="flex h-28 items-center justify-between bg-white/[0.09] px-5 backdrop-blur-[8px] lg:hidden">
       <SiteBrand label={brand} mark="ink" />
       <div className="flex items-center gap-3">
+        <HeaderSearch
+          label={searchLabel}
+          placeholder={searchPlaceholder}
+          backLabel={searchBackLabel}
+          items={searchItems}
+          tone={tone === "ink" ? "onLight" : "onDark"}
+        />
         <LocaleSwitcher variant="dropdown" tone={tone} />
         <MobileMenu items={items} menuLabel={menuLabel} tone={tone} />
       </div>
