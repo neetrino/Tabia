@@ -7,6 +7,7 @@ import { HOME_ASSETS } from "@/shared/config/content";
 import { SiteBrand } from "@/shared/ui/site-brand";
 import { cn } from "@/shared/lib/cn";
 import { Enter } from "@/shared/motion/reveal";
+import { HeaderSearch, type HeaderSearchItem } from "./header-search";
 import { LocaleSwitcher } from "./locale-switcher";
 import { SiteHeaderMobile } from "./site-header-mobile";
 
@@ -21,6 +22,10 @@ type SiteHeaderBarProps = {
   brand: string;
   contactLabel: string;
   menuLabel: string;
+  searchLabel: string;
+  searchPlaceholder: string;
+  searchBackLabel: string;
+  searchItems: HeaderSearchItem[];
   items: LabeledNavItem[];
 };
 
@@ -35,6 +40,10 @@ export function SiteHeaderBar({
   brand,
   contactLabel,
   menuLabel,
+  searchLabel,
+  searchPlaceholder,
+  searchBackLabel,
+  searchItems,
   items,
 }: SiteHeaderBarProps) {
   const pathname = usePathname();
@@ -45,13 +54,23 @@ export function SiteHeaderBar({
         <SiteHeaderMobile
           brand={brand}
           menuLabel={menuLabel}
+          searchLabel={searchLabel}
+          searchPlaceholder={searchPlaceholder}
+          searchBackLabel={searchBackLabel}
+          searchItems={searchItems}
           items={items}
           tone={isInkMobileHeader(pathname) ? "ink" : "light"}
         />
-        <div className="hidden h-20 w-full max-w-[1400px] items-center justify-between overflow-hidden rounded-full bg-black px-6 lg:flex lg:px-16">
+        <div className="hidden h-20 w-full max-w-[1400px] items-center justify-between overflow-visible rounded-full bg-black px-6 lg:flex lg:px-16">
           <SiteBrand label={brand} />
           <DesktopNav items={items} pathname={pathname} />
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-4">
+            <HeaderSearch
+              label={searchLabel}
+              placeholder={searchPlaceholder}
+              backLabel={searchBackLabel}
+              items={searchItems}
+            />
             <LocaleSwitcher />
             <Link
               href="/contact"
