@@ -3,15 +3,18 @@ import {
   hasRichTextContent,
   sanitizeRichTextHtml,
 } from "@/shared/ui/rich-text/sanitize-html";
+import { requireAnyLocale } from "@/shared/lib/localized-schema";
 import { isLatinSlug } from "./slug";
 
-const requiredText = (max: number) => z.string().trim().min(1).max(max);
+const localizedText = (max: number) => z.string().trim().max(max);
 
-const requiredRichText = z
+const localizedRichText = z
   .string()
   .max(50_000)
-  .transform((value) => sanitizeRichTextHtml(value.trim()))
-  .refine(hasRichTextContent);
+  .transform((value) => {
+    const sanitized = sanitizeRichTextHtml(value.trim());
+    return hasRichTextContent(sanitized) ? sanitized : "";
+  });
 
 export const serviceInputSchema = z.object({
   id: z.string().trim().min(1).optional(),
@@ -40,19 +43,26 @@ export const serviceInputSchema = z.object({
     .optional()
     .nullable()
     .transform((value) => value || null),
-  titleHy: requiredText(160),
-  titleEn: requiredText(160),
-  titleRu: requiredText(160),
-  summaryHy: requiredText(500),
-  summaryEn: requiredText(500),
-  summaryRu: requiredText(500),
-  bodyHy: requiredRichText,
-  bodyEn: requiredRichText,
-  bodyRu: requiredRichText,
+  titleHy: localizedText(160),
+  titleEn: localizedText(160),
+  titleRu: localizedText(160),
+  summaryHy: localizedText(500),
+  summaryEn: localizedText(500),
+  summaryRu: localizedText(500),
+  bodyHy: localizedRichText,
+  bodyEn: localizedRichText,
+  bodyRu: localizedRichText,
   sortOrder: z.number().int().min(0).max(9999),
   visibility: z.enum(["PUBLISHED", "HIDDEN"]),
   featured: z.boolean(),
-});
+})
+  .superRefine(
+    requireAnyLocale([
+      ["titleHy", "titleEn", "titleRu"],
+      ["summaryHy", "summaryEn", "summaryRu"],
+      ["bodyHy", "bodyEn", "bodyRu"],
+    ]),
+  );
 
 export const serviceFlagsSchema = z
   .object({

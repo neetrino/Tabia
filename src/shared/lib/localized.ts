@@ -4,19 +4,27 @@ type LocalizedTriple = {
   ru: string;
 };
 
+const FALLBACK_ORDER: ReadonlyArray<keyof LocalizedTriple> = ["hy", "en", "ru"];
+
+function isLocaleKey(locale: string): locale is keyof LocalizedTriple {
+  return FALLBACK_ORDER.some((key) => key === locale);
+}
+
+/**
+ * Returns the value for `locale`; when it is empty, falls back to the first
+ * non-empty value in `hy → en → ru` order.
+ */
 export function localizedText(
   locale: string,
   values: LocalizedTriple,
 ): string {
-  if (locale === "ru") {
-    return values.ru;
+  const requested = isLocaleKey(locale) ? values[locale] : "";
+  if (requested.trim()) {
+    return requested;
   }
 
-  if (locale === "en") {
-    return values.en;
-  }
-
-  return values.hy;
+  const fallback = FALLBACK_ORDER.find((key) => values[key].trim());
+  return fallback ? values[fallback] : requested;
 }
 
 export function formatPublishedDate(
