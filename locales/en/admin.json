@@ -124,7 +124,7 @@
     "saving": "Saving…",
     "errors": {
       "unauthorized": "You need to sign in.",
-      "invalid": "Fill the required text in HY, EN, and RU. The slug is shared for all languages.",
+      "invalid": "Fill the required fields in at least one language. Missing languages fall back to an available translation on the site. The slug is shared for all languages.",
       "slugInvalid": "The slug must use lowercase Latin letters, numbers, and hyphens.",
       "slugTaken": "This slug is already in use.",
       "notFound": "Team member not found.",
@@ -161,7 +161,7 @@
     "saving": "Saving…",
     "errors": {
       "unauthorized": "You need to sign in.",
-      "invalid": "Fill the required text in HY, EN, and RU. The slug is shared for all languages.",
+      "invalid": "Fill the required fields in at least one language. Missing languages fall back to an available translation on the site. The slug is shared for all languages.",
       "slugInvalid": "The slug must use lowercase Latin letters, numbers, and hyphens.",
       "slugTaken": "This slug is already in use.",
       "notFound": "Service not found.",
@@ -217,7 +217,7 @@
     },
     "errors": {
       "unauthorized": "You need to sign in.",
-      "invalid": "Fill the Short description in every language tab (HY, EN, RU). Title and full text alone are not enough.",
+      "invalid": "Fill the title, short description, and full text in at least one language. Missing languages fall back to an available translation on the site.",
       "invalidFields": {
         "summaryHy": "Short description (HY)",
         "summaryEn": "Short description (EN)",

@@ -3,9 +3,10 @@ import {
   hasRichTextContent,
   sanitizeRichTextHtml,
 } from "@/shared/ui/rich-text/sanitize-html";
+import { requireAnyLocale } from "@/shared/lib/localized-schema";
 import { isLatinSlug } from "./slug";
 
-const requiredText = (max: number) => z.string().trim().min(1).max(max);
+const localizedText = (max: number) => z.string().trim().max(max);
 const optionalText = (max: number) =>
   z
     .string()
@@ -42,15 +43,15 @@ export const teamMemberInputSchema = z.object({
       }
       return value;
     }),
-  nameHy: requiredText(120),
-  nameEn: requiredText(120),
-  nameRu: requiredText(120),
-  positionHy: requiredText(160),
-  positionEn: requiredText(160),
-  positionRu: requiredText(160),
-  bioHy: requiredText(500),
-  bioEn: requiredText(500),
-  bioRu: requiredText(500),
+  nameHy: localizedText(120),
+  nameEn: localizedText(120),
+  nameRu: localizedText(120),
+  positionHy: localizedText(160),
+  positionEn: localizedText(160),
+  positionRu: localizedText(160),
+  bioHy: localizedText(500),
+  bioEn: localizedText(500),
+  bioRu: localizedText(500),
   detailsHy: optionalRichText,
   detailsEn: optionalRichText,
   detailsRu: optionalRichText,
@@ -76,7 +77,14 @@ export const teamMemberInputSchema = z.object({
   sortOrder: z.number().int().min(0).max(9999),
   visibility: z.enum(["PUBLISHED", "HIDDEN"]),
   featured: z.boolean(),
-});
+})
+  .superRefine(
+    requireAnyLocale([
+      ["nameHy", "nameEn", "nameRu"],
+      ["positionHy", "positionEn", "positionRu"],
+      ["bioHy", "bioEn", "bioRu"],
+    ]),
+  );
 
 export const teamMemberFlagsSchema = z
   .object({
