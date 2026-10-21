@@ -60,7 +60,7 @@ export async function TeamMemberProfile({
               {member.position}
             </p>
             {member.bio ? (
-              <p className="mt-6 max-w-[560px] text-base font-light leading-[1.75] text-[#363636] lg:text-lg lg:leading-[1.8]">
+              <p className="mt-6 max-w-[560px] whitespace-pre-line break-words text-base font-light leading-[1.75] text-[#363636] lg:text-lg lg:leading-[1.8]">
                 {member.bio}
               </p>
             ) : null}

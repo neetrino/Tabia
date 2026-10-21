@@ -7,6 +7,7 @@ import { requireAnyLocale } from "@/shared/lib/localized-schema";
 import { isLatinSlug } from "./slug";
 
 const localizedText = (max: number) => z.string().trim().max(max);
+const plainText = z.string().trim();
 const optionalText = (max: number) =>
   z
     .string()
@@ -17,7 +18,6 @@ const optionalText = (max: number) =>
 
 const optionalRichText = z
   .string()
-  .max(50_000)
   .transform((value) => {
     const sanitized = sanitizeRichTextHtml(value.trim());
     return hasRichTextContent(sanitized) ? sanitized : "";
@@ -49,9 +49,9 @@ export const teamMemberInputSchema = z.object({
   positionHy: localizedText(160),
   positionEn: localizedText(160),
   positionRu: localizedText(160),
-  bioHy: localizedText(500),
-  bioEn: localizedText(500),
-  bioRu: localizedText(500),
+  bioHy: plainText,
+  bioEn: plainText,
+  bioRu: plainText,
   detailsHy: optionalRichText,
   detailsEn: optionalRichText,
   detailsRu: optionalRichText,
